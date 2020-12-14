@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">OMNISHEBA</string>
+    <string-array name="User_Types">
+        <item>Medical Service Seeker</item>
+        <item>Doctor</item>
+        <item>Test Center</item>
+        <item>Hospital</item>
+    </string-array>
+    <string-array name="Specialty_Types">
+        <item>Cardiology</item>
+        <item>ENT</item>
+        <item>General</item>
+        <item>Medicine</item>
+        <item>Nephrology</item>
+        <item>Neurology</item>
+        <item>OB/GYN</item>
+        <item>Oncology</item>
+        <item>Opthalmology</item>
+        <item>Physiology</item>
+        <item>Psychology</item>
+        <item>Urology</item>
+    </string-array>
+</resources>
