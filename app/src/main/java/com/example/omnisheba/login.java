@@ -57,5 +57,15 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
             Intent intent = new Intent(login.this,signup_mss.class);
             startActivity(intent);
         }
+        else if(type.equals("Hospital"))
+        {
+            Intent intent = new Intent(login.this,signup_hospital.class);
+            startActivity(intent);
+        }
+        else if(type.equals("Test Center"))
+        {
+            Intent intent = new Intent(login.this,signup_testcenter.class);
+            startActivity(intent);
+        }
     }
 }

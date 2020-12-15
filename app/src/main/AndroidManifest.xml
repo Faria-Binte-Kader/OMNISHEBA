@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".signup_mss"></activity>
-        <activity android:name=".signup_doctor"></activity>
-        <activity android:name=".login"></activity>
+        <activity android:name=".signup_testcenter"></activity>
+        <activity android:name=".signup_hospital" />
+        <activity android:name=".signup_mss" />
+        <activity android:name=".signup_doctor" />
+        <activity android:name=".login" />
         <activity android:name=".Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
