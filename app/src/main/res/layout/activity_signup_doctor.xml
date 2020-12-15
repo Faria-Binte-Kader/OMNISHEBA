@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Insert appointment details to get enlisted as a doctor"
+        android:text="Insert appointment details to get enlisted as a Doctor"
         android:textStyle="bold"
         android:background="@drawable/text2_rounded"
         android:textColor="@color/white"
@@ -144,6 +144,26 @@
             android:layout_marginTop="10dp"
             />
     </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/white"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Chamber/Hospital Name"
+            android:textColorHint="@color/white"
+            android:background="@drawable/text_rounded"
+            android:ems="10"
+            android:padding="10dp"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -160,6 +180,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/Specialty_Types"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose Chamber/Hospital Location"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:background="@drawable/text2_rounded"
+        android:layout_marginTop="10dp"
+        />
+    <Spinner
+        android:id="@+id/location_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/Location_Types"
         android:padding="10dp"
         android:layout_marginTop="10dp"
         />

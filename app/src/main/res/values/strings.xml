@@ -20,4 +20,23 @@
         <item>Psychology</item>
         <item>Urology</item>
     </string-array>
+    <string-array name="Location_Types">
+        <item>Agargaon</item>
+        <item>Banani</item>
+        <item>Dhaka Cantonment</item>
+        <item>Dhanmondi</item>
+        <item>Gulshan</item>
+        <item>Maghbazar</item>
+        <item>Malibag</item>
+        <item>Mirpur</item>
+        <item>Mohammadpur</item>
+        <item>Shahbag</item>
+        <item>Tejgaon</item>
+        <item>Uttara</item>
+    </string-array>
+    <string-array name="Gender_Types">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
 </resources>

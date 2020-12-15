@@ -7,10 +7,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
+
+import static android.R.layout.simple_spinner_item;
 
 public class login extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
@@ -40,7 +45,17 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
     }
 
     public void gotosignupbutton(View view) {
-        Intent intent = new Intent(this,signup_doctor.class);
-        startActivity(intent);
+        Spinner usertype = findViewById(R.id.usertype);
+        String type = usertype.getSelectedItem().toString();
+        if(type.equals("Doctor"))
+        {
+            Intent intent = new Intent(login.this,signup_doctor.class);
+            startActivity(intent);
+        }
+        else if(type.equals("Medical Service Seeker"))
+        {
+            Intent intent = new Intent(login.this,signup_mss.class);
+            startActivity(intent);
+        }
     }
 }

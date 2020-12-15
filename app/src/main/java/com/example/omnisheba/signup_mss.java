@@ -2,25 +2,29 @@ package com.example.omnisheba;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class signup_doctor extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+import java.util.Calendar;
 
+public class signup_mss extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+
+    private DatePickerDialog.OnDateSetListener onDateSetListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup_doctor);
+        setContentView(R.layout.activity_signup_mss);
         getSupportActionBar().setTitle("0!");
-        Spinner specialty_type = findViewById(R.id.specialty_type);
-        specialty_type.setOnItemSelectedListener( this);
-        Spinner location_type = findViewById(R.id.location_type);
-        location_type.setOnItemSelectedListener(this);
+        Spinner gender_type = findViewById(R.id.gender_type);
+        gender_type.setOnItemSelectedListener(this);
     }
     @Override
     public void  onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
@@ -32,7 +36,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
     public void signupbutton(View view) {
+
     }
 }
