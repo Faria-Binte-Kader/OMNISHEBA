@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_search"
+        android:title="Search"
+        android:icon="@drawable/ic_search"/>
+    <item
+        android:id="@+id/nav_update"
+        android:title="Update"
+        android:icon="@drawable/ic_update"/>
+    <item
+        android:id="@+id/nav_corona"
+        android:title="COVID"
+        android:icon="@drawable/ic_corona"/>
+    <item
+        android:id="@+id/nav_question"
+        android:title="Discussion Forum"
+        android:icon="@drawable/question"/>
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Log Out"
+        android:icon="@drawable/ic_logout"/>
+    <item
+        android:id="@+id/nav_help"
+        android:title="Help"
+        android:icon="@drawable/ic_help"/>
+
+
+</group>
+</menu>

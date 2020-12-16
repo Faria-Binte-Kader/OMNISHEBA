@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose preferences"
+        android:textStyle="bold"
+        android:background="@drawable/text2_rounded"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        />
+    <Spinner
+        android:id="@+id/location2_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/Specialty2_Types"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
+    <Spinner
+        android:id="@+id/specialty2_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/Location2_Types"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        >
+    <Button
+        android:id="@+id/find_doctor_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find Doctors"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/button_rounded"
+
+        android:layout_marginRight="20dp"/>
+    <Button
+        android:id="@+id/find_hospital_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find Hospitals"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/button_rounded"
+        /> </LinearLayout>
+
+    <Button
+        android:id="@+id/find_test_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find Test Centers"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/button_rounded"
+        android:layout_gravity="center"
+        />
+
+
+</LinearLayout>
