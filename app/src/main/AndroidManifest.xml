@@ -9,13 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".signup_testcenter"></activity>
+        <activity android:name=".TestMainActivity"></activity>
+        <activity android:name=".signup_testcenter" />
         <activity android:name=".signup_hospital" />
         <activity android:name=".signup_mss" />
         <activity android:name=".signup_doctor" />
         <activity android:name=".login" />
-        <activity android:name=".DoctorMainActivity"></activity>
-        <activity android:name=".HospitalMainActivity"></activity>
+        <activity android:name=".DoctorMainActivity" />
+        <activity android:name=".HospitalMainActivity" />
         <activity android:name=".Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

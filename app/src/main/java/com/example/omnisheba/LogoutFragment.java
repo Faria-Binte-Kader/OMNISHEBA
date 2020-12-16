@@ -18,7 +18,7 @@ public class LogoutFragment extends Fragment
     @Override
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
+    {  getActivity().setTitle("0!");
         return inflater.inflate(R.layout.fragment_logout, container, false);
     }
 }

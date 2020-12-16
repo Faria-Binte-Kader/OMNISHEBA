@@ -15,7 +15,7 @@ public class CovidFragment extends Fragment
     @Override
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
+    {   getActivity().setTitle("0!");
         return inflater.inflate(R.layout.fragment_corona, container, false);
     }
 }

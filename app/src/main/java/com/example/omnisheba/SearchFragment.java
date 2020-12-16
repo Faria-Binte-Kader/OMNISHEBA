@@ -27,7 +27,8 @@ public class SearchFragment extends Fragment  {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-     View v = inflater.inflate(R.layout.fragment_search, container, false);
+        getActivity().setTitle("0!");
+        View v = inflater.inflate(R.layout.fragment_search, container, false);
 
      spinner1 = (Spinner) v.findViewById(R.id.specialty2_type);
      spinner2 = (Spinner) v.findViewById(R.id.location2_type);
