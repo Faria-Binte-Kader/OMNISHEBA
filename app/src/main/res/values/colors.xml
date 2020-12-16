@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#32ae85</color>
+
     <color name="colorPrimaryDark">#42675a</color>
+
     <color name="colorAccent">#03DAC5</color>
-    <color name="dark">#444444</color>
+   <color name="dark">#1b1e21</color>
+
     <color name="gray">#676767</color>
+
     <color name="white">#F2F3F4</color>
     <!--<color name="pastelgreen">#32ae85</color>
     <color name="darkgreen">#42675a</color>-->
