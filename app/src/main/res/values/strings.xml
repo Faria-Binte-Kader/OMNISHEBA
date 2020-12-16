@@ -44,5 +44,37 @@
         <item>Private</item>
         <item>Other</item>
     </string-array>
-
+    <string-array name="Specialty2_Types">
+        <item>No specialty</item>
+        <item>Cardiology</item>
+        <item>ENT</item>
+        <item>General</item>
+        <item>Medicine</item>
+        <item>Nephrology</item>
+        <item>Neurology</item>
+        <item>OB/GYN</item>
+        <item>Oncology</item>
+        <item>Opthalmology</item>
+        <item>Physiology</item>
+        <item>Psychology</item>
+        <item>Urology</item>
+    </string-array>
+    <string-array name="Location2_Types">
+        <item>No Location</item>
+        <item>Agargaon</item>
+        <item>Banani</item>
+        <item>Dhaka Cantonment</item>
+        <item>Dhanmondi</item>
+        <item>Gulshan</item>
+        <item>Maghbazar</item>
+        <item>Malibag</item>
+        <item>Mirpur</item>
+        <item>Mohammadpur</item>
+        <item>Shahbag</item>
+        <item>Tejgaon</item>
+        <item>Uttara</item>
+    </string-array>
+    
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

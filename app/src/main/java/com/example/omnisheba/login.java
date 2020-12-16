@@ -42,6 +42,8 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
     }
 
     public void loginbutton(View view) {
+        Intent intent = new Intent(login.this,MainActivity.class);
+        startActivity(intent);
     }
 
     public void gotosignupbutton(View view) {
