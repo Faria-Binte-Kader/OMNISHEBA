@@ -14,6 +14,8 @@
         <activity android:name=".signup_mss" />
         <activity android:name=".signup_doctor" />
         <activity android:name=".login" />
+        <activity android:name=".DoctorMainActivity"></activity>
+        <activity android:name=".HospitalMainActivity"></activity>
         <activity android:name=".Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

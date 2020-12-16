@@ -42,8 +42,28 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
     }
 
     public void loginbutton(View view) {
-        Intent intent = new Intent(login.this,MainActivity.class);
-        startActivity(intent);
+        Spinner usertype = findViewById(R.id.usertype);
+        String type = usertype.getSelectedItem().toString();
+        if(type.equals("Doctor"))
+        {
+            Intent intent = new Intent(login.this,DoctorMainActivity.class);
+            startActivity(intent);
+        }
+        else if(type.equals("Medical Service Seeker"))
+        {
+            Intent intent = new Intent(login.this,MainActivity.class);
+            startActivity(intent);
+        }
+        else if(type.equals("Hospital"))
+        {
+            Intent intent = new Intent(login.this,HospitalMainActivity.class);
+            startActivity(intent);
+        }
+        else if(type.equals("Test Center"))
+        {
+            Intent intent = new Intent(login.this,HospitalMainActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void gotosignupbutton(View view) {

@@ -17,7 +17,7 @@
         android:padding="10dp"
         />
     <Spinner
-        android:id="@+id/location2_type"
+        android:id="@+id/specialty2_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/Specialty2_Types"
@@ -25,7 +25,7 @@
         android:layout_marginTop="10dp"
         />
     <Spinner
-        android:id="@+id/specialty2_type"
+        android:id="@+id/location2_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/Location2_Types"
