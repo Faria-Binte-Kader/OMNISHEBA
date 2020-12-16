@@ -1,14 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
     android:background="@color/dark">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Help"
-        android:textSize="30dp"
-        android:layout_centerInParent="true"/>
+        android:text="Login with the email and password you provided while signing up"
+        android:textStyle="bold"
+        android:background="@drawable/text2_rounded"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
 
-</RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Go to signup if you don't have an account"
+        android:textStyle="bold"
+        android:background="@drawable/text2_rounded"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To search for medical help go to 'Search' from menu"
+        android:textStyle="bold"
+        android:background="@drawable/text2_rounded"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To view or update your profile go to 'View Profile' from menu"
+        android:textStyle="bold"
+        android:background="@drawable/text2_rounded"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To look for information regarding COVID19 go to 'COVID' from menu"
+        android:textStyle="bold"
+        android:background="@drawable/text2_rounded"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To ask or answer questions go to 'Disscussion Forum' from menu"
+        android:textStyle="bold"
+        android:background="@drawable/text2_rounded"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To logout from the system go to 'Logout' from menu"
+        android:textStyle="bold"
+        android:background="@drawable/text2_rounded"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contact us at help@omnisheba\.com"
+        android:textStyle="bold"
+        android:background="@drawable/text2_rounded"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+</LinearLayout>

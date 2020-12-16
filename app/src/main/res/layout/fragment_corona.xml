@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="10dp"
     android:background="@color/dark">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="COVID"
-        android:textSize="30dp"
-        android:layout_centerInParent="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        >
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/info_btn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="General Information Regarding COVID"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_rounded"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        >
+
+        <Button
+            android:id="@+id/contacts_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Emergency Contacts and Hotlines"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_rounded"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        >
+
+        <Button
+            android:id="@+id/tests_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Available Hospitals and Test Centers for COVID test"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_rounded"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
