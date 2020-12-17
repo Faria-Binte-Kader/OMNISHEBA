@@ -10,6 +10,7 @@ public class UpdateDoctorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_doctor);
+        getSupportActionBar().setTitle("0!");
     }
 
     @Override

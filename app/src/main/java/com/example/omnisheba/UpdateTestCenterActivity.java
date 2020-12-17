@@ -10,5 +10,6 @@ public class UpdateTestCenterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_test_center);
+        getSupportActionBar().setTitle("0!");
     }
 }

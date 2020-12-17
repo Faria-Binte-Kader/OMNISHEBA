@@ -1,20 +1,326 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dark"
+    android:fillViewport="true"
     tools:context=".ProfileTestCenterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark"
+        android:orientation="vertical"
+        android:padding="20dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Organization details"
+        android:textStyle="bold"
+        android:background="@drawable/text2_rounded"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/white"
+
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Update Name"
+            android:textColorHint="@color/white"
+            android:background="@drawable/text_rounded"
+            android:ems="10"
+            android:padding="10dp"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/white"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Update Password"
+            android:textColorHint="@color/white"
+            android:background="@drawable/text_rounded"
+            android:ems="10"
+            android:padding="10dp"
+            android:inputType="textPassword"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/white"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm Password"
+            android:textColorHint="@color/white"
+            android:background="@drawable/text_rounded"
+            android:ems="10"
+            android:padding="10dp"
+            android:inputType="textPassword"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/white"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Update Description"
+            android:textColorHint="@color/white"
+            android:background="@drawable/text_rounded"
+            android:ems="10"
+            android:padding="10dp"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/white"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Update Hotline"
+            android:textColorHint="@color/white"
+            android:background="@drawable/text_rounded"
+            android:ems="10"
+            android:padding="10dp"
+            android:inputType="phone"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/white"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Update Location"
+            android:textColorHint="@color/white"
+            android:background="@drawable/text_rounded"
+            android:ems="10"
+            android:padding="10dp"
+            android:inputType="phone"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update"
-        android:textStyle="bold"
-        android:textColor="@color/dark"
-        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/text2_rounded"
         android:padding="10dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:text="Choose Available Tests"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/check_blood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blood"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/check_covid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="COVID"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/check_endoscopy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Endoscopy"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/check_xray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XRay"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/check_ultrasonogram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ultrasonogram"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/check_kidney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kidney"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/check_liver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Liver"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/check_MRI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MRI"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/check_autopsy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Autopsy"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/check_biopsy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Biopsy"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/check_urine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Urine"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/check_ecg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ECG"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/check_thyroid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thyroid"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/mssUpdate_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="UPDATE"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/button_rounded"
+        />
+    </LinearLayout>
+</ScrollView>

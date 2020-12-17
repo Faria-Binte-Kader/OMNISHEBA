@@ -10,5 +10,6 @@ public class ProfileTestCenterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_test_center);
+        getSupportActionBar().setTitle("0!");
     }
 }

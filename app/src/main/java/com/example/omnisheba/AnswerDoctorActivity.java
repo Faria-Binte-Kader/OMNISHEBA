@@ -4,11 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ListDoctorActivity extends AppCompatActivity {
+public class AnswerDoctorActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_doctor);
+        setContentView(R.layout.activity_answer_doctor);
+        getSupportActionBar().setTitle("0!");
     }
 }

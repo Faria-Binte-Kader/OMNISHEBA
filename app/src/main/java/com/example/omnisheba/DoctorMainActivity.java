@@ -1,20 +1,10 @@
 package com.example.omnisheba;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 public class DoctorMainActivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -29,7 +19,7 @@ public class DoctorMainActivity extends AppCompatActivity implements View.OnClic
 
         findViewById(R.id.doctorprofile).setOnClickListener(this);
         findViewById(R.id.doctorupdate).setOnClickListener(this);
-        findViewById(R.id.doctorlist).setOnClickListener(this);
+        findViewById(R.id.doctoranswer).setOnClickListener(this);
         findViewById(R.id.doctorlogout).setOnClickListener(this);
     }
 
@@ -44,7 +34,7 @@ public class DoctorMainActivity extends AppCompatActivity implements View.OnClic
     private void list()
     {
         SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,ListDoctorActivity.class);
+        Intent intent = new Intent(this, AnswerDoctorActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -76,7 +66,7 @@ public class DoctorMainActivity extends AppCompatActivity implements View.OnClic
             case R.id.doctorupdate:
                 update();
                 break;
-            case R.id.doctorlist:
+            case R.id.doctoranswer:
                 list();
                 break;
             case R.id.doctorlogout:

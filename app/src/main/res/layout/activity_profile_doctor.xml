@@ -4,17 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="10dp"
+    android:background="@color/dark"
     tools:context=".ProfileDoctorActivity">
 
+    <ImageView
+        android:layout_width="92dp"
+        android:layout_height="106dp"
+        android:src="@drawable/ic_profile"
+        android:layout_marginTop="20dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profile"
+        android:text="ACCOUNT DETAILS"
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
+        android:textSize="20dp"
         android:textStyle="bold"
-        android:textColor="@color/dark"
-        android:textSize="20sp"
-        android:padding="10dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:padding="20dp"/>
+
+    <TextView
+        android:layout_width="352dp"
+        android:layout_height="355dp"
+        android:background="@color/gray"
+        android:padding="30dp"/>
+
 
 </LinearLayout>

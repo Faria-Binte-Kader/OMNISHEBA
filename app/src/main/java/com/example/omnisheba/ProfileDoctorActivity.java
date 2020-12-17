@@ -10,5 +10,6 @@ public class ProfileDoctorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_doctor);
+        getSupportActionBar().setTitle("0!");
     }
 }

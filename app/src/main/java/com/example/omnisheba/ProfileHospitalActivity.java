@@ -10,5 +10,6 @@ public class ProfileHospitalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_hospital);
+        getSupportActionBar().setTitle("0!");
     }
 }

@@ -10,5 +10,6 @@ public class UpdateHospitalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_hospital);
+        getSupportActionBar().setTitle("0!");
     }
 }

@@ -82,54 +82,56 @@
         android:textSize="25sp"
         android:padding="10dp"
         />
+
     <GridLayout
-        android:layout_width="344dp"
+        android:id="@+id/hospitalgridview"
+        android:layout_width="339dp"
         android:layout_height="320dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="66dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="50dp"
         android:columnCount="2"
-        android:rowCount="2"
-        android:id="@+id/hospitalgridview">
-    <androidx.cardview.widget.CardView
-        android:id="@+id/hospitalprofile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="0"
-        android:layout_rowWeight="1"
-        android:layout_column="0"
-        android:layout_columnWeight="1"
-        android:layout_gravity="fill"
-        android:layout_margin="15dp"
-        app:cardCornerRadius="8dp"
-        app:cardBackgroundColor="@color/gray"
-        app:cardElevation="8dp"
-        >
-        <LinearLayout
+        android:rowCount="2">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/hospitalprofile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_row="0"
+            android:layout_rowWeight="1"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_margin="15dp"
+            app:cardBackgroundColor="@color/gray"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-            <ImageView
-                android:id="@+id/hospitalprofileimg"
-                android:layout_width="57dp"
-                android:layout_height="67dp"
-                android:src="@drawable/ic_profile" />
-
-            <TextView
-                android:id="@+id/hospitalprofiletext"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PROFILE"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                android:textColor="@color/white"/>
-        </LinearLayout>
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="center"
+                android:orientation="vertical">
 
-    </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/hospitalprofileimg"
+                    android:layout_width="57dp"
+                    android:layout_height="67dp"
+                    android:src="@drawable/ic_profile" />
+
+                <TextView
+                    android:id="@+id/hospitalprofiletext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PROFILE"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/hospitalupdate"
@@ -142,9 +144,9 @@
             android:layout_gravity="fill"
             android:layout_margin="15dp"
             android:padding="20dp"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@color/colorPrimary">
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -165,8 +167,8 @@
                     android:layout_height="wrap_content"
                     android:text="UPDATE"
                     android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -181,9 +183,9 @@
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
             android:layout_margin="15dp"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@color/colorPrimary">
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="66dp"
@@ -204,8 +206,8 @@
                     android:layout_height="wrap_content"
                     android:text="ADD DOCTOR"
                     android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -220,9 +222,9 @@
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
             android:layout_margin="15dp"
+            app:cardBackgroundColor="@color/gray"
             app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@color/gray">
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -243,8 +245,8 @@
                     android:layout_height="wrap_content"
                     android:text="LOG OUT"
                     android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
