@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestMainActivity"></activity>
+        <activity android:name=".LogoutDoctorActivity"></activity>
+        <activity android:name=".ListDoctorActivity" />
+        <activity android:name=".ProfileDoctorActivity" />
+        <activity android:name=".UpdateDoctorActivity" />
+        <activity android:name=".TestMainActivity" />
         <activity android:name=".signup_testcenter" />
         <activity android:name=".signup_hospital" />
         <activity android:name=".signup_mss" />
@@ -26,7 +30,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

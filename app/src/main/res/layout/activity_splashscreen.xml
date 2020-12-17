@@ -11,9 +11,9 @@
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:src="@drawable/logopit_1608126685144"
-        android:tint="@color/colorPrimary"
         android:backgroundTint="@color/dark"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        app:tint="@color/colorPrimary" />
 
 </RelativeLayout>

@@ -51,14 +51,6 @@ public class LogoutFragment extends Fragment implements View.OnClickListener
         startActivity(intent);
     }
 
-    private void search()
-    {
-        SharedPrefManager.getInstance(getActivity()).clear();
-        Intent intent = new Intent(getActivity(), SearchFragment.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
     @Override
     public void onClick(View v)
     {
