@@ -9,7 +9,7 @@
 
 <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/dark"
         android:orientation="vertical"
         android:padding="20dp">
@@ -32,6 +32,7 @@
             android:textColorHint="@color/white">
 
             <EditText
+                android:id="@+id/inputNameHospital"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -52,13 +53,14 @@
             android:textColorHint="@color/white">
 
             <EditText
+                android:id="@+id/inputEmailHospital"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/text_rounded"
                 android:ems="10"
                 android:hint="Email"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:textColorHint="@color/white"
                 android:textSize="20sp" />
@@ -72,6 +74,7 @@
             android:textColorHint="@color/white">
 
             <EditText
+                android:id="@+id/inputPasswordHospital"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -92,6 +95,7 @@
             android:textColorHint="@color/white">
 
             <EditText
+                android:id="@+id/confirmPasswordHospital"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -112,6 +116,7 @@
             android:textColorHint="@color/white">
 
             <EditText
+                android:id="@+id/inputDescriptionHospital"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -132,6 +137,7 @@
             android:textColorHint="@color/white">
 
             <EditText
+                android:id="@+id/inputFoundationYearHospital"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -354,5 +360,16 @@
             android:layout_marginTop="20sp"
             android:background="@drawable/button_rounded"
             android:onClick="signupbutton"/>
+
+    <Button
+        android:id="@+id/alreadyHaveAccountHospital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already Have an Account? LOGIN "
+        android:textColor="@color/white"
+        android:background="@color/dark"
+        android:layout_marginTop="10sp"
+        android:padding="10sp"
+        android:onClick="gotoLoginPage"/>
 </LinearLayout>
 </ScrollView>

@@ -24,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/User_Types"
+        android:textColor="@color/white"
         android:padding="10dp"
         android:layout_marginTop="10dp"
 
@@ -39,6 +40,7 @@
 
 
         <EditText
+            android:id="@+id/loginEmailMSS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -60,6 +62,7 @@
         >
 
         <EditText
+            android:id="@+id/loginPasswordMSS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
