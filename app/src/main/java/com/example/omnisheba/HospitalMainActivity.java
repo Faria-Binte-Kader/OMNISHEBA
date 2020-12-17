@@ -1,29 +1,80 @@
 package com.example.omnisheba;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HospitalMainActivity extends AppCompatActivity {
+public class HospitalMainActivity extends AppCompatActivity implements View.OnClickListener
+{
 
-    public Button hospitalprofilebtn, hospitalupdatebtn, addDoctorbtn,hospitallogoutbtn;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hospital_main_activity);
         getSupportActionBar().setTitle("0!");
 
-        
-
-       /* hospitalprofilebtn = (Button) findViewById(R.id.hospitalprofilebutton);
-        hospitalupdatebtn = (Button) findViewById(R.id.hospitalupdatebutton);
-        addDoctorbtn = (Button) findViewById(R.id.addDoctorbutton);
-        hospitallogoutbtn = (Button) findViewById(R.id.hospitalLogoutbutton);*/
-
+        findViewById(R.id.hospitalprofile).setOnClickListener(this);
+        findViewById(R.id.hospitalupdate).setOnClickListener(this);
+        findViewById(R.id.adddoctor).setOnClickListener(this);
+        findViewById(R.id.hospitallogout).setOnClickListener(this);
     }
 
+    private void logout()
+    {
+        SharedPrefManager.getInstance(this).clear();
+        Intent intent = new Intent(this,LogoutHospitalActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void adddoctor()
+    {
+        SharedPrefManager.getInstance(this).clear();
+        Intent intent = new Intent(this,AddDoctorHospitalActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void update()
+    {
+        SharedPrefManager.getInstance(this).clear();
+        Intent intent = new Intent(this,UpdateHospitalActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void profile()
+    {
+        SharedPrefManager.getInstance(this).clear();
+        Intent intent = new Intent(this,ProfileHospitalActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.hospitalprofile:
+                profile();
+                break;
+            case R.id.hospitalupdate:
+                update();
+                break;
+            case R.id.adddoctor:
+                adddoctor();
+                break;
+            case R.id.hospitallogout:
+                logout();
+                break;
+        }
+    }
 
    /* public void hospitalprofilebutton(View view) {
         //Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);

@@ -9,7 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LogoutDoctorActivity"></activity>
+        <activity android:name=".LogoutTestCenterActivity"></activity>
+        <activity android:name=".UpdateTestCenterActivity" />
+        <activity android:name=".ProfileTestCenterActivity" />
+        <activity android:name=".LogoutHospitalActivity" />
+        <activity android:name=".AddDoctorHospitalActivity" />
+        <activity android:name=".UpdateHospitalActivity" />
+        <activity android:name=".ProfileHospitalActivity" />
+        <activity android:name=".LogoutDoctorActivity" />
         <activity android:name=".ListDoctorActivity" />
         <activity android:name=".ProfileDoctorActivity" />
         <activity android:name=".UpdateDoctorActivity" />
