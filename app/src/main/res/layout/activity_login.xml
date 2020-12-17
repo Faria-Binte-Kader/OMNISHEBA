@@ -86,7 +86,7 @@
         android:id="@+id/gotosignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Not an user? Sign up"
+        android:text="Not a user? Sign up"
         android:textColor="@color/white"
         android:background="@color/dark"
         android:layout_marginTop="10sp"
