@@ -21,15 +21,15 @@ public class DoctorMainActivity extends AppCompatActivity {
         setContentView(R.layout.doctor_main_activity);
         getSupportActionBar().setTitle("0!");
 
-       doctorprofilebtn = (Button) findViewById(R.id.doctorprofilebutton);
+       /*doctorprofilebtn = (Button) findViewById(R.id.doctorprofilebutton);
         doctorupdatebtn = (Button) findViewById(R.id.doctorupdatebutton);
         doctorpatientbtn = (Button) findViewById(R.id.doctorappointmentbutton);
-        doctorlogoutbtn = (Button) findViewById(R.id.doctorlogoutbutton);
+        doctorlogoutbtn = (Button) findViewById(R.id.doctorlogoutbutton);*/
 
     }
 
 
-   public void doctorprofilebutton(View view) {
+   /*public void doctorprofilebutton(View view) {
       // Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);
       // startActivity(intent);
    }
@@ -44,6 +44,6 @@ public class DoctorMainActivity extends AppCompatActivity {
     public void doctorlogoutbutton(View view) {
         //Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);
         //startActivity(intent);
-    }
+    }*/
 
 }

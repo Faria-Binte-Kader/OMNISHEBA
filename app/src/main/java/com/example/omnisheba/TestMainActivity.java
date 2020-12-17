@@ -14,12 +14,12 @@ public class TestMainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("0!");
     }
 
-    public void testprofilebutton(View view) {
+    /*public void testprofilebutton(View view) {
     }
 
     public void testupdatebutton(View view) {
     }
 
     public void testLogoutbutton(View view) {
-    }
+    }*/
 }

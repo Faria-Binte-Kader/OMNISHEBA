@@ -15,15 +15,17 @@ public class HospitalMainActivity extends AppCompatActivity {
         setContentView(R.layout.hospital_main_activity);
         getSupportActionBar().setTitle("0!");
 
-        hospitalprofilebtn = (Button) findViewById(R.id.hospitalprofilebutton);
+        
+
+       /* hospitalprofilebtn = (Button) findViewById(R.id.hospitalprofilebutton);
         hospitalupdatebtn = (Button) findViewById(R.id.hospitalupdatebutton);
         addDoctorbtn = (Button) findViewById(R.id.addDoctorbutton);
-        hospitallogoutbtn = (Button) findViewById(R.id.hospitalLogoutbutton);
+        hospitallogoutbtn = (Button) findViewById(R.id.hospitalLogoutbutton);*/
 
     }
 
 
-    public void hospitalprofilebutton(View view) {
+   /* public void hospitalprofilebutton(View view) {
         //Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);
         //startActivity(intent);
    }
@@ -39,6 +41,6 @@ public class HospitalMainActivity extends AppCompatActivity {
     public void hospitalLogoutbutton(View view) {
         //Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);
         //startActivity(intent);
-    }
+    }*/
 
 }
