@@ -27,7 +27,7 @@ public class TestMainActivity extends AppCompatActivity implements View.OnClickL
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,LogoutTestCenterActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+       // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
@@ -35,7 +35,7 @@ public class TestMainActivity extends AppCompatActivity implements View.OnClickL
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,UpdateTestCenterActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
@@ -43,7 +43,7 @@ public class TestMainActivity extends AppCompatActivity implements View.OnClickL
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,ProfileTestCenterActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

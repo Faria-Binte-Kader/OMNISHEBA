@@ -28,7 +28,7 @@ public class HospitalMainActivity extends AppCompatActivity implements View.OnCl
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,LogoutHospitalActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
@@ -36,7 +36,7 @@ public class HospitalMainActivity extends AppCompatActivity implements View.OnCl
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,AddDoctorHospitalActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
@@ -44,7 +44,7 @@ public class HospitalMainActivity extends AppCompatActivity implements View.OnCl
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,UpdateHospitalActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
@@ -52,7 +52,7 @@ public class HospitalMainActivity extends AppCompatActivity implements View.OnCl
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,ProfileHospitalActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

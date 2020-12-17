@@ -11,4 +11,9 @@ public class UpdateDoctorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_doctor);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

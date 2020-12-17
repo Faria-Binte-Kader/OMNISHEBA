@@ -37,7 +37,7 @@ public class DoctorMainActivity extends AppCompatActivity implements View.OnClic
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,LogoutDoctorActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
@@ -45,7 +45,7 @@ public class DoctorMainActivity extends AppCompatActivity implements View.OnClic
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,ListDoctorActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
@@ -53,7 +53,7 @@ public class DoctorMainActivity extends AppCompatActivity implements View.OnClic
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,UpdateDoctorActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
@@ -61,7 +61,7 @@ public class DoctorMainActivity extends AppCompatActivity implements View.OnClic
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,ProfileDoctorActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

@@ -22,7 +22,7 @@ public class AddDoctorHospitalActivity extends AppCompatActivity implements View
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,signup_doctor.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
