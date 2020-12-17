@@ -21,7 +21,6 @@ import static android.R.layout.simple_spinner_item;
 public class login extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText loginEmail, loginPassword;
-    Spinner userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +28,17 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
         setContentView(R.layout.activity_login);
         getSupportActionBar().setTitle("0!");
 
-        loginEmail = findViewById(R.id.loginEmailMSS);
-        loginPassword = findViewById(R.id.loginPasswordMSS);
+        Spinner userType = findViewById(R.id.usertype);
+        userType.setOnItemSelectedListener( this);
+
+        loginEmail = findViewById(R.id.loginEmail);
+        loginPassword = findViewById(R.id.loginPassword);
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
-        Toast.makeText(this, adapterView.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+    {     ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
+        Toast.makeText(this,adapterView.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -72,7 +74,7 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
     }
 
     public void loginBasedOnUser() {
-        userType = findViewById(R.id.usertype);
+        Spinner userType = findViewById(R.id.usertype);
         String type = userType.getSelectedItem().toString();
         if (type.equals("Doctor")) {
             Intent intent = new Intent(login.this, DoctorMainActivity.class);
@@ -90,7 +92,7 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
     }
 
     public void SignUpBasedOnUser() {
-        userType = findViewById(R.id.usertype);
+        Spinner userType = findViewById(R.id.usertype);
         String type = userType.getSelectedItem().toString();
         if (type.equals("Doctor")) {
             Intent intent = new Intent(login.this, signup_doctor.class);
