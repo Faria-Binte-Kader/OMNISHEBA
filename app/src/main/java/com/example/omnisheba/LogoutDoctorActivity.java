@@ -21,14 +21,14 @@ public class LogoutDoctorActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doctor_main_activity);
+        setContentView(R.layout.activity_logout_doctor);
         getSupportActionBar().setTitle("0!");
 
         findViewById(R.id.yes_btn).setOnClickListener(this);
         findViewById(R.id.no_btn).setOnClickListener(this);
     }
 
-    private void logout()
+    /*private void logout()
     {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this,login.class);
@@ -42,7 +42,7 @@ public class LogoutDoctorActivity extends AppCompatActivity implements View.OnCl
         Intent intent = new Intent(this,DoctorMainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-    }
+    }*/
 
     @Override
     public void onClick(View v)
@@ -50,10 +50,10 @@ public class LogoutDoctorActivity extends AppCompatActivity implements View.OnCl
         switch (v.getId())
         {
             case R.id.yes_btn:
-                logout();
+                startActivity(new Intent(this,login.class));
                 break;
             case R.id.no_btn:
-                main();
+                startActivity(new Intent(this,DoctorMainActivity.class));
                 break;
         }
     }
