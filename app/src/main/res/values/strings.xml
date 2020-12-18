@@ -172,6 +172,62 @@
         <item>Evening</item>
     </string-array>
 
+    <string name="dialog_title4">Medical Departments and Units</string>
+
+    <string-array name="deptunit_list">
+        <item>Anesthetics</item>
+        <item>Breast Screening</item>
+        <item>Cardiology</item>
+        <item>Ear, Nose and Throat(ENT)</item>
+        <item>Elderly Services Department</item>
+        <item>Gastroenterology</item>
+        <item>General Surgery</item>
+        <item>Gynecology</item>
+        <item>Hematology</item>
+        <item>Neonatal</item>
+        <item>Neurology</item>
+        <item>Nutrition and Dietics</item>
+        <item>Obstetrics</item>
+        <item>Oncology</item>
+        <item>Ophthalmology</item>
+        <item>Orthopedics</item>
+        <item>Physiotherapy</item>
+        <item>Renal</item>
+        <item>Sexual Health</item>
+        <item>Urology</item>
+        <item>Neonatal intensive care unit(NICU)</item>
+        <item>Pediatric intensive care unit(PICU)</item>
+        <item>Coronary care and cardiothoracic unit(CCU/CTU)</item>
+        <item>Surgical intensive care unit(SICU)</item>
+        <item>Medical intensive care unit(MICU)</item>
+        <item>Long term intensive care unit(LTAC ICU)</item>
+    </string-array>
+
+    <string name="dialog_title5">Medical Tests</string>
+
+    <string-array name="test_list">
+        <item>Angiography</item>
+        <item>Autopsy</item>
+        <item>Biopsy</item>
+        <item>Blood Analysis</item>
+        <item>Cholecystography</item>
+        <item>COVID</item>
+        <item>Endoscopy</item>
+        <item>Gastric Fluid Analysis</item>
+        <item>Gynecological Examination</item>
+        <item>Kidney Function Test</item>
+        <item>Liver Function Test</item>
+        <item>Lumbar Puncture</item>
+        <item>Lung Ventilation/Perfusion Scan</item>
+        <item>Magnetic Resonance Imaging(MRI)</item>
+        <item>Mammography</item>
+        <item>Pregnancy Test</item>
+        <item>Skin Test</item>
+        <item>Thyroid Function Test</item>
+        <item>Ultrasound</item>
+        <item>Urinalysis</item>
+    </string-array>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

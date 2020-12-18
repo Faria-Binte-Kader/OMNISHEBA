@@ -109,26 +109,45 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:textColorHint="@color/white"
-        >
-        <EditText
+        <Button
+            android:id="@+id/btnUpdateSpecialty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Update Specialty"
-            android:textColorHint="@color/white"
-            android:background="@drawable/text_rounded"
-            android:ems="10"
+            android:layout_marginTop="10sp"
+            android:gravity="left"
+            android:background="@drawable/text2_rounded"
             android:padding="10dp"
-            android:inputType="phone"
+            android:textColor="@color/white"
             android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textAllCaps="false"
+            android:text="Choose Specialty"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dark"
+            android:padding="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginTop="10dp"
+                android:text="Selected items: "
+                android:textColor="@color/white"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/tvItemSelected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -170,125 +189,86 @@
                 android:layout_marginTop="10dp"
                 />
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
+
+        <Button
+            android:id="@+id/btnUpdateWorkDays"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="10sp"
+            android:gravity="left"
             android:background="@drawable/text2_rounded"
             android:padding="10dp"
-            android:text="Update Appointment days"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/check_saturday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Saturday"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <CheckBox
-                android:id="@+id/check_sunday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sunday"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <CheckBox
-                android:id="@+id/check_monday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Monday"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
+            android:textAllCaps="false"
+            android:text="Choose Appointment Days"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/check_tuesday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tuesday"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <CheckBox
-                android:id="@+id/check_wednesday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Wednesday"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/check_thursday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thursday"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <CheckBox
-                android:id="@+id/check_friday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Friday"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark"
+            android:padding="20dp"
+        android:orientation="horizontal">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginTop="10dp"
+            android:text="Selected items: "
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
+
+            <TextView
+            android:id="@+id/tvItemSelected2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+                android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnUpdateShifts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="10sp"
+            android:gravity="left"
             android:background="@drawable/text2_rounded"
             android:padding="10dp"
-            android:text="Update Shift"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:text="Choose Shifts"/>
 
-            />
-        <CheckBox
-            android:id="@+id/check_morning_shift"
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark"
+            android:padding="20dp"
+        android:orientation="horizontal">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Morning"
+            android:gravity="left"
+            android:layout_marginTop="10dp"
+            android:text="Selected items: "
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="15sp"/>
 
-        <CheckBox
-            android:id="@+id/check_afternoon_shift"
+        <TextView
+            android:id="@+id/tvItemSelected3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Noon"
+            android:gravity="left"
+            android:layout_marginTop="10dp"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="15sp"/>
 
-        <CheckBox
-            android:id="@+id/check_evening_shift"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Evening"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/doctorUpdate_button"
@@ -301,7 +281,5 @@
             android:background="@drawable/button_rounded"
             />
     </LinearLayout>
-
-
 
 </ScrollView>
