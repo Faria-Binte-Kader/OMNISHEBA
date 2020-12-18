@@ -106,6 +106,72 @@
         <item>Uttara</item>
     </string-array>
 
+    <string name="dialog_title">Specialties</string>
+    <string name="ok_label">OK</string>
+    <string name="dismiss_label">Dismiss</string>
+    <string name="clear_all_label">Clear all</string>
+
+    <string-array name="specialty_list">
+        <item>Anatomical Pathology</item>
+        <item>Anesthesiology</item>
+        <item>Cardiology</item>
+        <item>Cardiovascular/Thoracic Surgery</item>
+        <item>Clinical Immunology/Allergy</item>
+        <item>Critical Care Medicine</item>
+        <item>Dermatology</item>
+        <item>Emergency Medicine</item>
+        <item>Endocrinology and Metabolism</item>
+        <item>Family Medicine</item>
+        <item>Gastroenterology</item>
+        <item>General Internal Medicine</item>
+        <item>General Surgery</item>
+        <item>General/Clinical Pathology</item>
+        <item>Geriatric Medicine</item>
+        <item>Hematology</item>
+        <item>Medical Biochemistry</item>
+        <item>Medical Genetics</item>
+        <item>Medical Microbiology and Infectious Diseases</item>
+        <item>Medical Oncology</item>
+        <item>Nephrology</item>
+        <item>Neurology</item>
+        <item>Neurosurgery</item>
+        <item>Nuclear Medicine</item>
+        <item>Obstetrics/Gynecology</item>
+        <item>Occupational Medicine</item>
+        <item>Ophthalmology</item>
+        <item>Orthopedic Surgery</item>
+        <item>Otolaryngology</item>
+        <item>Pediatrics</item>
+        <item>Physical Medicine and Rehabilitation</item>
+        <item>Plastic Surgery</item>
+        <item>Psychiatry</item>
+        <item>Public Health and Preventive Medicine</item>
+        <item>Radiation Oncology</item>
+        <item>Respirology</item>
+        <item>Rheumatology</item>
+        <item>Urology</item>
+    </string-array>
+
+    <string name="dialog_title2">Appointment Days</string>
+
+    <string-array name="workday_list">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <string name="dialog_title3">Shifts</string>
+
+    <string-array name="shift_list">
+        <item>Morning</item>
+        <item>Noon</item>
+        <item>Evening</item>
+    </string-array>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
