@@ -3,7 +3,6 @@ package com.example.omnisheba;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +19,7 @@ public class HospitalMainActivity extends AppCompatActivity implements View.OnCl
 
         findViewById(R.id.hospitalprofile).setOnClickListener(this);
         findViewById(R.id.hospitalupdate).setOnClickListener(this);
-        findViewById(R.id.adddoctor).setOnClickListener(this);
+        findViewById(R.id.doctors).setOnClickListener(this);
         findViewById(R.id.hospitallogout).setOnClickListener(this);
     }
 
@@ -32,10 +31,10 @@ public class HospitalMainActivity extends AppCompatActivity implements View.OnCl
         startActivity(intent);
     }
 
-    private void adddoctor()
+    private void doctor()
     {
         SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,AddDoctorHospitalActivity.class);
+        Intent intent = new Intent(this,DoctorsHospitalActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -67,8 +66,8 @@ public class HospitalMainActivity extends AppCompatActivity implements View.OnCl
             case R.id.hospitalupdate:
                 update();
                 break;
-            case R.id.adddoctor:
-                adddoctor();
+            case R.id.doctors:
+                doctor();
                 break;
             case R.id.hospitallogout:
                 logout();

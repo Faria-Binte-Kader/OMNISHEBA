@@ -174,7 +174,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/adddoctor"
+            android:id="@+id/doctors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="1"
@@ -195,16 +195,16 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/adddoctorimg"
+                    android:id="@+id/doctorsimg"
                     android:layout_width="57dp"
                     android:layout_height="67dp"
                     android:src="@drawable/ic_adddoctor" />
 
                 <TextView
-                    android:id="@+id/adddoctortext"
+                    android:id="@+id/doctorstext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ADD DOCTOR"
+                    android:text="DOCTORS"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
