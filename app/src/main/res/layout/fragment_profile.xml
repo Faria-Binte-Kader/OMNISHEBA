@@ -21,10 +21,64 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:padding="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/text_rounded"
+        android:padding="30dp"
+        android:layout_marginTop="30dp"
 
+        >
     <TextView
-        android:layout_width="352dp"
-        android:layout_height="355dp"
-        android:background="@color/gray"
-        android:padding="30dp"/>
+        android:id="@+id/mssname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        />
+    <TextView
+        android:id="@+id/mssemail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:padding="5dp"
+        />
+    <TextView
+        android:id="@+id/mssgender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:padding="5dp"
+        />
+    <TextView
+        android:id="@+id/mssdescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:padding="5dp"
+        />
+    <TextView
+        android:id="@+id/mssdob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:padding="5dp"
+        />
+    <TextView
+        android:id="@+id/mssphone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:padding="5dp"
+        />
+    </LinearLayout>
 </LinearLayout>

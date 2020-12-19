@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -16,16 +17,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class signup_mss extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    public static final String TAG = "TAG";
     Button alreadyHaveAccount, signUpBtnMSS;
     private EditText inputName, inputEmail, inputPassword, confirmPassword, inputDescription, inputPhone, inputDob;
     Spinner genderType;
+    String userId;
     FirebaseAuth fAuthMSS;
+    FirebaseFirestore fstoreMSS;
     ProgressBar progBarMSS;
 
     @Override
@@ -45,8 +55,11 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
         inputDescription = findViewById(R.id.inputDescriptionMSS);
         inputDob = findViewById(R.id.inputDobMSS);
         inputPhone = findViewById(R.id.inputPhoneMSS);
+        genderType = findViewById(R.id.gender_type);
+
 
         fAuthMSS = FirebaseAuth.getInstance();
+        fstoreMSS = FirebaseFirestore.getInstance();
         //progBarMSS = findViewById(R.id.progressBarMSS);
 
         /*if (fAuthMSS.getCurrentUser() != null) {
@@ -57,10 +70,14 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
         signUpBtnMSS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = inputName.getText().toString();
-                String email = inputEmail.getText().toString();
-                String password = inputPassword.getText().toString();
-                String conPassword = confirmPassword.getText().toString();
+                 final String name = inputName.getText().toString();
+                 final String email = inputEmail.getText().toString();
+                  String password = inputPassword.getText().toString();
+                 String conPassword = confirmPassword.getText().toString();
+                 final String description = inputDescription.getText().toString();
+                 final String dateofbirth = inputDob.getText().toString();
+                 final String phone = inputPhone.getText().toString();
+                 final String type = genderType.getSelectedItem().toString();
 
                 if (name.isEmpty() || name.length() < 7) {
                     showError(inputName, "Your Name is not valid");
@@ -86,6 +103,23 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(signup_mss.this, "User Created", Toast.LENGTH_SHORT).show();
+                            userId = fAuthMSS.getCurrentUser().getUid();
+                            DocumentReference documentReference = fstoreMSS.collection("MSS").document(userId);
+                            Map<String,Object> mss= new HashMap<>();
+                            mss.put("Name",name);
+                            mss.put("Email",email);
+                            mss.put("Gender",type);
+                            mss.put("Description", description);
+                            mss.put("DOB",dateofbirth);
+                            mss.put("Phone", phone);
+                            documentReference.set(mss).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: user profile is created");
+                                }
+                            });
+
+
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else {
                             Toast.makeText(signup_mss.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
