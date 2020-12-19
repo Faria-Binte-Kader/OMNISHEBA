@@ -83,7 +83,7 @@
         android:textColor="@color/white"
         android:layout_marginTop="20sp"
         android:background="@drawable/button_rounded"
-        android:onClick="loginbutton"/>
+        />
     <Button
         android:id="@+id/gotosignup"
         android:layout_width="wrap_content"

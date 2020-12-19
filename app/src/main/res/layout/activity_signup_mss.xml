@@ -200,7 +200,7 @@
             android:textColor="@color/white"
             android:layout_marginTop="20sp"
             android:background="@drawable/button_rounded"
-            android:onClick="signupbutton"/>
+            />
 
         <Button
             android:id="@+id/alreadyHaveAccountMSS"
@@ -212,5 +212,6 @@
             android:layout_marginTop="10sp"
             android:padding="10sp"
             android:onClick="gotoLoginPage"/>
+
     </LinearLayout>
 </ScrollView>
