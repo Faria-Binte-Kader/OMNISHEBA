@@ -40,6 +40,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
     ArrayList<Integer> mUserItems3 = new ArrayList<>();
     CheckBox sat,sun,mon,tues,wed,thurs,fri,satmon,sateve,sunmon,suneve,monmon,moneve,tuesmon,tueseve,wedmon,wedeve,
             thursmon, thurseve,frimon,frieve;
+    String appointment[][] = new String[7][3];
 
 
     private EditText inputName, inputEmail, inputPassword, confirmPassword;
@@ -334,6 +335,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
 
     public void signupbutton(View view) {
         checkCredentials();
+        getAppointment();
     }
     public void gotoLoginPage(View view) {
         Intent intent = new Intent(signup_doctor.this,login.class);
@@ -360,5 +362,43 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
     private void showError(EditText input, String s) {
         input.setError(s);
         input.requestFocus();
+    }
+    private void getAppointment()
+    {
+        if(sat.isChecked() && (satmon.isChecked() || sateve.isChecked()))
+        {appointment[0][0]="Saturday";
+        if(satmon.isChecked()) appointment[0][1]=satmon.getText().toString();
+        if(sateve.isChecked())appointment[0][2]=sateve.getText().toString();}
+
+        if(sun.isChecked() && (sunmon.isChecked() || suneve.isChecked()))
+        {appointment[1][0]="Sunday";
+            if(sunmon.isChecked()) appointment[1][1]=sunmon.getText().toString();
+            if(suneve.isChecked()) appointment[1][2]=suneve.getText().toString();}
+
+        if(mon.isChecked() && (monmon.isChecked() || moneve.isChecked()))
+        {appointment[2][0]="Monday";
+            if(monmon.isChecked()) appointment[2][1]=monmon.getText().toString();
+            if(moneve.isChecked())appointment[2][2]=moneve.getText().toString();}
+
+        if(tues.isChecked() && (tuesmon.isChecked() || tueseve.isChecked()))
+        {appointment[3][0]="Tuesday";
+            if(tuesmon.isChecked()) appointment[3][1]=tuesmon.getText().toString();
+            if(tueseve.isChecked()) appointment[3][2]=tueseve.getText().toString();}
+
+        if(wed.isChecked() && (wedmon.isChecked() || wedeve.isChecked()))
+        {appointment[4][0]="Wednesday";
+            if(wedmon.isChecked()) appointment[4][1]=wedmon.getText().toString();
+            if(wedeve.isChecked())appointment[4][2]=wedeve.getText().toString();}
+
+        if(thurs.isChecked() && (thursmon.isChecked() || thurseve.isChecked()))
+        {appointment[5][0]="Thursday";
+            if(thursmon.isChecked()) appointment[5][1]=thursmon.getText().toString();
+            if(thurseve.isChecked()) appointment[5][2]=thurseve.getText().toString();}
+
+        if(fri.isChecked() && (frimon.isChecked() || frieve.isChecked()))
+        {appointment[6][0]="Friday";
+            if(frimon.isChecked())appointment[6][1]=frimon.getText().toString();
+            if(frieve.isChecked())appointment[6][2]=frieve.getText().toString();}
+
     }
 }
