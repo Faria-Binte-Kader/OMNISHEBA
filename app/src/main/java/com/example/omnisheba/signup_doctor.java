@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,6 +38,9 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
     String[] listItems3;
     boolean[] checkedItems3;
     ArrayList<Integer> mUserItems3 = new ArrayList<>();
+    CheckBox sat,sun,mon,tues,wed,thurs,fri,satmon,sateve,sunmon,suneve,monmon,moneve,tuesmon,tueseve,wedmon,wedeve,
+            thursmon, thurseve,frimon,frieve;
+
 
     private EditText inputName, inputEmail, inputPassword, confirmPassword;
 
@@ -60,12 +64,13 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
         listItems = getResources().getStringArray(R.array.specialty_list);
         checkedItems = new boolean[listItems.length];
 
-        workdaysBtn = findViewById(R.id.btnWorkDays);
+        //workdaysBtn = findViewById(R.id.btnWorkDays);
         mItemSelected2 = (TextView) findViewById(R.id.tvItemSelected2);
         listItems2 = getResources().getStringArray(R.array.workday_list);
         checkedItems2 = new boolean[listItems2.length];
 
-        shiftsBtn = findViewById(R.id.btnShifts);
+        //shiftsBtn = findViewById(R.id.btnShifts);
+
         mItemSelected3 = (TextView) findViewById(R.id.tvItemSelected3);
         listItems3 = getResources().getStringArray(R.array.shift_list);
         checkedItems3 = new boolean[listItems3.length];
@@ -74,6 +79,32 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
         inputEmail = findViewById(R.id.inputEmailDoctor);
         inputPassword = findViewById(R.id.inputPasswordDoctor);
         confirmPassword = findViewById(R.id.confirmPasswordDoctor);
+
+        sat = findViewById(R.id.Saturday);
+        sun = findViewById(R.id.Sunday);
+        mon = findViewById(R.id.Monday);
+        tues = findViewById(R.id.Tuesday);
+        wed = findViewById(R.id.Wednesday);
+        thurs = findViewById(R.id.Thursday);
+        fri = findViewById(R.id.Friday);
+
+        satmon = findViewById(R.id.SaturdayMorning);
+        sunmon = findViewById(R.id.SundayMorning);
+        monmon = findViewById(R.id.MondayMorning);
+        tuesmon = findViewById(R.id.TuesdayMorning);
+        wedmon = findViewById(R.id.WednesdayMorning);
+        thursmon = findViewById(R.id.ThursdayMorning);
+        frimon = findViewById(R.id.FridayMorning);
+
+        sateve = findViewById(R.id.SaturdayEvening);
+        suneve = findViewById(R.id.SundayEvening);
+        moneve = findViewById(R.id.MondayEvening);
+        tueseve = findViewById(R.id.TuesdayEvening);
+        wedeve = findViewById(R.id.WednesdayEvening);
+        thurseve = findViewById(R.id.ThursdayEvening);
+        frieve = findViewById(R.id.FridayEvening);
+
+
 
         specialtyBtn.setOnClickListener(new View.OnClickListener()
         {
@@ -144,7 +175,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
             }
         });
 
-        workdaysBtn.setOnClickListener(new View.OnClickListener()
+        /*workdaysBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -177,10 +208,13 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                         for (int i = 0; i < mUserItems2.size(); i++)
                         {
                             item = item + listItems2[mUserItems2.get(i)];
+                            item2[i] = listItems2[mUserItems2.get(i)];
                             if (i != mUserItems2.size() - 1) {
                                 item = item + ", ";
+
                             }
                         }
+                        //shiftsBtn.setText(item2[0]);
                         mItemSelected2.setText(item);
                     }
                 });
@@ -219,7 +253,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
             public void onClick(View view)
             {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(signup_doctor.this);
-                mBuilder.setTitle(R.string.dialog_title3);
+                mBuilder.setTitle("Shifts");
                 mBuilder.setMultiChoiceItems(listItems3, checkedItems3, new DialogInterface.OnMultiChoiceClickListener()
                 {
                     @Override
@@ -243,9 +277,11 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                     public void onClick(DialogInterface dialogInterface, int which)
                     {
                         String item = "";
+
                         for (int i = 0; i < mUserItems3.size(); i++)
                         {
                             item = item + listItems3[mUserItems3.get(i)];
+
                             if (i != mUserItems3.size() - 1) {
                                 item = item + ", ";
                             }
@@ -280,10 +316,11 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
             }
-        });
+        }); */
+
     }
 
-    @Override
+   @Override
     public void  onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
     {     ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
         Toast.makeText(this,adapterView.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
