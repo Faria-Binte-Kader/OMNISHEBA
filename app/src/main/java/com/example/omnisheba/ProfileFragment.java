@@ -20,9 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.concurrent.Executor;
 
-public class ProfileFragment extends Fragment
-{
-    private TextView name, email, description, phone,dob,gender;
+public class ProfileFragment extends Fragment {
+    private TextView name, email, description, phone, dob, gender;
     FirebaseAuth fAuthMSS;
     FirebaseFirestore fStore;
     String userID;
@@ -31,16 +30,16 @@ public class ProfileFragment extends Fragment
     @Override
 
 
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {   getActivity().setTitle("0!");
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getActivity().setTitle("0!");
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        name= v.findViewById(R.id.mssname);
-        email=v.findViewById(R.id.mssemail);
-        description=v.findViewById(R.id.mssdescription);
-        dob=v.findViewById(R.id.mssdob);
-        phone=v.findViewById(R.id.mssphone);
-        gender=v.findViewById(R.id.mssgender);
+        name = v.findViewById(R.id.mssname);
+        email = v.findViewById(R.id.mssemail);
+        description = v.findViewById(R.id.mssdescription);
+        dob = v.findViewById(R.id.mssdob);
+        phone = v.findViewById(R.id.mssphone);
+        gender = v.findViewById(R.id.mssgender);
         fAuthMSS = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userID = fAuthMSS.getCurrentUser().getUid();
@@ -61,9 +60,8 @@ public class ProfileFragment extends Fragment
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-    {
-        super.onViewCreated(view,savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
 
     }

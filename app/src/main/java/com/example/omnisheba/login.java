@@ -84,6 +84,18 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
                             }
                         }
                     });
+                } else if (type.equals("Doctor")) {
+                    fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), DoctorMainActivity.class));
+                            } else {
+                                Toast.makeText(login.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 } else {
                     loginBasedOnUser();
                 }

@@ -55,7 +55,6 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
         inputDescription = findViewById(R.id.inputDescriptionMSS);
         inputDob = findViewById(R.id.inputDobMSS);
         inputPhone = findViewById(R.id.inputPhoneMSS);
-        genderType = findViewById(R.id.gender_type);
 
 
         fAuthMSS = FirebaseAuth.getInstance();
