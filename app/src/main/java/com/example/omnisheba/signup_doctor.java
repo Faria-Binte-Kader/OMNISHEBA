@@ -28,6 +28,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +62,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
     CheckBox satmon, sateve, sunmon, suneve, monmon, moneve, tuesmon, tueseve, wedmon, wedeve,
             thursmon, thurseve, frimon, frieve;
     String[][] appointment = new String[7][3];
+    ArrayList<String> special= new ArrayList<String>();
 
 
     private EditText inputName, inputEmail, inputPassword, confirmPassword, hospitalName, practiceYear, description;
@@ -178,14 +180,41 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                             doctor.put("Name", name);
                             doctor.put("Email", email);
                             doctor.put("Description",descript);
-                            doctor.put("Hospital/Chamber Name", hosName);
-                            doctor.put("Hospital/Chamber Location", location);
-                            doctor.put("Practice Starting Year", pracYear);
-                            documentReference.set(doctor).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            doctor.put("Specialty", special);
+                            doctor.put("Hospitalchambername", hosName);
+                            doctor.put("Hospitalchamnberlocation", location);
+                            doctor.put("Practicesatrtingyear", pracYear);
+
+                            DocumentReference documentReference2 = fstoreDoctor.collection("Appointment").document(userId);
+                            Map<String, Object> App = new HashMap<>();
+                            App.put("Satmon", appointment[0][1]);
+                            App.put("Sateve", appointment[0][2]);
+                            App.put("Sunmon", appointment[1][1]);
+                            App.put("Suneve", appointment[1][2]);
+                            App.put("Monmon", appointment[2][1]);
+                            App.put("Moneve", appointment[2][2]);
+                            App.put("Tuesmon", appointment[3][1]);
+                            App.put("Tuesve", appointment[3][2]);
+                            App.put("Wedmon", appointment[4][1]);
+                            App.put("Wedeve", appointment[4][2]);
+                            App.put("Thursmon", appointment[5][1]);
+                            App.put("Thurseve", appointment[5][2]);
+                            App.put("Frimon", appointment[6][1]);
+                            App.put("Frieve", appointment[6][2]);
+
+                            documentReference2.set(App).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "onSuccess: user profile is created");
                                 }
+
+                            });
+                            documentReference.set(doctor).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: appointment created");
+                                }
+
                             });
 
 
@@ -221,6 +250,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                     public void onClick(DialogInterface dialogInterface, int which) {
                         String item = "";
                         for (int i = 0; i < mUserItems.size(); i++) {
+                            special.add(listItems[mUserItems.get(i)]);
                             item = item + listItems[mUserItems.get(i)];
                             if (i != mUserItems.size() - 1) {
                                 item = item + ", ";

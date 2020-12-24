@@ -17,11 +17,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class ProfileDoctorActivity extends AppCompatActivity {
 
-    private TextView name, email, description, hospitalName, practiceYear, location;
+    private TextView name, email, description, hospitalName, practiceYear, location,specialty,sat,satmon, sateve, sunmon, suneve, monmon, moneve, tuesmon, tueseve, wedmon, wedeve,
+            thursmon, thurseve, frimon, frieve;
     FirebaseAuth fAuthDoctor;
     FirebaseFirestore fStore;
     String userID;
-    Spinner location_type;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,26 +30,69 @@ public class ProfileDoctorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_doctor);
         getSupportActionBar().setTitle("0!");
 
-        name = findViewById(R.id.inputNameDoctor);
-        email = findViewById(R.id.inputEmailDoctor);
-        description = findViewById(R.id.inputDescriptionDoctor);
-        hospitalName = findViewById(R.id.inputHospitalNameDoctor);
-        practiceYear = findViewById(R.id.inputPracticeYearDoctor);
+        name = findViewById(R.id.doctorname);
+        email = findViewById(R.id.doctoremail);
+        description = findViewById(R.id.doctordescription);
+        hospitalName = findViewById(R.id.doctorhospital);
+        practiceYear = findViewById(R.id.practiceyear);
+        location = findViewById(R.id.doctorlocation);
+        //specialty = findViewById(R.id.doctorspecialty);
 
+        satmon = findViewById(R.id.showSatMon);
+        sunmon = findViewById(R.id.showSunMon);
+        monmon = findViewById(R.id.showMonMon);
+        tuesmon = findViewById(R.id.showTuesMon);
+        wedmon = findViewById(R.id.showWedMon);
+        thursmon = findViewById(R.id.showthursMon);
+        frimon = findViewById(R.id.showFriMon);
+
+        sateve = findViewById(R.id.showSatEve);
+        suneve = findViewById(R.id.showSunEve);
+        moneve = findViewById(R.id.showMonEve);
+        tueseve = findViewById(R.id.showTuesEve);
+        wedeve = findViewById(R.id.showWedEve);
+        thurseve = findViewById(R.id.showThursEve);
+        frieve = findViewById(R.id.showFriEve);
 
         fAuthDoctor = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userID = fAuthDoctor.getCurrentUser().getUid();
         DocumentReference documentReference = fStore.collection("Doctor").document(userID);
-        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        DocumentReference documentReference2 = fStore.collection("Appointment").document(userID);
+       documentReference.addSnapshotListener(this,new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 name.setText(value.getString("Name"));
                 email.setText(value.getString("Email"));
-                hospitalName.setText(value.getString("Hospital/Chamber Name"));
-                practiceYear.setText(value.getString("Practice Starting Year"));
+                hospitalName.setText(value.getString("Hospitalchambername"));
+                practiceYear.setText(value.getString("Practicestartingyear"));
                 description.setText(value.getString("Description"));
+                location.setText(value.getString("Hospitalchamnberlocation"));
+               // specialty.setText(value.getString("Specialty"));
+
             }
         });
+        documentReference2.addSnapshotListener(this,new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                satmon.setText(value.getString("Satmon"));
+                sunmon.setText(value.getString("Sunmon"));
+                monmon.setText(value.getString("Monmon"));
+                tuesmon.setText(value.getString("Tuesmon"));
+                wedmon.setText(value.getString("Wedmon"));
+                thursmon.setText(value.getString("Thursmon"));
+                frimon.setText(value.getString("Frimon"));
+
+                sateve.setText(value.getString("Sateve"));
+                suneve.setText(value.getString("Suneve"));
+                moneve.setText(value.getString("Moneve"));
+                tueseve.setText(value.getString("Tueseve"));
+                wedeve.setText(value.getString("Wedeve"));
+                thurseve.setText(value.getString("Thurseve"));
+                frieve.setText(value.getString("Frieve"));
+
+            }
+        });
+
     }
 }
