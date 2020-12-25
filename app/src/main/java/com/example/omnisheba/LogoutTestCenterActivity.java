@@ -14,12 +14,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 
-public class LogoutTestCenterActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class LogoutTestCenterActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
 
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logout_test_center);
         getSupportActionBar().setTitle("0!");
@@ -45,15 +43,13 @@ public class LogoutTestCenterActivity extends AppCompatActivity implements View.
     }*/
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.yes_btn:
-                startActivity(new Intent(this,login.class));
+                startActivity(new Intent(this, login.class));
                 break;
             case R.id.no_btn:
-                startActivity(new Intent(this,TestMainActivity.class));
+                startActivity(new Intent(this, TestMainActivity.class));
                 break;
         }
     }

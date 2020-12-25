@@ -17,10 +17,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class DoctorsHospitalActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener
-{
-    String[] s = {"No Specialty", "Cardiology","ENT","General","Medicine","Nephrology","Neurology","OB/GYN",
-                    "Oncology","Opthalmology", "Physiology","Psychology", "Urology",};
+public class DoctorsHospitalActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    String[] s = {"No Specialty", "Cardiology", "ENT", "General", "Medicine", "Nephrology", "Neurology", "OB/GYN",
+            "Oncology", "Opthalmology", "Physiology", "Psychology", "Urology",};
 
     Button specialtyBtn;
 
@@ -31,8 +30,7 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
 
     @Override
 
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctors_hospital);
         getSupportActionBar().setTitle("0!");
@@ -45,38 +43,28 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
         listItems = getResources().getStringArray(R.array.specialty_list);
         checkedItems = new boolean[listItems.length];
 
-        specialtyBtn.setOnClickListener(new View.OnClickListener()
-        {
+        specialtyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(DoctorsHospitalActivity.this);
                 mBuilder.setTitle(R.string.dialog_title);
-                mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener()
-                {
+                mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked)
-                    {
-                        if(isChecked)
-                        {
+                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+                        if (isChecked) {
                             mUserItems.add(position);
-                        }
-                        else
-                        {
+                        } else {
                             mUserItems.remove((Integer.valueOf(position)));
                         }
                     }
                 });
 
                 mBuilder.setCancelable(false);
-                mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener()
-                {
+                mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int which)
-                    {
+                    public void onClick(DialogInterface dialogInterface, int which) {
                         String item = "";
-                        for (int i = 0; i < mUserItems.size(); i++)
-                        {
+                        for (int i = 0; i < mUserItems.size(); i++) {
                             item = item + listItems[mUserItems.get(i)];
                             if (i != mUserItems.size() - 1) {
                                 item = item + ", ";
@@ -86,22 +74,17 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                     }
                 });
 
-                mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener()
-                {
+                mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i)
-                    {
+                    public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
                     }
                 });
 
-                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener()
-                {
+                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int which)
-                    {
-                        for (int i = 0; i < checkedItems.length; i++)
-                        {
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        for (int i = 0; i < checkedItems.length; i++) {
                             checkedItems[i] = false;
                             mUserItems.clear();
                             mItemSelected.setText("");
@@ -146,190 +129,148 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
         Button d10vbtn = (Button) findViewById(R.id.d10viewbtn);
         Button d10ubtn = (Button) findViewById(R.id.d10updatebtn);
 
-        btn.setOnClickListener(new View.OnClickListener()
-        {
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 add();
             }
         });
 
-        d1vbtn.setOnClickListener(new View.OnClickListener()
-        {
+        d1vbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 view();
             }
         });
-        d1ubtn.setOnClickListener(new View.OnClickListener()
-        {
+        d1ubtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 update();
             }
         });
 
-        d2vbtn.setOnClickListener(new View.OnClickListener()
-        {
+        d2vbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 view();
             }
         });
-        d2ubtn.setOnClickListener(new View.OnClickListener()
-        {
+        d2ubtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 update();
             }
         });
 
-        d3vbtn.setOnClickListener(new View.OnClickListener()
-        {
+        d3vbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 view();
             }
         });
-        d3ubtn.setOnClickListener(new View.OnClickListener()
-        {
+        d3ubtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 update();
             }
         });
 
-        d4vbtn.setOnClickListener(new View.OnClickListener()
-        {
+        d4vbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 view();
             }
         });
-        d4ubtn.setOnClickListener(new View.OnClickListener()
-        {
+        d4ubtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 update();
             }
         });
 
-        d5vbtn.setOnClickListener(new View.OnClickListener()
-        {
+        d5vbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 view();
             }
         });
-        d5ubtn.setOnClickListener(new View.OnClickListener()
-        {
+        d5ubtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 update();
             }
         });
 
-        d6vbtn.setOnClickListener(new View.OnClickListener()
-        {
+        d6vbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 view();
             }
         });
-        d6ubtn.setOnClickListener(new View.OnClickListener()
-        {
+        d6ubtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 update();
             }
         });
 
-        d7vbtn.setOnClickListener(new View.OnClickListener()
-        {
+        d7vbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 view();
             }
         });
-        d7ubtn.setOnClickListener(new View.OnClickListener()
-        {
+        d7ubtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 update();
             }
         });
 
-        d8vbtn.setOnClickListener(new View.OnClickListener()
-        {
+        d8vbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 view();
             }
         });
-        d8ubtn.setOnClickListener(new View.OnClickListener()
-        {
+        d8ubtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 update();
             }
         });
 
-        d9vbtn.setOnClickListener(new View.OnClickListener()
-        {
+        d9vbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 view();
             }
         });
-        d9ubtn.setOnClickListener(new View.OnClickListener()
-        {
+        d9ubtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 update();
             }
         });
 
-        d10vbtn.setOnClickListener(new View.OnClickListener()
-        {
+        d10vbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 view();
             }
         });
-        d10ubtn.setOnClickListener(new View.OnClickListener()
-        {
+        d10ubtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 update();
             }
         });
     }
 
     @Override
-    public void  onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
-    {     ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
-        Toast.makeText(this,adapterView.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
+        Toast.makeText(this, adapterView.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -337,26 +278,23 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
 
     }
 
-    private void add()
-    {
+    private void add() {
         //SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,signup_doctor.class);
+        Intent intent = new Intent(this, signup_doctor.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
-    private void view()
-    {
+    private void view() {
         //SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(DoctorsHospitalActivity.this,ProfileDoctorActivity.class);
+        Intent intent = new Intent(DoctorsHospitalActivity.this, ProfileDoctorActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
-    private void update()
-    {
+    private void update() {
         //SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(DoctorsHospitalActivity.this,UpdateDoctorActivity.class);
+        Intent intent = new Intent(DoctorsHospitalActivity.this, UpdateDoctorActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

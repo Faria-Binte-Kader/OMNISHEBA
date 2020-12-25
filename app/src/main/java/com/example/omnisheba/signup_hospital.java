@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class signup_hospital extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class signup_hospital extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Button alreadyHaveAccount;
     private EditText inputName, inputEmail, inputPassword, confirmPassword;
@@ -35,7 +35,7 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_signup_hospital);
         getSupportActionBar().setTitle("0!");
         Spinner hospital_types = findViewById(R.id.hospital_types);
-        hospital_types.setOnItemSelectedListener( this);
+        hospital_types.setOnItemSelectedListener(this);
         Spinner location_type = findViewById(R.id.location_type);
         location_type.setOnItemSelectedListener(this);
 
@@ -50,38 +50,28 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
         inputPassword = findViewById(R.id.inputPasswordHospital);
         confirmPassword = findViewById(R.id.confirmPasswordHospital);
 
-        deptunitBtn.setOnClickListener(new View.OnClickListener()
-        {
+        deptunitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(signup_hospital.this);
                 mBuilder.setTitle(R.string.dialog_title4);
-                mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener()
-                {
+                mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked)
-                    {
-                        if(isChecked)
-                        {
+                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+                        if (isChecked) {
                             mUserItems.add(position);
-                        }
-                        else
-                        {
+                        } else {
                             mUserItems.remove((Integer.valueOf(position)));
                         }
                     }
                 });
 
                 mBuilder.setCancelable(false);
-                mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener()
-                {
+                mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int which)
-                    {
+                    public void onClick(DialogInterface dialogInterface, int which) {
                         String item = "";
-                        for (int i = 0; i < mUserItems.size(); i++)
-                        {
+                        for (int i = 0; i < mUserItems.size(); i++) {
                             item = item + listItems[mUserItems.get(i)];
                             if (i != mUserItems.size() - 1) {
                                 item = item + ", ";
@@ -91,22 +81,17 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
                     }
                 });
 
-                mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener()
-                {
+                mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i)
-                    {
+                    public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
                     }
                 });
 
-                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener()
-                {
+                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int which)
-                    {
-                        for (int i = 0; i < checkedItems.length; i++)
-                        {
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        for (int i = 0; i < checkedItems.length; i++) {
                             checkedItems[i] = false;
                             mUserItems.clear();
                             mItemSelected.setText("");
@@ -119,10 +104,11 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
             }
         });
     }
+
     @Override
-    public void  onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
-    {     ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
-        Toast.makeText(this,adapterView.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
+        Toast.makeText(this, adapterView.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -133,8 +119,9 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
     public void signupbutton(View view) {
         checkCredentials();
     }
+
     public void gotoLoginPage(View view) {
-        Intent intent = new Intent(signup_hospital.this,login.class);
+        Intent intent = new Intent(signup_hospital.this, login.class);
         startActivity(intent);
     }
 
@@ -144,17 +131,18 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
         String password = inputPassword.getText().toString();
         String conPassword = confirmPassword.getText().toString();
 
-        if(name.isEmpty() || name.length() < 7)
+        if (name.isEmpty() || name.length() < 7)
             showError(inputName, "Your Name is not valid");
-        else if(email.isEmpty() || !email.contains("@"))
+        else if (email.isEmpty() || !email.contains("@"))
             showError(inputEmail, "Email is not Valid");
-        else if(password.isEmpty() || password.length()<7)
+        else if (password.isEmpty() || password.length() < 7)
             showError(inputPassword, "Password must be at least 7 characters");
-        else if(conPassword.isEmpty() || !conPassword.equals(password))
+        else if (conPassword.isEmpty() || !conPassword.equals(password))
             showError(confirmPassword, "Password does not match");
         else
             Toast.makeText(this, "Signing Up", Toast.LENGTH_SHORT).show();
     }
+
     private void showError(EditText input, String s) {
         input.setError(s);
         input.requestFocus();

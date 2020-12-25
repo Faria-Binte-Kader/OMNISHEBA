@@ -6,13 +6,11 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HospitalMainActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class HospitalMainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
 
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hospital_main_activity);
         getSupportActionBar().setTitle("0!");
@@ -23,43 +21,37 @@ public class HospitalMainActivity extends AppCompatActivity implements View.OnCl
         findViewById(R.id.hospitallogout).setOnClickListener(this);
     }
 
-    private void logout()
-    {
+    private void logout() {
         SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,LogoutHospitalActivity.class);
+        Intent intent = new Intent(this, LogoutHospitalActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
-    private void doctor()
-    {
+    private void doctor() {
         SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,DoctorsHospitalActivity.class);
+        Intent intent = new Intent(this, DoctorsHospitalActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
-    private void update()
-    {
+    private void update() {
         SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,UpdateHospitalActivity.class);
+        Intent intent = new Intent(this, UpdateHospitalActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
-    private void profile()
-    {
+    private void profile() {
         SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,ProfileHospitalActivity.class);
+        Intent intent = new Intent(this, ProfileHospitalActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.hospitalprofile:
                 profile();
                 break;

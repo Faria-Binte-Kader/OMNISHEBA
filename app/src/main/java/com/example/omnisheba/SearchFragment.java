@@ -14,15 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class SearchFragment extends Fragment  {
-    private Spinner spinner1,spinner2;
-    public Button doctor,hospital,testcenter;
-    String [] values =
-            {"No Specialty", "Cardiology","ENT","General","Medicine","Nephrology","Neurology","OB/GYN",
-        "Oncology","Opthalmology", "Physiology","Psychology", "Urology",};
-    String [] values2 =
-            {"No location", "Agargaon","Banani","Cantonment","Gulshan","Maghbazar","Malibag","Mirpur","Mohammadpur",
-                    "Shahbag","Tejgaon","Uttara",};
+public class SearchFragment extends Fragment {
+    private Spinner spinner1, spinner2;
+    public Button doctor, hospital, testcenter;
+    String[] values =
+            {"No Specialty", "Cardiology", "ENT", "General", "Medicine", "Nephrology", "Neurology", "OB/GYN",
+                    "Oncology", "Opthalmology", "Physiology", "Psychology", "Urology",};
+    String[] values2 =
+            {"No location", "Agargaon", "Banani", "Cantonment", "Gulshan", "Maghbazar", "Malibag", "Mirpur", "Mohammadpur",
+                    "Shahbag", "Tejgaon", "Uttara",};
 
     @Nullable
     @Override
@@ -30,8 +30,8 @@ public class SearchFragment extends Fragment  {
         getActivity().setTitle("0!");
         View v = inflater.inflate(R.layout.fragment_search, container, false);
 
-     spinner1 = (Spinner) v.findViewById(R.id.specialty2_type);
-     spinner2 = (Spinner) v.findViewById(R.id.location2_type);
+        spinner1 = (Spinner) v.findViewById(R.id.specialty2_type);
+        spinner2 = (Spinner) v.findViewById(R.id.location2_type);
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.specialty2, values);
@@ -44,7 +44,6 @@ public class SearchFragment extends Fragment  {
 
         return v;
     }
-
 
 
 }

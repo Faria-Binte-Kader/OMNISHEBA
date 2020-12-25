@@ -37,7 +37,7 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
     Button loginBtn;
     FirebaseAuth fAuth;
     FirebaseFirestore fstore;
-    String type="";
+    String type = "";
     String userId;
 
     @Override
@@ -53,7 +53,7 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
         loginPassword = findViewById(R.id.loginPassword);
         fAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
-        loginBtn = (Button)findViewById(R.id.loginbutton);
+        loginBtn = (Button) findViewById(R.id.loginbutton);
 
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -73,30 +73,29 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
                 }
 
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                userId = fAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = fstore.collection("Usertype").document(userId);
-                                documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                        type = type+(value.getString("Type"));
-                                        if (type.equals("Doctor")) {
-                                            Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(getApplicationContext(), DoctorMainActivity.class));
-                                        } else if (type.equals("MSS")) {
-                                            Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                        }
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            userId = fAuth.getCurrentUser().getUid();
+                            DocumentReference documentReference = fstore.collection("Usertype").document(userId);
+                            documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                    type = type + (value.getString("Type"));
+                                    if (type.equals("Doctor")) {
+                                        Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), DoctorMainActivity.class));
+                                    } else if (type.equals("MSS")) {
+                                        Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     }
-                                });
+                                }
+                            });
 
-                            }
-                            else {
-                                Toast.makeText(login.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
+                        } else {
+                            Toast.makeText(login.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
+                    }
                 });
 
             }
@@ -141,8 +140,6 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
             startActivity(intent);
         }
     }
-
-
 
 
 }

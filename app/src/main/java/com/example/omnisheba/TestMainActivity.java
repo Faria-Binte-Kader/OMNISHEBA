@@ -7,13 +7,11 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TestMainActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class TestMainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
 
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_main);
         getSupportActionBar().setTitle("0!");
@@ -23,35 +21,30 @@ public class TestMainActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.testlogout).setOnClickListener(this);
     }
 
-    private void logout()
-    {
+    private void logout() {
         SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,LogoutTestCenterActivity.class);
-       // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        Intent intent = new Intent(this, LogoutTestCenterActivity.class);
+        // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
-    private void update()
-    {
+    private void update() {
         SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,UpdateTestCenterActivity.class);
+        Intent intent = new Intent(this, UpdateTestCenterActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
-    private void profile()
-    {
+    private void profile() {
         SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,ProfileTestCenterActivity.class);
+        Intent intent = new Intent(this, ProfileTestCenterActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.testprofile:
                 profile();
                 break;

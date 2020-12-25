@@ -69,14 +69,14 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
         signUpBtnMSS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 final String name = inputName.getText().toString();
-                 final String email = inputEmail.getText().toString();
-                  String password = inputPassword.getText().toString();
-                 String conPassword = confirmPassword.getText().toString();
-                 final String description = inputDescription.getText().toString();
-                 final String dateofbirth = inputDob.getText().toString();
-                 final String phone = inputPhone.getText().toString();
-                 final String type = genderType.getSelectedItem().toString();
+                final String name = inputName.getText().toString();
+                final String email = inputEmail.getText().toString();
+                String password = inputPassword.getText().toString();
+                String conPassword = confirmPassword.getText().toString();
+                final String description = inputDescription.getText().toString();
+                final String dateofbirth = inputDob.getText().toString();
+                final String phone = inputPhone.getText().toString();
+                final String type = genderType.getSelectedItem().toString();
 
                 if (name.isEmpty() || name.length() < 7) {
                     showError(inputName, "Your Name is not valid");
@@ -104,14 +104,14 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
                             Toast.makeText(signup_mss.this, "User Created", Toast.LENGTH_SHORT).show();
                             userId = fAuthMSS.getCurrentUser().getUid();
                             DocumentReference documentReference = fstoreMSS.collection("MSS").document(userId);
-                            Map<String,Object> mss= new HashMap<>();
-                            mss.put("Name",name);
-                            mss.put("Email",email);
-                            mss.put("Gender",type);
+                            Map<String, Object> mss = new HashMap<>();
+                            mss.put("Name", name);
+                            mss.put("Email", email);
+                            mss.put("Gender", type);
                             mss.put("Description", description);
-                            mss.put("DOB",dateofbirth);
+                            mss.put("DOB", dateofbirth);
                             mss.put("Phone", phone);
-                            mss.put("Type","MSS");
+                            mss.put("Type", "MSS");
                             documentReference.set(mss).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -120,7 +120,7 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
                             });
                             DocumentReference documentReference3 = fstoreMSS.collection("Usertype").document(userId);
                             Map<String, Object> type = new HashMap<>();
-                            type.put("Type","MSS");
+                            type.put("Type", "MSS");
 
                             documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

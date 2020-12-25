@@ -17,7 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class ProfileDoctorActivity extends AppCompatActivity {
 
-    private TextView name, email, description, hospitalName, practiceYear, location,specialty,sat,satmon, sateve, sunmon, suneve, monmon, moneve, tuesmon, tueseve, wedmon, wedeve,
+    private TextView name, email, description, hospitalName, practiceYear, location, specialty, sat, satmon, sateve, sunmon, suneve, monmon, moneve, tuesmon, tueseve, wedmon, wedeve,
             thursmon, thurseve, frimon, frieve;
     FirebaseAuth fAuthDoctor;
     FirebaseFirestore fStore;
@@ -59,7 +59,7 @@ public class ProfileDoctorActivity extends AppCompatActivity {
         userID = fAuthDoctor.getCurrentUser().getUid();
         DocumentReference documentReference = fStore.collection("Doctor").document(userID);
         DocumentReference documentReference2 = fStore.collection("Appointment").document(userID);
-       documentReference.addSnapshotListener(this,new EventListener<DocumentSnapshot>() {
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 name.setText(value.getString("Name"));
@@ -68,11 +68,11 @@ public class ProfileDoctorActivity extends AppCompatActivity {
                 practiceYear.setText(value.getString("Practicestartingyear"));
                 description.setText(value.getString("Description"));
                 location.setText(value.getString("Hospitalchamnberlocation"));
-               // specialty.setText(value.getString("Specialty"));
+                // specialty.setText(value.getString("Specialty"));
 
             }
         });
-        documentReference2.addSnapshotListener(this,new EventListener<DocumentSnapshot>() {
+        documentReference2.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 satmon.setText(value.getString("Satmon"));

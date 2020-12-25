@@ -62,7 +62,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
     CheckBox satmon, sateve, sunmon, suneve, monmon, moneve, tuesmon, tueseve, wedmon, wedeve,
             thursmon, thurseve, frimon, frieve;
     String[][] appointment = new String[7][3];
-    ArrayList<String> special= new ArrayList<String>();
+    ArrayList<String> special = new ArrayList<String>();
 
 
     private EditText inputName, inputEmail, inputPassword, confirmPassword, hospitalName, practiceYear, description;
@@ -179,12 +179,12 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                             Map<String, Object> doctor = new HashMap<>();
                             doctor.put("Name", name);
                             doctor.put("Email", email);
-                            doctor.put("Description",descript);
+                            doctor.put("Description", descript);
                             doctor.put("Specialty", special);
                             doctor.put("Hospitalchambername", hosName);
                             doctor.put("Hospitalchamnberlocation", location);
                             doctor.put("Practicesatrtingyear", pracYear);
-                            doctor.put("Type","Doctor");
+                            doctor.put("Type", "Doctor");
 
                             DocumentReference documentReference2 = fstoreDoctor.collection("Appointment").document(userId);
                             Map<String, Object> App = new HashMap<>();
@@ -205,7 +205,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
 
                             DocumentReference documentReference3 = fstoreDoctor.collection("Usertype").document(userId);
                             Map<String, Object> type = new HashMap<>();
-                            type.put("Type","Doctor");
+                            type.put("Type", "Doctor");
 
                             documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

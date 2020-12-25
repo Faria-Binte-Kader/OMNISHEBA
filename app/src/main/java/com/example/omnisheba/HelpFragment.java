@@ -9,13 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class HelpFragment extends Fragment
-{
+public class HelpFragment extends Fragment {
     @Nullable
     @Override
 
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {   getActivity().setTitle("0!");
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getActivity().setTitle("0!");
         return inflater.inflate(R.layout.fragment_help, container, false);
     }
 }
