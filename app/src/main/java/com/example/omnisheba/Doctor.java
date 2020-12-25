@@ -1,7 +1,10 @@
 package com.example.omnisheba;
 
 public class Doctor extends Person {
-    private String hospital, practiceYear, specialty, location;
+    private String hospital;
+    private String practiceYear;
+    private String specialty;
+    private String location;
     private String[][] shift;
 
     public Doctor() {

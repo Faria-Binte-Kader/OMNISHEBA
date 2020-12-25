@@ -8,7 +8,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MSS extends Person {
-    private String dateofbirth, phone, gender;
+    private String dateofbirth;
+    private String phone;
+    private String gender;
 
     public MSS() {
         new Person();

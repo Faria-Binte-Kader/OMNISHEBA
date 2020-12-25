@@ -1,7 +1,11 @@
 package com.example.omnisheba;
 
 public class Person {
-    private String name, email, password, conPassword, description;
+    private String name;
+    private String email;
+    private String password;
+    private String conPassword;
+    private String description;
 
     public Person() {
         name = "";
