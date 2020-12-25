@@ -111,11 +111,23 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
                             mss.put("Description", description);
                             mss.put("DOB",dateofbirth);
                             mss.put("Phone", phone);
+                            mss.put("Type","MSS");
                             documentReference.set(mss).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "onSuccess: user profile is created");
                                 }
+                            });
+                            DocumentReference documentReference3 = fstoreMSS.collection("Usertype").document(userId);
+                            Map<String, Object> type = new HashMap<>();
+                            type.put("Type","MSS");
+
+                            documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: user type is created");
+                                }
+
                             });
 
 

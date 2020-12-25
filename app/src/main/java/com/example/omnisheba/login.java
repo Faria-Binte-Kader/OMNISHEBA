@@ -1,6 +1,7 @@
 package com.example.omnisheba;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -20,6 +21,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.List;
 
@@ -30,7 +36,9 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
     EditText loginEmail, loginPassword;
     Button loginBtn;
     FirebaseAuth fAuth;
-    //ProgressBar progBar;
+    FirebaseFirestore fstore;
+    String type="";
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +52,9 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
         loginEmail = findViewById(R.id.loginEmail);
         loginPassword = findViewById(R.id.loginPassword);
         fAuth = FirebaseAuth.getInstance();
-        loginBtn = findViewById(R.id.loginbutton);
-        //progBar = findViewById(R.id.progressBarLogin);
+        fstore = FirebaseFirestore.getInstance();
+        loginBtn = (Button)findViewById(R.id.loginbutton);
 
-        /*if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
-        }*/
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,37 +72,33 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
                     return;
                 }
 
-                //progBar.setVisibility(View.VISIBLE);
+                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                userId = fAuth.getCurrentUser().getUid();
+                                DocumentReference documentReference = fstore.collection("Usertype").document(userId);
+                                documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                        type = type+(value.getString("Type"));
+                                        if (type.equals("Doctor")) {
+                                            Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(getApplicationContext(), DoctorMainActivity.class));
+                                        } else if (type.equals("MSS")) {
+                                            Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                        }
+                                    }
+                                });
 
-                Spinner userType = findViewById(R.id.usertype);
-                String type = userType.getSelectedItem().toString();
-                if (type.equals("Medical Service Seeker")) {
-                    fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            } else {
+                            }
+                            else {
                                 Toast.makeText(login.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
-                    });
-                } else if (type.equals("Doctor")) {
-                    fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), DoctorMainActivity.class));
-                            } else {
-                                Toast.makeText(login.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                } else {
-                    loginBasedOnUser();
-                }
+                });
+
             }
         });
     }
@@ -114,10 +114,6 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
 
     }
 
-    /*public void loginbutton(View view) {
-        checkCredentials();
-    }*/
-
     public void gotosignupbutton(View view) {
         SignUpBasedOnUser();
     }
@@ -127,37 +123,6 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
         input.requestFocus();
     }
 
-    /*private void checkCredentials() {
-        String email = loginEmail.getText().toString();
-        String password = loginPassword.getText().toString();
-
-        if (email.isEmpty() || !email.contains("@"))
-            showError(loginEmail, "Email is not Valid");
-        else if (password.isEmpty() || password.length() < 7)
-            showError(loginPassword, "Password must be at least 7 characters");
-        else {
-            Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
-            loginBasedOnUser();
-        }
-    }*/
-
-    public void loginBasedOnUser() {
-        Spinner userType = findViewById(R.id.usertype);
-        String type = userType.getSelectedItem().toString();
-        if (type.equals("Doctor")) {
-            Intent intent = new Intent(login.this, DoctorMainActivity.class);
-            startActivity(intent);
-        } else if (type.equals("Medical Service Seeker")) {
-            Intent intent = new Intent(login.this, MainActivity.class);
-            startActivity(intent);
-        } else if (type.equals("Hospital")) {
-            Intent intent = new Intent(login.this, HospitalMainActivity.class);
-            startActivity(intent);
-        } else if (type.equals("Test Center")) {
-            Intent intent = new Intent(login.this, TestMainActivity.class);
-            startActivity(intent);
-        }
-    }
 
     public void SignUpBasedOnUser() {
         Spinner userType = findViewById(R.id.usertype);
@@ -176,4 +141,8 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
             startActivity(intent);
         }
     }
+
+
+
+
 }

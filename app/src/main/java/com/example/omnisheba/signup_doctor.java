@@ -184,6 +184,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                             doctor.put("Hospitalchambername", hosName);
                             doctor.put("Hospitalchamnberlocation", location);
                             doctor.put("Practicesatrtingyear", pracYear);
+                            doctor.put("Type","Doctor");
 
                             DocumentReference documentReference2 = fstoreDoctor.collection("Appointment").document(userId);
                             Map<String, Object> App = new HashMap<>();
@@ -201,6 +202,18 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                             App.put("Thurseve", appointment[5][2]);
                             App.put("Frimon", appointment[6][1]);
                             App.put("Frieve", appointment[6][2]);
+
+                            DocumentReference documentReference3 = fstoreDoctor.collection("Usertype").document(userId);
+                            Map<String, Object> type = new HashMap<>();
+                            type.put("Type","Doctor");
+
+                            documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: user type is created");
+                                }
+
+                            });
 
                             documentReference2.set(App).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
