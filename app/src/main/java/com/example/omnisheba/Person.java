@@ -1,37 +1,41 @@
 package com.example.omnisheba;
 
 public class Person {
-    private static String name;
-    private String email;
-    private String password;
-    private String conPassword;
-    private String description;
+    protected String name;
+    protected String email;
+    protected String password;
+    protected String conPassword;
+    protected String description;
 
     public Person() {
-        name = "";
-        email = "";
-        password = "";
-        conPassword = "";
-        description = "";
+        this.name = "";
+        this.email = "";
+        this.password = "";
+        this.conPassword = "";
+        this.description = "";
+    }
+
+    public Person(String nam) {
+        this.name = nam;
     }
 
     public Person(String nam, String mail, String pass, String conPass, String des) {
-        name = nam;
-        email = mail;
-        password = pass;
-        conPassword = conPass;
-        description = des;
+        this.name = nam;
+        this.email = mail;
+        this.password = pass;
+        this.conPassword = conPass;
+        this.description = des;
     }
 
     public void setInfo(String nam, String mail, String pass, String conPass, String des) {
-        name = nam;
-        email = mail;
-        password = pass;
-        conPassword = conPass;
-        description = des;
+        this.name = nam;
+        this.email = mail;
+        this.password = pass;
+        this.conPassword = conPass;
+        this.description = des;
     }
 
-    public static String getName() {
+    public String getName() {
         return name;
     }
 

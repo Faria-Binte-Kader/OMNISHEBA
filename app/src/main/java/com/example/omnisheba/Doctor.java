@@ -1,49 +1,62 @@
 package com.example.omnisheba;
 
-public class Doctor extends Person {
-    private static String hospital;
-    private static String practiceYear;
-    private static String specialty;
-    private static String location;
-    private static String[][] shift;
+public class Doctor {
+    private  String Name;
+    private  String Description;
+    private  String Email;
+    private  String Hospitalchamnberlocation;
+    private  String Hospitalchambername;
+    private  String Practicesatrtingyear;
 
-    public Doctor() {
-        new Person();
-        hospital = "";
-        practiceYear = "";
-        specialty = "";
-        location = "";
+
+    private static String[] Specialty;
+    private String Type;
+
+    public Doctor(){}
+
+    public Doctor(String nam, String mail, String des, String hos, String py, String loc) {
+        Name = nam;
+        Email = mail;
+        Description = des;
+        Hospitalchambername = hos;
+        Practicesatrtingyear = py;
+        Hospitalchamnberlocation = loc;
     }
 
-    public Doctor(String nam, String mail, String pass, String conPass, String des, String hos, String py, String sp, String loc) {
-        new Person(nam, mail, pass, conPass, des);
-        hospital = hos;
-        practiceYear = py;
-        specialty = sp;
-        location = loc;
+    public  String getDescription() {
+        return Description;
     }
 
-    public void setInfo(String nam, String mail, String pass, String conPass, String des, String hos, String py, String sp, String loc) {
-        super.setInfo(nam, mail, pass, conPass, des);
-        hospital = hos;
-        practiceYear = py;
-        specialty = sp;
-        location = loc;
+    public void setDescription(String description) {
+        Description = description;
     }
 
-    public static String getHospital() {
-        return hospital;
+    public  String getEmail() {
+        return Email;
     }
 
-    public static String getPracticeYear() {
-        return practiceYear;
+    public  void setEmail(String email) {
+        Email = email;
     }
 
-    public static String getSpecialty() {
-        return specialty;
+    public  String getHospitalchamnberlocation() {
+        return Hospitalchamnberlocation;
     }
 
-    public static String getLocation() {
-        return location;
+    public  void setHospitalchamnberlocation(String hospitalchamnberlocation) {
+        Hospitalchamnberlocation = hospitalchamnberlocation;
+    }
+
+    public  String getHospitalchambername() {
+        return Hospitalchambername;
+    }
+
+    public  void setHospitalchambername(String hospitalchambername) {
+        Hospitalchambername = hospitalchambername;
+    }
+
+
+    public String getName() {
+        return Name;
     }
 }

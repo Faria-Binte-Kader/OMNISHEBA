@@ -76,10 +76,18 @@
         android:layout_gravity="center"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recview"
+    <Button
+        android:id="@+id/find_doctor_by_name_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="Find Doctor By Name"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/button_rounded"
+        android:layout_gravity="center"
+        />
 
 
 </LinearLayout>

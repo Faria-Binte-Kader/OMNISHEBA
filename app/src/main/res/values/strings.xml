@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">OMNISHEBA</string>
+    <string name="dialog_title">Specialties</string>
+    <string name="ok_label">OK</string>
+    <string name="dismiss_label">Dismiss</string>
+    <string name="clear_all_label">Clear all</string>
+    <string name="dialog_title2">Appointment Days</string>
+    <string name="dialog_title3">Shifts</string>
+    <string name="dialog_title4">Medical Departments and Units</string>
+
+    <string name="dialog_title5">Medical Tests</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string-array name="User_Types">
         <item>Medical Service Seeker</item>
         <item>Doctor</item>
@@ -34,16 +46,19 @@
         <item>Tejgaon</item>
         <item>Uttara</item>
     </string-array>
+
     <string-array name="Gender_Types">
         <item>Male</item>
         <item>Female</item>
         <item>Other</item>
     </string-array>
+
     <string-array name="Hospital_Types">
         <item>Government</item>
         <item>Private</item>
         <item>Other</item>
     </string-array>
+
     <string-array name="Specialty2_Types">
         <item>No specialty</item>
         <item>Cardiology</item>
@@ -59,6 +74,7 @@
         <item>Psychology</item>
         <item>Urology</item>
     </string-array>
+
     <string-array name="Location2_Types">
         <item>No Location</item>
         <item>Agargaon</item>
@@ -90,6 +106,7 @@
         <item>Psychology</item>
         <item>Urology</item>
     </string-array>
+
     <string-array name="Location3_Types">
         <item>No Location</item>
         <item>Agargaon</item>
@@ -105,11 +122,6 @@
         <item>Tejgaon</item>
         <item>Uttara</item>
     </string-array>
-
-    <string name="dialog_title">Specialties</string>
-    <string name="ok_label">OK</string>
-    <string name="dismiss_label">Dismiss</string>
-    <string name="clear_all_label">Clear all</string>
 
     <string-array name="specialty_list">
         <item>Anatomical Pathology</item>
@@ -152,8 +164,6 @@
         <item>Urology</item>
     </string-array>
 
-    <string name="dialog_title2">Appointment Days</string>
-
     <string-array name="workday_list">
         <item>Monday</item>
         <item>Tuesday</item>
@@ -164,15 +174,11 @@
         <item>Sunday</item>
     </string-array>
 
-    <string name="dialog_title3">Shifts</string>
-
     <string-array name="shift_list">
         <item>Morning</item>
         <item>Noon</item>
         <item>Evening</item>
     </string-array>
-
-    <string name="dialog_title4">Medical Departments and Units</string>
 
     <string-array name="deptunit_list">
         <item>Anesthetics</item>
@@ -202,9 +208,6 @@
         <item>Medical intensive care unit(MICU)</item>
         <item>Long term intensive care unit(LTAC ICU)</item>
     </string-array>
-
-    <string name="dialog_title5">Medical Tests</string>
-
     <string-array name="test_list">
         <item>Angiography</item>
         <item>Autopsy</item>
@@ -227,7 +230,4 @@
         <item>Ultrasound</item>
         <item>Urinalysis</item>
     </string-array>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
