@@ -175,6 +175,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                         if (task.isSuccessful()) {
                             Toast.makeText(signup_doctor.this, "User Created", Toast.LENGTH_SHORT).show();
                             userId = fAuthDoctor.getCurrentUser().getUid();
+
                             DocumentReference documentReference = fstoreDoctor.collection("Doctor").document(userId);
                             Map<String, Object> doctor = new HashMap<>();
                             doctor.put("Name", name);
@@ -206,6 +207,23 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                             DocumentReference documentReference3 = fstoreDoctor.collection("Usertype").document(userId);
                             Map<String, Object> type = new HashMap<>();
                             type.put("Type", "Doctor");
+
+                            DocumentReference documentReference4 = fstoreDoctor.collection("Location").document(location).collection("Doctors").document(userId);
+                            Map<String, Object> loc = new HashMap<>();
+                            loc.put("Name", name);
+                            loc.put("Description", descript);
+                            loc.put("Specialty", special);
+                            loc.put("Hospitalchambername", hosName);
+                            loc.put("Hospitalchamnberlocation", location);
+                            loc.put("Practicesatrtingyear", pracYear);
+
+                            documentReference4.set(loc).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: location is created");
+                                }
+
+                            });
 
                             documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

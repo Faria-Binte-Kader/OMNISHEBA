@@ -1,11 +1,11 @@
 package com.example.omnisheba;
 
 public class Doctor extends Person {
-    private String hospital;
-    private String practiceYear;
-    private String specialty;
-    private String location;
-    private String[][] shift;
+    private static String hospital;
+    private static String practiceYear;
+    private static String specialty;
+    private static String location;
+    private static String[][] shift;
 
     public Doctor() {
         new Person();
@@ -31,19 +31,19 @@ public class Doctor extends Person {
         location = loc;
     }
 
-    public String getHospital() {
+    public static String getHospital() {
         return hospital;
     }
 
-    public String getPracticeYear() {
+    public static String getPracticeYear() {
         return practiceYear;
     }
 
-    public String getSpecialty() {
+    public static String getSpecialty() {
         return specialty;
     }
 
-    public String getLocation() {
+    public static String getLocation() {
         return location;
     }
 }
