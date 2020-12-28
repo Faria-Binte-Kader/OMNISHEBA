@@ -27,6 +27,7 @@
             android:layout_marginTop="50dp"
             >
             <EditText
+                android:id="@+id/updatenamemss"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Update Name"
@@ -39,7 +40,48 @@
                 android:layout_marginTop="10dp"
                 />
         </com.google.android.material.textfield.TextInputLayout>
-
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/white"
+        >
+        <EditText
+            android:id="@+id/mailmss"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Input Mail-ID to update password"
+            android:textColorHint="@color/white"
+            android:background="@drawable/text_rounded"
+            android:ems="10"
+            android:padding="10dp"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/white"
+        >
+        <EditText
+            android:id="@+id/oldpassmss"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Old Password"
+            android:textColorHint="@color/white"
+            android:background="@drawable/text_rounded"
+            android:ems="10"
+            android:padding="10dp"
+            android:inputType="textPassword"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,6 +90,7 @@
             android:textColorHint="@color/white"
             >
             <EditText
+                android:id="@+id/updatepassmss"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Update Password"
@@ -68,6 +111,7 @@
             android:textColorHint="@color/white"
             >
             <EditText
+                android:id="@+id/confirmupdatepassmss"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Confirm Password"
@@ -88,6 +132,7 @@
             android:textColorHint="@color/white"
             >
             <EditText
+                android:id="@+id/updatedescmss"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Update Description"
@@ -110,6 +155,7 @@
             android:textColorHint="@color/white"
             >
             <EditText
+                android:id="@+id/updatephonemss"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Update Phone Number"
