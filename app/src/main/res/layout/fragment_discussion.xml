@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/dark">
-    
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_above="@+id/linear"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:id="@+id/recyclerView"/>
+    android:background="@color/dark"
+    android:orientation="vertical"
+    android:paddingTop="250dp">
+
+    <Button
+        android:id="@+id/qbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="69dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/button_rounded"
+        android:padding="10dp"
+        android:text="View All Questions"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
     <LinearLayout
-        android:id="@+id/linear"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:gravity="bottom|end">
 
-    <EditText
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="5dp"
-        android:hint="Post Query"
-        android:textColor="@color/white"
-        android:textColorHint="@color/gray"
-        android:background="@drawable/bg_edit_text"
-        android:padding="10dp"
-        />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_marginStart="5dp"
-        android:tint="@color/colorPrimary"
-        app:fabCustomSize="47dp"
-        android:layout_marginEnd="5dp"
-        android:backgroundTint="@color/dark"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_send"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:elevation="6dp"
+            android:src="@drawable/ic_create"
+            app:fabSize="normal" />
+
     </LinearLayout>
 
-</RelativeLayout>
+
+
+
+</LinearLayout>
