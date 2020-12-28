@@ -1,0 +1,373 @@
+Index: app/src/main/java/com/example/omnisheba/DiscussionFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.omnisheba;\r\n\r\nimport android.os.Bundle;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.fragment.app.Fragment;\r\n\r\npublic class DiscussionFragment extends Fragment {\r\n    @Nullable\r\n    @Override\r\n\r\n    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {\r\n        getActivity().setTitle(\"0!\");\r\n        return inflater.inflate(R.layout.fragment_discussion, container, false);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/omnisheba/DiscussionFragment.java	(revision b3e05b2e712216236c1a78b3ccf86d777ad7a36c)
++++ app/src/main/java/com/example/omnisheba/DiscussionFragment.java	(date 1609107255309)
+@@ -1,20 +1,179 @@
+ package com.example.omnisheba;
+ 
++import android.app.Dialog;
++import android.graphics.Color;
++import android.graphics.drawable.ColorDrawable;
+ import android.os.Bundle;
++import android.util.Log;
++import android.view.Gravity;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
++import android.widget.ImageView;
++import android.widget.TextView;
++import android.widget.Toast;
++import android.widget.Toolbar;
+ 
+ import androidx.annotation.NonNull;
+ import androidx.annotation.Nullable;
+ import androidx.fragment.app.Fragment;
++import androidx.recyclerview.widget.LinearLayoutManager;
++import androidx.recyclerview.widget.RecyclerView;
++
++import com.firebase.ui.database.FirebaseRecyclerOptions;
++import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
++import com.firebase.ui.firestore.FirestoreRecyclerOptions;
++import com.google.android.gms.tasks.OnSuccessListener;
++import com.google.android.material.floatingactionbutton.FloatingActionButton;
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.firestore.DocumentReference;
++import com.google.firebase.firestore.DocumentSnapshot;
++import com.google.firebase.firestore.EventListener;
++import com.google.firebase.firestore.FieldValue;
++import com.google.firebase.firestore.FirebaseFirestore;
++import com.google.firebase.firestore.FirebaseFirestoreException;
++import com.google.firebase.firestore.Query;
++
++import java.util.HashMap;
++import java.util.Map;
+ 
+ public class DiscussionFragment extends Fragment {
++    private TextView key, ques;
++    private  FirestoreRecyclerAdapter adapter;
++    private RecyclerView recycle;
++    ImageView addbtn;
++    FirebaseAuth fAuth;
++    FirebaseFirestore fStore;
++    Dialog popup;
++    String userID;
++
+     @Nullable
+     @Override
+ 
+     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+         getActivity().setTitle("0!");
+-        return inflater.inflate(R.layout.fragment_discussion, container, false);
++        View view= inflater.inflate(R.layout.fragment_discussion, container, false);
++        recycle = (RecyclerView) view.findViewById(R.id.postRecycle);
++        fAuth= FirebaseAuth.getInstance();
++        fStore = FirebaseFirestore.getInstance();
++        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
++        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
++        recycle.setHasFixedSize(true);
++        recycle.setLayoutManager(layoutManager);
++        recycle.setAdapter(adapter);
++        return view;
++    }
++
++    @Override
++    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
++        super.onViewCreated(view, savedInstanceState);
++
++        Query query;
++        query = fStore.collection("Questionanswer").orderBy("Time");
++        FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
++                .setQuery(query, Post.class).build();
++        adapter= new FirestoreRecyclerAdapter<Post, PostViewHolder>(options) {
++            @NonNull
++            @Override
++            public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
++                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_post, parent,false);
++                return new PostViewHolder(view);
++            }
++
++            @Override
++            protected void onBindViewHolder(@NonNull PostViewHolder holder, int position, @NonNull Post model) {
++             holder.keyword2.setText(model.getKey());
++             holder.question2.setText(model.getQuestion());
++            }
++
++
++        };
++
++
++
++        iniPopup();
++
++        FloatingActionButton fabtn= view.findViewById(R.id.fab);
++        fabtn.setOnClickListener(new View.OnClickListener(){
++            @Override
++            public void onClick(View v) {
++                popup.show();}
++
++
++        });
++
++    }
++
++    private void iniPopup()
++    {
++        popup = new Dialog(getActivity());
++        popup.setContentView(R.layout.popup);
++        popup.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
++        popup.getWindow().setLayout(Toolbar.LayoutParams.MATCH_PARENT,Toolbar.LayoutParams.WRAP_CONTENT);
++        popup.getWindow().getAttributes().gravity= Gravity.TOP;
++
++        key= popup.findViewById(R.id.keyword);
++        ques= popup.findViewById(R.id.question);
++        addbtn = popup.findViewById(R.id.fab2);
++
++        addbtn.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                addbtn.setVisibility((View.INVISIBLE));
++                if(!(key.getText().toString().equals("")) && !(ques.getText().toString().equals("")))
++                {
++                    Toast.makeText(getActivity(),"Posting",Toast.LENGTH_LONG).show();
++
++                    userID = fAuth.getCurrentUser().getUid();
++                    Map<String, Object> qna = new HashMap<>();
++                    qna.put("userID", userID);
++                    qna.put("Question", ques.getText().toString());
++                    qna.put("Key",key.getText().toString());
++                    qna.put("Time", FieldValue.serverTimestamp());
++
++                    fStore.collection("Questionanswer").add(qna).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
++                        @Override
++                        public void onSuccess(DocumentReference documentReference) {
++                                    Toast.makeText(getActivity(),"Post added!",Toast.LENGTH_LONG).show();
++                                    addbtn.setVisibility((View.VISIBLE));
++                                    key.setText("");
++                                    ques.setText("");
++                                }
++
++                            });
++
++                        }
++                    else
++                    {   Toast.makeText(getActivity(),"Please fill the keyword and write your question!",Toast.LENGTH_LONG).show();
++                        addbtn.setVisibility((View.VISIBLE));
++                    }
++            }
++        });
++    }
++
++    private class PostViewHolder extends RecyclerView.ViewHolder {
++
++        private TextView keyword2;
++        private TextView question2;
++
++        public PostViewHolder(@NonNull View itemView) {
++            super(itemView);
++
++            keyword2= itemView.findViewById(R.id.keywordlist);
++            question2= itemView.findViewById(R.id.questionlist);
++
++        }
++    }
++
++    @Override
++    public void onStop() {
++        super.onStop();
++        adapter.stopListening();
++    }
++
++    @Override
++    public void onStart() {
++        super.onStart();
++        adapter.startListening();
+     }
+ }
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.drawerlayout.widget.DrawerLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/drawer_layout\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".MainActivity\"\r\n   tools:openDrawer=\"start\"\r\n    android:fitsSystemWindows=\"true\"\r\n    >\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:orientation=\"vertical\">\r\n        <androidx.appcompat.widget.Toolbar\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"?attr/actionBarSize\"\r\n            android:id=\"@+id/toolbar\"\r\n            android:theme=\"@style/ThemeOverlay.AppCompat.Dark.ActionBar\"\r\n            android:background=\"@color/colorPrimary\"\r\n            app:popupTheme=\"@style/ThemeOverlay.AppCompat.Light\"\r\n            android:elevation=\"4dp\"/>\r\n        <FrameLayout\r\n            android:id=\"@+id/fragment_container\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"/>\r\n    </LinearLayout>\r\n    <com.google.android.material.navigation.NavigationView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"match_parent\"\r\n        android:id=\"@+id/nav_view\"\r\n        app:headerLayout=\"@layout/header\"\r\n        app:menu=\"@menu/mss_menu\"\r\n        android:layout_gravity=\"start\"\r\n        />\r\n\r\n\r\n\r\n\r\n</androidx.drawerlayout.widget.DrawerLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_main.xml	(revision b3e05b2e712216236c1a78b3ccf86d777ad7a36c)
++++ app/src/main/res/layout/activity_main.xml	(date 1609016042130)
+@@ -24,7 +24,11 @@
+         <FrameLayout
+             android:id="@+id/fragment_container"
+             android:layout_width="match_parent"
+-            android:layout_height="match_parent"/>
++            android:layout_height="match_parent">
++
++        </FrameLayout>
++
++
+     </LinearLayout>
+     <com.google.android.material.navigation.NavigationView
+         android:layout_width="wrap_content"
+@@ -36,6 +40,4 @@
+         />
+ 
+ 
+-
+-
+ </androidx.drawerlayout.widget.DrawerLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_discussion.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:background=\"@color/dark\">\r\n    \r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_above=\"@+id/linear\"\r\n        android:layout_height=\"match_parent\"\r\n        app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\r\n        android:id=\"@+id/recyclerView\"/>\r\n\r\n    <LinearLayout\r\n        android:id=\"@+id/linear\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"60dp\"\r\n        android:layout_alignParentBottom=\"true\"\r\n        android:gravity=\"center_vertical\"\r\n        android:orientation=\"horizontal\">\r\n\r\n    <EditText\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_weight=\"1\"\r\n        android:layout_marginStart=\"5dp\"\r\n        android:hint=\"Post Query\"\r\n        android:textColor=\"@color/white\"\r\n        android:textColorHint=\"@color/gray\"\r\n        android:background=\"@drawable/bg_edit_text\"\r\n        android:padding=\"10dp\"\r\n        />\r\n    <com.google.android.material.floatingactionbutton.FloatingActionButton\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_marginStart=\"5dp\"\r\n        android:tint=\"@color/colorPrimary\"\r\n        app:fabCustomSize=\"47dp\"\r\n        android:layout_marginEnd=\"5dp\"\r\n        android:backgroundTint=\"@color/dark\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:src=\"@drawable/ic_send\"/>\r\n    </LinearLayout>\r\n\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_discussion.xml	(revision b3e05b2e712216236c1a78b3ccf86d777ad7a36c)
++++ app/src/main/res/layout/fragment_discussion.xml	(date 1609107071171)
+@@ -1,45 +1,36 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:background="@color/dark">
+-    
+-    <androidx.recyclerview.widget.RecyclerView
+-        android:layout_width="match_parent"
+-        android:layout_above="@+id/linear"
+-        android:layout_height="match_parent"
+-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+-        android:id="@+id/recyclerView"/>
+-
++    android:background="@color/dark"
++    android:orientation="vertical">
+     <LinearLayout
+-        android:id="@+id/linear"
+         android:layout_width="match_parent"
+-        android:layout_height="60dp"
+-        android:layout_alignParentBottom="true"
+-        android:gravity="center_vertical"
+-        android:orientation="horizontal">
+-
+-    <EditText
+-        android:layout_width="0dp"
+         android:layout_height="wrap_content"
+-        android:layout_weight="1"
+-        android:layout_marginStart="5dp"
+-        android:hint="Post Query"
+-        android:textColor="@color/white"
+-        android:textColorHint="@color/gray"
+-        android:background="@drawable/bg_edit_text"
+-        android:padding="10dp"
+-        />
+-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+-        android:layout_width="wrap_content"
+-        android:layout_marginStart="5dp"
+-        android:tint="@color/colorPrimary"
+-        app:fabCustomSize="47dp"
+-        android:layout_marginEnd="5dp"
+-        android:backgroundTint="@color/dark"
+-        android:layout_height="wrap_content"
+-        android:src="@drawable/ic_send"/>
++        android:gravity="bottom|end">
++
++
++        <com.google.android.material.floatingactionbutton.FloatingActionButton
++            android:id="@+id/fab"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_gravity="end|bottom"
++            android:layout_margin="16dp"
++            android:backgroundTint="@color/colorPrimary"
++            android:elevation="6dp"
++            android:src="@drawable/ic_create"
++            app:fabSize="normal" />
+     </LinearLayout>
+ 
+-</RelativeLayout>
+\ No newline at end of file
++    <androidx.recyclerview.widget.RecyclerView
++        android:id="@+id/postRecycle"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:visibility="visible"
++        android:orientation="vertical"
++        >
++    </androidx.recyclerview.widget.RecyclerView>
++
++
++</LinearLayout>
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\r\napply plugin: 'com.google.gms.google-services'\r\n\r\nandroid {\r\n    compileSdkVersion 29\r\n    buildToolsVersion \"29.0.3\"\r\n\r\n    defaultConfig {\r\n        applicationId \"com.example.omnisheba\"\r\n        minSdkVersion 21\r\n        targetSdkVersion 29\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n\r\n}\r\n\r\ndependencies {\r\n    implementation fileTree(dir: 'libs', include: ['*.jar'])\r\n\r\n    implementation 'androidx.appcompat:appcompat:1.2.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'\r\n    implementation 'com.google.firebase:firebase-auth:20.0.1'\r\n    implementation 'com.google.firebase:firebase-firestore:22.0.1'\r\n    testImplementation 'junit:junit:4.12'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.2'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'\r\n    implementation 'com.google.android.material:material:1.2.1'\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision b3e05b2e712216236c1a78b3ccf86d777ad7a36c)
++++ app/build.gradle	(date 1609101741755)
+@@ -31,8 +31,13 @@
+     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+     implementation 'com.google.firebase:firebase-auth:20.0.1'
+     implementation 'com.google.firebase:firebase-firestore:22.0.1'
++    implementation 'com.firebaseui:firebase-ui-database:6.2.1'
++    implementation 'com.firebaseui:firebase-ui-auth:3.0.0'
++    implementation 'com.firebaseui:firebase-ui-firestore:6.2.0'
+     testImplementation 'junit:junit:4.12'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+     implementation 'com.google.android.material:material:1.2.1'
++    implementation 'androidx.recyclerview:recyclerview:1.1.0'
++    implementation 'androidx.cardview:cardview:1.0.0'
+ }
+Index: app/src/main/java/com/example/omnisheba/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.omnisheba;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.appcompat.app.ActionBarDrawerToggle;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.appcompat.widget.Toolbar;\r\nimport androidx.core.view.GravityCompat;\r\nimport androidx.drawerlayout.widget.DrawerLayout;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.os.Handler;\r\nimport android.view.MenuItem;\r\n\r\nimport com.google.android.material.navigation.NavigationView;\r\n\r\npublic class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {\r\n    private DrawerLayout drawer;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_main);\r\n\r\n        Toolbar toolbar = findViewById(R.id.toolbar);\r\n        setSupportActionBar(toolbar);\r\n\r\n        drawer = findViewById(R.id.drawer_layout);\r\n        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,\r\n                R.string.navigation_drawer_open, R.string.navigation_drawer_close);\r\n        drawer.addDrawerListener(toggle);\r\n        toggle.syncState();\r\n        NavigationView navigationView = findViewById(R.id.nav_view);\r\n        navigationView.setNavigationItemSelectedListener(this);\r\n\r\n        /*public void onBackPressed() {\r\n            if (drawer.isDrawerOpen(GravityCompat.START)) {\r\n                drawer.closeDrawer(GravityCompat.START);\r\n            } else {\r\n                super.onBackPressed();\r\n            }\r\n        }*/\r\n\r\n        if (savedInstanceState == null) {\r\n            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\r\n                    new SearchFragment()).commit();\r\n            navigationView.setCheckedItem(R.id.nav_search);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public boolean onNavigationItemSelected(@NonNull MenuItem item) {\r\n        switch (item.getItemId()) {\r\n            case R.id.nav_search:\r\n                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\r\n                        new SearchFragment()).commit();\r\n                break;\r\n            case R.id.nav_profile:\r\n                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\r\n                        new ProfileFragment()).commit();\r\n                break;\r\n            case R.id.nav_update:\r\n                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\r\n                        new UpdateFragment()).commit();\r\n                break;\r\n            case R.id.nav_corona:\r\n                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\r\n                        new CovidFragment()).commit();\r\n                break;\r\n            case R.id.nav_question:\r\n                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\r\n                        new DiscussionFragment()).commit();\r\n                break;\r\n            case R.id.nav_logout:\r\n                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\r\n                        new LogoutFragment()).commit();\r\n                break;\r\n            case R.id.nav_help:\r\n                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\r\n                        new HelpFragment()).commit();\r\n                break;\r\n        }\r\n        drawer.closeDrawer(GravityCompat.START);\r\n\r\n        return true;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/omnisheba/MainActivity.java	(revision b3e05b2e712216236c1a78b3ccf86d777ad7a36c)
++++ app/src/main/java/com/example/omnisheba/MainActivity.java	(date 1609016745332)
+@@ -11,7 +11,10 @@
+ import android.os.Bundle;
+ import android.os.Handler;
+ import android.view.MenuItem;
++import android.view.View;
++import android.widget.Toast;
+ 
++import com.google.android.material.floatingactionbutton.FloatingActionButton;
+ import com.google.android.material.navigation.NavigationView;
+ 
+ public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+@@ -25,6 +28,8 @@
+         Toolbar toolbar = findViewById(R.id.toolbar);
+         setSupportActionBar(toolbar);
+ 
++
++
+         drawer = findViewById(R.id.drawer_layout);
+         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n        <option name=\"useQualifiedModuleNames\" value=\"true\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision b3e05b2e712216236c1a78b3ccf86d777ad7a36c)
++++ .idea/gradle.xml	(date 1609100776869)
+@@ -5,6 +5,7 @@
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+         <option name="testRunner" value="PLATFORM" />
++        <option name="disableWrapperSourceDistributionNotification" value="true" />
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+         <option name="modules">

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/gray">
+
+    <EditText
+        android:id="@+id/keyword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Keyword"
+        android:textColorHint="@color/white"
+        android:padding="20dp"
+        android:layout_marginTop="50dp"
+        android:inputType="text"
+        />
+    <EditText
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Post your Query"
+        android:textColorHint="@color/white"
+        android:padding="20dp"
+        android:inputType="text"
+        />
+      <ImageView
+          android:id="@+id/fab2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/ic_create"
+          android:layout_gravity="center"
+          android:padding="16dp"
+          android:background="@drawable/circle"
+          android:layout_marginTop="50dp"
+          android:layout_marginBottom="50dp"/>
+
+</LinearLayout>
