@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DoctorDiscussionForum"></activity>
+        <activity android:name=".FindDoctor"></activity>
+        <activity android:name=".DoctorDiscussionForum" />
         <activity android:name=".DiscussionForum" />
         <activity android:name=".FindDoctorByName" />
         <activity android:name=".DoctorsHospitalActivity" />

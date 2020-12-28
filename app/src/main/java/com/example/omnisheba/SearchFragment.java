@@ -17,15 +17,23 @@ import androidx.fragment.app.Fragment;
 
 public class SearchFragment extends Fragment implements View.OnClickListener {
     private Spinner spinner1, spinner2;
-    public Button doctor, hospital, testcenter;
-    String[] values =
-            {"No Specialty", "Cardiology", "ENT", "General", "Medicine", "Nephrology", "Neurology", "OB/GYN",
-                    "Oncology", "Opthalmology", "Physiology", "Psychology", "Urology",};
-    String[] values2 =
-            {"No location", "Agargaon", "Banani", "Cantonment", "Gulshan", "Maghbazar", "Malibag", "Mirpur", "Mohammadpur",
-                    "Shahbag", "Tejgaon", "Uttara",};
+    public Button doctor, hospital, testcenter, findDoctorByNameBtn;
 
-    private Button findDoctorByNameBtn;
+    public static final String EXTRA_TEXT1 = "com.example.application.example.EXTRA_TEXT1";
+    public static final String EXTRA_TEXT2 = "com.example.application.example.EXTRA_TEXT2";
+
+    String[] values =
+            {"No Specialty", "Anatomical Pathology", "Anesthesiology", "Cardiology", "Cardiovascular/Thoracic Surgery", "Clinical Immunology/Allergy",
+                    "Critical Care Medicine", "Dermatology", "Emergency Medicine", "Endocrinology and Metabolism", "Family Medicine",
+                    "Gastroenterology", "General Internal Medicine", "General Surgery", "General/Clinical Pathology", "Geriatric Medicine",
+                    "Hematology", "Medical Biochemistry", "Medical Genetics", "Medical Microbiology and Infectious Diseases",
+                    "Medical Oncology", "Nephrology", "Neurology", "Neurosurgery", "Nuclear Medicine", "Obstetrics/Gynecology",
+                    "Occupational Medicine", "Ophthalmology", "Orthopedic Surgery", "Otolaryngology", "Pediatrics",
+                    "Physical Medicine and Rehabilitation", "Plastic Surgery", "Psychiatry", "Public Health and Preventive Medicine",
+                    "Radiation Oncology", "Respirology", "Rheumatology", "Urology"};
+    String[] values2 =
+            {"No Location", "Agargaon", "Banani", "Dhaka Cantonment", "Dhanmondi", "Gulshan", "Maghbazar", "Malibag", "Mirpur", "Mohammadpur",
+                    "Shahbag", "Tejgaon", "Uttara"};
 
     @Nullable
     @Override
@@ -35,7 +43,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
         spinner1 = (Spinner) v.findViewById(R.id.specialty2_type);
         spinner2 = (Spinner) v.findViewById(R.id.location2_type);
-
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.specialty2, values);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -53,11 +60,26 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         view.findViewById(R.id.find_doctor_by_name_btn).setOnClickListener((View.OnClickListener) this);
+        view.findViewById(R.id.find_doctor_btn).setOnClickListener((View.OnClickListener) this);
     }
 
     private void findDoctorByName() {
         SharedPrefManager.getInstance(getActivity()).clear();
         Intent intent = new Intent(getActivity(), FindDoctorByName.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void findDoctor() {
+        String sp1 = spinner1.getSelectedItem().toString();
+        String sp2 = spinner2.getSelectedItem().toString();
+
+        SharedPrefManager.getInstance(getActivity()).clear();
+        Intent intent = new Intent(getActivity(), FindDoctor.class);
+
+        intent.putExtra(EXTRA_TEXT1,sp1);
+        intent.putExtra(EXTRA_TEXT2,sp2);
+
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -68,6 +90,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.find_doctor_by_name_btn:
                 findDoctorByName();
+                break;
+            case R.id.find_doctor_btn:
+                findDoctor();
                 break;
         }
     }
