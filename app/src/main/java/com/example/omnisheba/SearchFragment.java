@@ -58,7 +58,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
     private void findDoctorByName() {
         SharedPrefManager.getInstance(getActivity()).clear();
         Intent intent = new Intent(getActivity(), FindDoctorByName.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 

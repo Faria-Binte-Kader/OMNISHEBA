@@ -9,13 +9,15 @@
     tools:context=".FindDoctorByName"
     android:background="@drawable/doctor_search_recyclerview_bg">
 
-    <SearchView
+    <EditText
         android:id="@+id/searchViewDoctorName"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:padding="10dp"
-        android:queryHint="Search"
+        android:hint="Search"
         android:layout_margin="5dp"
+        android:inputType="textAutoComplete"
+        android:drawableStart="@drawable/ic_search"
         android:background="@color/colorPrimaryDark"/>
 
     <androidx.recyclerview.widget.RecyclerView
