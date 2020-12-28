@@ -145,7 +145,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                 final String descript = description.getText().toString();
                 final String hosName = hospitalName.getText().toString();
                 final String pracYear = practiceYear.getText().toString();
-                final String location = location_type.getSelectedItem().toString().toUpperCase();
+                final String location = location_type.getSelectedItem().toString();
 
 
                 if (name.isEmpty() || name.length() < 7) {
