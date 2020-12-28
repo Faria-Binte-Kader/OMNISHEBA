@@ -27,6 +27,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.firebase.ui.common.ChangeEventType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,36 +51,31 @@ public class FindDoctorByName extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_doctor_by_name);
 
-        doctorArrayList=new ArrayList<>();
+        doctorArrayList = new ArrayList<>();
         setUpRecyclerView();
         setUpFireBase();
         loadDataFromFirebase();
+        searchDataInFirebase();
+    }
 
-        EditText mEditText = findViewById(R.id.searchViewDoctorName);
-        mEditText.addTextChangedListener(new TextWatcher() {
+    private void searchDataInFirebase() {
+        if (doctorArrayList.size() > 0)
+            doctorArrayList.clear();
+        SearchView searchView = findViewById(R.id.searchViewDoctorName);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                Log.d(TAG,"Searchbox has changed to: " + editable.toString());
-
-                if(doctorArrayList.size()>0)
+            public boolean onQueryTextSubmit(String s) {
+                if (doctorArrayList.size() > 0)
                     doctorArrayList.clear();
                 dbDoctor.collection("Doctor")
-                        .whereEqualTo("Name",editable.toString())
+                        .whereGreaterThanOrEqualTo("Name",s.toString())
+                        .orderBy("Name").startAt(s).endAt(s+"\uf8ff")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                for(DocumentSnapshot querySnapshot: task.getResult()){
+                                for (DocumentSnapshot querySnapshot : task.getResult()) {
                                     Doctor doctor = new Doctor(querySnapshot.getString("Name"),
                                             querySnapshot.getString("Email"),
                                             querySnapshot.getString("Description"),
@@ -88,31 +84,36 @@ public class FindDoctorByName extends AppCompatActivity {
                                             querySnapshot.getString("Hospitalchamnberlocation"));
                                     doctorArrayList.add(doctor);
                                 }
-                                //adapter = new DoctorNameAdapter(FindDoctorByName.this,doctorArrayList);
-                                mRecyclerView.setAdapter(null);
+                                adapter = new DoctorNameAdapter(FindDoctorByName.this, doctorArrayList);
                                 mRecyclerView.setAdapter(adapter);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(FindDoctorByName.this,"Problem ---I---",Toast.LENGTH_SHORT).show();
-                                Log.v("---I---",e.getMessage());
+                                Toast.makeText(FindDoctorByName.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
+                                Log.v("---I---", e.getMessage());
                             }
                         });
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
             }
         });
     }
 
     private void loadDataFromFirebase() {
-        if(doctorArrayList.size()>0)
+        if (doctorArrayList.size() > 0)
             doctorArrayList.clear();
         dbDoctor.collection("Doctor")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for(DocumentSnapshot querySnapshot: task.getResult()){
+                        for (DocumentSnapshot querySnapshot : task.getResult()) {
                             Doctor doctor = new Doctor(querySnapshot.getString("Name"),
                                     querySnapshot.getString("Email"),
                                     querySnapshot.getString("Description"),
@@ -121,15 +122,15 @@ public class FindDoctorByName extends AppCompatActivity {
                                     querySnapshot.getString("Hospitalchamnberlocation"));
                             doctorArrayList.add(doctor);
                         }
-                        adapter = new DoctorNameAdapter(FindDoctorByName.this,doctorArrayList);
+                        adapter = new DoctorNameAdapter(FindDoctorByName.this, doctorArrayList);
                         mRecyclerView.setAdapter(adapter);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(FindDoctorByName.this,"Problem ---I---",Toast.LENGTH_SHORT).show();
-                        Log.v("---I---",e.getMessage());
+                        Toast.makeText(FindDoctorByName.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
+                        Log.v("---I---", e.getMessage());
                     }
                 });
     }
@@ -139,7 +140,7 @@ public class FindDoctorByName extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-        mRecyclerView=findViewById(R.id.doctorNameRV);
+        mRecyclerView = findViewById(R.id.doctorNameRV);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

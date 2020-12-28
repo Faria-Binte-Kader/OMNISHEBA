@@ -9,7 +9,7 @@
     tools:context=".FindDoctorByName"
     android:background="@drawable/doctor_search_recyclerview_bg">
 
-    <EditText
+    <SearchView
         android:id="@+id/searchViewDoctorName"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
