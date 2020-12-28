@@ -138,14 +138,14 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
         signUpBtnDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String name = inputName.getText().toString();
+                final String name = inputName.getText().toString().toUpperCase();
                 final String email = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
                 String conPassword = confirmPassword.getText().toString();
                 final String descript = description.getText().toString();
                 final String hosName = hospitalName.getText().toString();
                 final String pracYear = practiceYear.getText().toString();
-                final String location = location_type.getSelectedItem().toString();
+                final String location = location_type.getSelectedItem().toString().toUpperCase();
 
 
                 if (name.isEmpty() || name.length() < 7) {

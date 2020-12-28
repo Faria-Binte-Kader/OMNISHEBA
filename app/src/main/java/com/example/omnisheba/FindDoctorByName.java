@@ -69,8 +69,8 @@ public class FindDoctorByName extends AppCompatActivity {
                 if (doctorArrayList.size() > 0)
                     doctorArrayList.clear();
                 dbDoctor.collection("Doctor")
-                        .whereGreaterThanOrEqualTo("Name",s.toString())
-                        .orderBy("Name").startAt(s).endAt(s+"\uf8ff")
+                        .whereGreaterThanOrEqualTo("Name",s.toUpperCase())
+                        .orderBy("Name").startAt(s.toUpperCase()).endAt(s.toUpperCase()+"\uf8ff")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
