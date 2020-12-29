@@ -1,5 +1,6 @@
 package com.example.omnisheba;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,50 +8,207 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class signup_testcenter extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    Button alreadyHaveAccount;
-    private EditText inputName, inputEmail, inputPassword, confirmPassword;
+    public static final String TAG = "TAG";
 
-    Button testsBtn;
+    private EditText inputName, inputEmail, inputPassword, confirmPassword, inputDescription, inputHotline, inputFoundationYear;
+    Spinner testcenter_type, locationTC_type;
+
+    Button alreadyHaveAccount, testBtn, signUpBtnTestCenter;
+    String userId;
+
+    FirebaseAuth fAuthTestCenter;
+    FirebaseFirestore fstoreTestCenter;
+    ProgressBar progBarTestCenter;
 
     TextView mItemSelected;
     String[] listItems;
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
 
+    ArrayList<String> test = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_testcenter);
         getSupportActionBar().setTitle("0!");
-        Spinner hospital_types = findViewById(R.id.hospital_types);
-        hospital_types.setOnItemSelectedListener(this);
-        Spinner location_type = findViewById(R.id.location_type);
-        location_type.setOnItemSelectedListener(this);
+        testcenter_type = findViewById(R.id.hospital_types);
+        testcenter_type.setOnItemSelectedListener(this);
+        locationTC_type = findViewById(R.id.location_type);
+        locationTC_type.setOnItemSelectedListener(this);
 
-        testsBtn = findViewById(R.id.btnTests);
+        fAuthTestCenter = FirebaseAuth.getInstance();
+        fstoreTestCenter = FirebaseFirestore.getInstance();
+
+        testBtn = findViewById(R.id.btnTests);
         mItemSelected = (TextView) findViewById(R.id.tvItemSelected);
         listItems = getResources().getStringArray(R.array.test_list);
         checkedItems = new boolean[listItems.length];
 
         alreadyHaveAccount = findViewById(R.id.alreadyHaveAccountTC);
+        signUpBtnTestCenter = findViewById(R.id.signup_button);
+
         inputName = findViewById(R.id.inputNameTC);
         inputEmail = findViewById(R.id.inputEmailTC);
         inputPassword = findViewById(R.id.inputPasswordTC);
         confirmPassword = findViewById(R.id.confirmPasswordTC);
+        inputDescription = findViewById(R.id.inputDescriptionTC);
+        inputHotline = findViewById(R.id.inputhotlineTC);
+        inputFoundationYear = findViewById(R.id.inputFoundationYearTC);
 
-        testsBtn.setOnClickListener(new View.OnClickListener() {
+        signUpBtnTestCenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String name = inputName.getText().toString().toUpperCase();
+                final String email = inputEmail.getText().toString();
+                String password = inputPassword.getText().toString();
+                String conPassword = confirmPassword.getText().toString();
+                final String descript = inputDescription.getText().toString();
+                final String line = inputHotline.getText().toString();
+                final String found = inputFoundationYear.getText().toString();
+                final String type = testcenter_type.getSelectedItem().toString();
+                final String location = locationTC_type.getSelectedItem().toString();
+
+
+                if (name.isEmpty() || name.length() < 7) {
+                    showError(inputName, "Your Name is not valid");
+                    return;
+                }
+                if (email.isEmpty() || !email.contains("@")) {
+                    showError(inputEmail, "Email is not Valid");
+                    return;
+                }
+                if (password.isEmpty() || password.length() < 7) {
+                    showError(inputPassword, "Password must be at least 7 characters");
+                    return;
+                }
+                if (conPassword.isEmpty() || !conPassword.equals(password)) {
+                    showError(confirmPassword, "Password does not match");
+                    return;
+                }
+
+                //getAppointment();
+
+                //progBarMSS.setVisibility(View.VISIBLE);
+
+                fAuthTestCenter.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(signup_testcenter.this, "User Created", Toast.LENGTH_SHORT).show();
+                            userId = fAuthTestCenter.getCurrentUser().getUid();
+
+                            DocumentReference documentReference = fstoreTestCenter.collection("TC").document(userId);
+                            Map<String, Object> hospital = new HashMap<>();
+                            hospital.put("Name", name);
+                            hospital.put("Email", email);
+                            hospital.put("Description", descript);
+                            hospital.put("Hotline", line);
+                            hospital.put("Foundationyear", found);
+                            hospital.put("Testcentertype", type);
+                            hospital.put("Testcenterlocation", location);
+                            hospital.put("Test", test);
+                            hospital.put("Type", "TC");
+
+                            /*DocumentReference documentReference2 = fstoreDoctor.collection("Appointment").document(userId);
+                            Map<String, Object> App = new HashMap<>();
+                            App.put("Satmon", appointment[0][1]);
+                            App.put("Sateve", appointment[0][2]);
+                            App.put("Sunmon", appointment[1][1]);
+                            App.put("Suneve", appointment[1][2]);
+                            App.put("Monmon", appointment[2][1]);
+                            App.put("Moneve", appointment[2][2]);
+                            App.put("Tuesmon", appointment[3][1]);
+                            App.put("Tuesve", appointment[3][2]);
+                            App.put("Wedmon", appointment[4][1]);
+                            App.put("Wedeve", appointment[4][2]);
+                            App.put("Thursmon", appointment[5][1]);
+                            App.put("Thurseve", appointment[5][2]);
+                            App.put("Frimon", appointment[6][1]);
+                            App.put("Frieve", appointment[6][2]);*/
+
+                            DocumentReference documentReference3 = fstoreTestCenter.collection("Usertype").document(userId);
+                            Map<String, Object> type = new HashMap<>();
+                            type.put("Type", "TC");
+
+                            DocumentReference documentReference4 = fstoreTestCenter.collection("Location").document(location).collection("TestCenters").document(userId);
+                            Map<String, Object> loc = new HashMap<>();
+                            loc.put("Name", name);
+                            loc.put("Email", email);
+                            loc.put("Description", descript);
+                            loc.put("Hotline", line);
+                            loc.put("Foundationyear", found);
+                            loc.put("Testcentertype", type);
+                            loc.put("Testcenterlocation", location);
+                            loc.put("Test", test);
+
+                            documentReference4.set(loc).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: location is created");
+                                }
+
+                            });
+
+                            documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: user type is created");
+                                }
+
+                            });
+
+                            /*documentReference2.set(App).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: appointment created");
+                                }
+
+                            });*/
+
+                            documentReference.set(hospital).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: user profile is created");
+                                }
+
+                            });
+
+
+                            startActivity(new Intent(getApplicationContext(), TestMainActivity.class));
+                        } else {
+                            Toast.makeText(signup_testcenter.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+        testBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(signup_testcenter.this);
@@ -72,6 +230,7 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
                     public void onClick(DialogInterface dialogInterface, int which) {
                         String item = "";
                         for (int i = 0; i < mUserItems.size(); i++) {
+                            test.add(listItems[mUserItems.get(i)]);
                             item = item + listItems[mUserItems.get(i)];
                             if (i != mUserItems.size() - 1) {
                                 item = item + ", ";
@@ -116,16 +275,12 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
 
     }
 
-    public void signupbutton(View view) {
-        checkCredentials();
-    }
-
     public void gotoLoginPage(View view) {
         Intent intent = new Intent(signup_testcenter.this, login.class);
         startActivity(intent);
     }
 
-    private void checkCredentials() {
+    /*private void checkCredentials() {
         String name = inputName.getText().toString();
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
@@ -141,7 +296,7 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
             showError(confirmPassword, "Password does not match");
         else
             Toast.makeText(this, "Signing Up", Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
     private void showError(EditText input, String s) {
         input.setError(s);

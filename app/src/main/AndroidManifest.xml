@@ -11,10 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FindDoctor"></activity>
+        <activity android:name=".FindTestCenter"></activity>
+        <activity android:name=".FindHospital" />
+        <activity android:name=".FindDoctor" />
         <activity android:name=".DoctorDiscussionForum" />
         <activity android:name=".DiscussionForum" />
-        <activity android:name=".FindDoctorByName" />
         <activity android:name=".DoctorsHospitalActivity" />
         <activity android:name=".LogoutTestCenterActivity" />
         <activity android:name=".UpdateTestCenterActivity" />

@@ -88,6 +88,12 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
                                     } else if (type.equals("MSS")) {
                                         Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    } else if (type.equals("Hospital")) {
+                                        Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), HospitalMainActivity.class));
+                                    } else if (type.equals("TC")) {
+                                        Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), TestMainActivity.class));
                                     }
                                 }
                             });

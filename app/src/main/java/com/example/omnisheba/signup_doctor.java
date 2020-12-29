@@ -236,14 +236,14 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                             documentReference2.set(App).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: user profile is created");
+                                    Log.d(TAG, "onSuccess: appointment created");
                                 }
 
                             });
                             documentReference.set(doctor).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: appointment created");
+                                    Log.d(TAG, "onSuccess: user profile is created");
                                 }
 
                             });

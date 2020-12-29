@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     app:cardElevation="5dp"
-    app:cardBackgroundColor="@color/cardview_light_background"
+    app:cardBackgroundColor="@color/colorPrimaryDark"
     app:cardCornerRadius="3dp"
     app:cardUseCompatPadding="true"
     >
@@ -25,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name: "
+        android:textColor="@color/white"
         />
     <TextView
         android:id="@+id/doctorNameTextView"
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         />
     </LinearLayout>
 
@@ -44,11 +46,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Description: "
+        android:textColor="@color/white"
         />
     <TextView
         android:id="@+id/doctorDescriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         />
     </LinearLayout>
 
@@ -61,11 +65,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email: "
+        android:textColor="@color/white"
         />
     <TextView
         android:id="@+id/doctorEmailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         />
     </LinearLayout>
 
@@ -78,11 +84,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hospital/Chamber Name: "
+        android:textColor="@color/white"
         />
     <TextView
         android:id="@+id/doctorHospitalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         />
     </LinearLayout>
 
@@ -95,11 +103,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hospital/Chamber Location: "
+        android:textColor="@color/white"
         />
     <TextView
         android:id="@+id/doctorLocationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         />
     </LinearLayout>
 
@@ -112,11 +122,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Practice Starting Year: "
+        android:textColor="@color/white"
         />
     <TextView
         android:id="@+id/doctorPracYearTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         />
     </LinearLayout>
 </LinearLayout>

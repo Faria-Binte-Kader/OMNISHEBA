@@ -101,14 +101,16 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         view.findViewById(R.id.find_doctor_btn).setOnClickListener((View.OnClickListener) this);
+        view.findViewById(R.id.find_hospital_btn).setOnClickListener((View.OnClickListener) this);
+        view.findViewById(R.id.find_test_btn).setOnClickListener((View.OnClickListener) this);
     }
 
-    private void findDoctorByName() {
+    /*private void findDoctorByName() {
         SharedPrefManager.getInstance(getActivity()).clear();
         Intent intent = new Intent(getActivity(), FindDoctorByName.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-    }
+    }*/
 
     private void findDoctor() {
         String sp1 = spinner1.getSelectedItem().toString();
@@ -124,12 +126,46 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
+    private void findHospital() {
+        String sp3 = spinner3.getSelectedItem().toString();
+        String sp4 = spinner4.getSelectedItem().toString();
+
+        SharedPrefManager.getInstance(getActivity()).clear();
+        Intent intent = new Intent(getActivity(), FindHospital.class);
+
+        intent.putExtra(EXTRA_TEXT3,sp3);
+        intent.putExtra(EXTRA_TEXT4,sp4);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void findTestCenter() {
+        String sp5 = spinner5.getSelectedItem().toString();
+        String sp6 = spinner6.getSelectedItem().toString();
+
+        SharedPrefManager.getInstance(getActivity()).clear();
+        Intent intent = new Intent(getActivity(), FindTestCenter.class);
+
+        intent.putExtra(EXTRA_TEXT5,sp5);
+        intent.putExtra(EXTRA_TEXT6,sp6);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
         Fragment fragment = null;
         switch (v.getId()) {
             case R.id.find_doctor_btn:
                 findDoctor();
+                break;
+            case R.id.find_hospital_btn:
+                findHospital();
+                break;
+            case R.id.find_test_btn:
+                findTestCenter();
                 break;
         }
     }

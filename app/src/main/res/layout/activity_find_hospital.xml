@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="9"
-    tools:context=".FindDoctor"
+    tools:context=".FindHospital"
     android:background="@drawable/doctor_search_recyclerview_bg">
 
     <SearchView
-        android:id="@+id/searchViewDoctorName"
+        android:id="@+id/searchViewHospitalName"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:padding="10dp"
@@ -31,12 +31,12 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:layout_marginTop="10dp"
-            android:text="Selected specialty: "
+            android:text="Selected department/unit: "
             android:textColor="@color/white"
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/sp1"
+            android:id="@+id/sp3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left"
@@ -62,7 +62,7 @@
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/sp2"
+            android:id="@+id/sp4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left"
@@ -73,7 +73,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/doctorRV"
+        android:id="@+id/hospitalRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
