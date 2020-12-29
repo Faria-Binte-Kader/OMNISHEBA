@@ -55,6 +55,9 @@ public class Doctor {
         Hospitalchambername = hospitalchambername;
     }
 
+    public  String getPracticesatrtingyear() {
+        return Practicesatrtingyear;
+    }
 
     public String getName() {
         return Name;

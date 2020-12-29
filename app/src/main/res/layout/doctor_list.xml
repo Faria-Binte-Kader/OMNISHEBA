@@ -15,51 +15,110 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name: "
+        />
     <TextView
         android:id="@+id/doctorNameTextView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:padding="10dp"
         />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/doctorDescriptionTextView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="description"
+        android:orientation="horizontal"
+        android:padding="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description: "
+        />
+    <TextView
+        android:id="@+id/doctorDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email: "
         />
     <TextView
         android:id="@+id/doctorEmailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Email"
+        android:orientation="horizontal"
+        android:padding="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hospital/Chamber Name: "
         />
     <TextView
         android:id="@+id/doctorHospitalTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Hospital/Chamber Name"
+        android:orientation="horizontal"
+        android:padding="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hospital/Chamber Location: "
         />
     <TextView
         android:id="@+id/doctorLocationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Location"
+        android:orientation="horizontal"
+        android:padding="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Practice Starting Year: "
         />
     <TextView
         android:id="@+id/doctorPracYearTextView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="Pracice Starting Year"
         />
+    </LinearLayout>
 </LinearLayout>
 <View
     android:layout_width="match_parent"

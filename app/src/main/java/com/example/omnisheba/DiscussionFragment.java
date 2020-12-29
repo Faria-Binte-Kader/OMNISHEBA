@@ -229,7 +229,7 @@ public class DiscussionFragment extends Fragment implements View.OnClickListener
             case R.id.qbtn:
                 SharedPrefManager.getInstance(getActivity()).clear();
                 Intent intent = new Intent(getActivity(), DiscussionForum.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
 

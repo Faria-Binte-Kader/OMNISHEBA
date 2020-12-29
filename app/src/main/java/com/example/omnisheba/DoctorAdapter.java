@@ -34,6 +34,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<ViewHolderDoctor> {
         holder.location.setText(doctorArrayList.get(position).getHospitalchamnberlocation());
         holder.hospital.setText(doctorArrayList.get(position).getHospitalchambername());
         holder.email.setText(doctorArrayList.get(position).getEmail());
+        holder.pracYear.setText(doctorArrayList.get(position).getPracticesatrtingyear());
     }
 
     @Override

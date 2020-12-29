@@ -9,6 +9,17 @@
     tools:context=".FindDoctor"
     android:background="@drawable/doctor_search_recyclerview_bg">
 
+    <SearchView
+        android:id="@+id/searchViewDoctorName"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:padding="10dp"
+        android:hint="Search by name"
+        android:layout_margin="5dp"
+        android:inputType="textAutoComplete"
+        android:drawableStart="@drawable/ic_search"
+        android:background="@color/colorPrimaryDark"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

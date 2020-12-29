@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,54 @@ public class FindDoctor extends AppCompatActivity {
         setUpRecyclerView();
         setUpFireBase();
         loadDataFromFirebase(sp1,sp2);
+        searchDataInFirebase();
+    }
+
+    private void searchDataInFirebase() {
+        if (doctorArrayList.size() > 0)
+            doctorArrayList.clear();
+        SearchView searchView = findViewById(R.id.searchViewDoctorName);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if (doctorArrayList.size() > 0)
+                    doctorArrayList.clear();
+                dbDoctor.collection("Doctor")
+                        .whereGreaterThanOrEqualTo("Name",s.toUpperCase())
+                        .orderBy("Name").startAt(s.toUpperCase()).endAt(s.toUpperCase()+"\uf8ff")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                for (DocumentSnapshot querySnapshot : task.getResult()) {
+                                    Doctor doctor = new Doctor(querySnapshot.getString("Name"),
+                                            querySnapshot.getString("Email"),
+                                            querySnapshot.getString("Description"),
+                                            querySnapshot.getString("Hospitalchambername"),
+                                            querySnapshot.getString("Practicesatrtingyear"),
+                                            querySnapshot.getString("Hospitalchamnberlocation"));
+                                    doctorArrayList.add(doctor);
+                                }
+                                adapter = new DoctorAdapter(FindDoctor.this, doctorArrayList);
+                                mRecyclerView.setAdapter(adapter);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(FindDoctor.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
+                                Log.v("---I---", e.getMessage());
+                            }
+                        });
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
     }
 
     private void loadDataFromFirebase(String sp1, String sp2) {
