@@ -44,9 +44,13 @@ public class DiscussionForum extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for(DocumentSnapshot querySnapshot: task.getResult()){
+
                             Post post = new Post(querySnapshot.getString("Key"),
                                     querySnapshot.getString("Question"),
-                                    querySnapshot.getString("userID")
+                                    querySnapshot.getString("userID"),
+                                    querySnapshot.getString("Doctor"),
+                                    querySnapshot.getString("Answer"),
+                                    querySnapshot.getString("PostID")
                                    );
                             postArrayList.add(post);
                         }

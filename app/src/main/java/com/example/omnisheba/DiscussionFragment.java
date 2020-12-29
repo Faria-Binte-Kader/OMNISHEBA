@@ -182,13 +182,27 @@ public class DiscussionFragment extends Fragment implements View.OnClickListener
                     Toast.makeText(getActivity(), "Posting", Toast.LENGTH_LONG).show();
 
                     userID = fAuth.getCurrentUser().getUid();
+                    DocumentReference documentReference =  fStore.collection("Questionanswer").document();
                     Map<String, Object> qna = new HashMap<>();
                     qna.put("userID", userID);
                     qna.put("Question", ques.getText().toString());
                     qna.put("Key", key.getText().toString());
                     qna.put("Time", FieldValue.serverTimestamp());
+                    qna.put("Answer","");
+                    qna.put("Doctor","");
+                    qna.put("PostID",documentReference.getId());
 
-                    fStore.collection("Questionanswer").add(qna).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    documentReference.set(qna).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(getActivity(), "Post added!", Toast.LENGTH_LONG).show();
+                            addbtn.setVisibility((View.VISIBLE));
+                            key.setText("");
+                            ques.setText("");
+                        }
+                    });
+
+                    /*fStore.collection("Questionanswer").add(qna).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Toast.makeText(getActivity(), "Post added!", Toast.LENGTH_LONG).show();
@@ -197,7 +211,7 @@ public class DiscussionFragment extends Fragment implements View.OnClickListener
                             ques.setText("");
                         }
 
-                    });
+                    });*/
 
                 } else {
                     Toast.makeText(getActivity(), "Please fill the keyword and write your question!", Toast.LENGTH_LONG).show();

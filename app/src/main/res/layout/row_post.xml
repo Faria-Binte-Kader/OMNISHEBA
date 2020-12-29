@@ -33,6 +33,43 @@
         android:text="Question"
         android:textSize="20dp"
         />
+
+        <TextView
+            android:id="@+id/doctornameqna"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:textColor="@color/dark"
+            />
+        <TextView
+            android:id="@+id/Showanswer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:padding="10dp"
+            android:textSize="15dp"
+            />
+            <EditText
+                android:id="@+id/Addanswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_gravity="right"
+                android:hint="Add Answer"
+                android:padding="10dp"
+                />
+
+            <Button
+                android:id="@+id/postButtondoctor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Post"
+                android:layout_gravity="right"
+                android:textColor="@color/white"
+                android:background="@drawable/text_rounded"/>
+
     </LinearLayout>
     <View
         android:layout_width="match_parent"
