@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LogoutTestCenterActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
@@ -22,8 +25,8 @@ public class LogoutTestCenterActivity extends AppCompatActivity implements View.
         setContentView(R.layout.activity_logout_test_center);
         getSupportActionBar().setTitle("0!");
 
-        findViewById(R.id.yes_btn).setOnClickListener(this);
-        findViewById(R.id.no_btn).setOnClickListener(this);
+        findViewById(R.id.yes_btntc).setOnClickListener(this);
+        findViewById(R.id.no_btntc).setOnClickListener(this);
     }
 
     /*private void logout()
@@ -45,10 +48,16 @@ public class LogoutTestCenterActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.yes_btn:
-                startActivity(new Intent(this, login.class));
+            case R.id.yes_btntc:
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(this, "Logged out Successfully!", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(this, login.class));
+                Intent intent = new Intent(this,login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
                 break;
-            case R.id.no_btn:
+            case R.id.no_btntc:
                 startActivity(new Intent(this, TestMainActivity.class));
                 break;
         }

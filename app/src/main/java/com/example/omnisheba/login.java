@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -37,12 +38,44 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
     Button loginBtn;
     FirebaseAuth fAuth;
     FirebaseFirestore fstore;
-    String type = "";
+   // String type = " ";
     String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fAuth = FirebaseAuth.getInstance();
+        fstore = FirebaseFirestore.getInstance();
+
+        if(FirebaseAuth.getInstance().getCurrentUser() != null)
+        {
+            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            DocumentReference documentReference2 = FirebaseFirestore.getInstance().collection("Usertype").document(user);
+            documentReference2.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    //type =
+                    String type = new String();
+                    if(value!=null)
+                    {type =value.getString("Type");
+                    if (type.equals("Doctor")) {
+                        //Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(login.this, DoctorMainActivity.class));
+                    } else if (type.equals("MSS")) {
+                        //Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(login.this, MainActivity.class));
+                    } else if (type.equals("Hospital")) {
+                        // Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(login.this, HospitalMainActivity.class));
+                    } else if (type.equals("TC")) {
+                        // Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(login.this, TestMainActivity.class));
+                    }
+                }}
+            });
+            //type="";
+            finish();
+        }
         setContentView(R.layout.activity_login);
         getSupportActionBar().setTitle("0!");
 
@@ -51,8 +84,8 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
 
         loginEmail = findViewById(R.id.loginEmail);
         loginPassword = findViewById(R.id.loginPassword);
-        fAuth = FirebaseAuth.getInstance();
-        fstore = FirebaseFirestore.getInstance();
+        //fAuth = FirebaseAuth.getInstance();
+       // fstore = FirebaseFirestore.getInstance();
         loginBtn = (Button) findViewById(R.id.loginbutton);
 
 
@@ -71,7 +104,9 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
                     showError(loginPassword, "Password must be at least 7 characters");
                     return;
                 }
-
+                if(FirebaseAuth.getInstance()!=null && FirebaseFirestore.getInstance()!=null)
+                {    fAuth = FirebaseAuth.getInstance();
+                     fstore = FirebaseFirestore.getInstance();
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -81,7 +116,11 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
                             documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    type = type + (value.getString("Type"));
+                                    //type =
+                                    //
+                                    String type = new String();
+                                    if(value!=null)
+                                    {type = value.getString("Type");
                                     if (type.equals("Doctor")) {
                                         Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getApplicationContext(), DoctorMainActivity.class));
@@ -95,7 +134,10 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
                                         Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getApplicationContext(), TestMainActivity.class));
                                     }
-                                }
+                                    //type="";
+                                    finish();
+
+                                }}
                             });
 
                         } else {
@@ -104,9 +146,40 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
                     }
                 });
 
-            }
+            }}
         });
     }
+
+   /* @Override
+    protected void onStart() {
+        super.onStart();
+        if(FirebaseAuth.getInstance().getCurrentUser() == null){}
+        else //if(FirebaseAuth.getInstance().getCurrentUser() != null)
+        {
+            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            DocumentReference documentReference2 = FirebaseFirestore.getInstance().collection("Usertype").document(user);
+            documentReference2.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    type = type + (value.getString("Type"));
+                    if (type.equals("Doctor")) {
+                        //Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(login.this, DoctorMainActivity.class));
+                    } else if (type.equals("MSS")) {
+                        //Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(login.this, MainActivity.class));
+                    } else if (type.equals("Hospital")) {
+                       // Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(login.this, HospitalMainActivity.class));
+                    } else if (type.equals("TC")) {
+                       // Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(login.this, TestMainActivity.class));
+                    }
+                }
+            });
+            //finish();
+    }
+   }*/
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

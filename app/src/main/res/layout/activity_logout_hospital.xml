@@ -29,7 +29,7 @@
         >
 
         <Button
-            android:id="@+id/yes_btn"
+            android:id="@+id/yes_btnhospital"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
@@ -41,7 +41,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/no_btn"
+            android:id="@+id/no_btnhospital"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"

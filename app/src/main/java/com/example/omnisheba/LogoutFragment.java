@@ -20,6 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class LogoutFragment extends Fragment implements View.OnClickListener {
     private Button yesbutton;
     private Button nobutton;
@@ -36,25 +38,27 @@ public class LogoutFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.yes_btn).setOnClickListener(this);
-        view.findViewById(R.id.no_btn).setOnClickListener(this);
+        view.findViewById(R.id.yes_btnmss).setOnClickListener(this);
+        view.findViewById(R.id.no_btnmss).setOnClickListener(this);
     }
 
     private void logout() {
+        FirebaseAuth.getInstance().signOut();
         SharedPrefManager.getInstance(getActivity()).clear();
         Intent intent = new Intent(getActivity(), login.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+
     }
 
     @Override
     public void onClick(View v) {
         Fragment fragment = null;
         switch (v.getId()) {
-            case R.id.yes_btn:
+            case R.id.yes_btnmss:
                 logout();
                 break;
-            case R.id.no_btn:
+            case R.id.no_btnmss:
                 fragment = new SearchFragment();
                 replaceFragment(fragment);
                 break;
