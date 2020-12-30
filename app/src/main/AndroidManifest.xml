@@ -37,6 +37,7 @@
         <activity android:name=".login" />
         <activity android:name=".DoctorMainActivity" />
         <activity android:name=".HospitalMainActivity" />
+        <activity android:name=".AddDoctorToHospital" />
         <activity android:name=".Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
