@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,6 +35,7 @@ public class DoctorDiscussionForum extends AppCompatActivity {
         setUpRecyclerView();
         setUpFireBase();
         loadDataFromFirebase();
+        searchDataInFirebase();
     }
 
     private void loadDataFromFirebase() {
@@ -65,6 +67,54 @@ public class DoctorDiscussionForum extends AppCompatActivity {
                         Log.v("---I---",e.getMessage());
                     }
                 });
+    }
+
+    private void searchDataInFirebase() {
+        if (postArrayList.size() > 0)
+            postArrayList.clear();
+        SearchView searchView = findViewById(R.id.searchbykeyworddoctor);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if (postArrayList.size() > 0)
+                    postArrayList.clear();
+                fStore.collection("Questionanswer")
+                        .whereGreaterThanOrEqualTo("Key",s.toUpperCase())
+                        .orderBy("Key").startAt(s.toUpperCase()).endAt(s.toUpperCase()+"\uf8ff")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                for(DocumentSnapshot querySnapshot: task.getResult()){
+
+                                    Post post = new Post(querySnapshot.getString("Key"),
+                                            querySnapshot.getString("Question"),
+                                            querySnapshot.getString("userID"),
+                                            querySnapshot.getString("Doctor"),
+                                            querySnapshot.getString("Answer"),
+                                            querySnapshot.getString("PostID")
+                                    );
+                                    postArrayList.add(post);
+                                }
+                                adapter = new PostViewAdapterdoctor(DoctorDiscussionForum.this,postArrayList);
+                                mRecyclerView.setAdapter(adapter);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(DoctorDiscussionForum.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
+                                Log.v("---I---", e.getMessage());
+                            }
+                        });
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
     }
 
     private void setUpFireBase() {

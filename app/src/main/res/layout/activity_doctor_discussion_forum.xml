@@ -9,6 +9,14 @@
     tools:context=".DoctorDiscussionForum"
     android:background="@color/white">
 
+    <SearchView
+        android:id="@+id/searchbykeyworddoctor"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:padding="10dp"
+        android:queryHint="Type Keyword"
+        android:layout_margin="5dp"
+        android:background="@color/colorPrimaryDark"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/postRecycle2"
         android:layout_width="match_parent"

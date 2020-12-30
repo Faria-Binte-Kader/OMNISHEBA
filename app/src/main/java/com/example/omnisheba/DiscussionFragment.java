@@ -186,7 +186,7 @@ public class DiscussionFragment extends Fragment implements View.OnClickListener
                     Map<String, Object> qna = new HashMap<>();
                     qna.put("userID", userID);
                     qna.put("Question", ques.getText().toString());
-                    qna.put("Key", key.getText().toString());
+                    qna.put("Key", key.getText().toString().toUpperCase());
                     qna.put("Time", FieldValue.serverTimestamp());
                     qna.put("Answer","");
                     qna.put("Doctor","");
