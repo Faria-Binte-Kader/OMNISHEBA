@@ -15,6 +15,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 
 public class DoctorsHospitalActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -27,6 +30,8 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
     String[] listItems;
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
+
+    public static final String EXTRA_TEXT1 = "com.example.application.example.EXTRA_TEXT1";
 
     @Override
 
@@ -280,8 +285,14 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
 
     private void add() {
         //SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this, signup_doctor.class);
+        Intent intent = new Intent(this, AddDoctorToHospital.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        FirebaseUser userHospital;
+        FirebaseAuth fAuthHos;
+        fAuthHos = FirebaseAuth.getInstance();
+        userHospital = fAuthHos.getCurrentUser();
+        String hospitalId = userHospital.getUid();
+        intent.putExtra(EXTRA_TEXT1,hospitalId);
         startActivity(intent);
     }
 
