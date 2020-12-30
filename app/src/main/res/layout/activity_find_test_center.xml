@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:padding="10dp"
-        android:hint="Search by name"
+        android:queryHint="Search by name"
         android:layout_margin="5dp"
         android:inputType="textAutoComplete"
         android:drawableStart="@drawable/ic_search"

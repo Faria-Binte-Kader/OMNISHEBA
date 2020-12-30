@@ -34,60 +34,138 @@
         android:orientation="vertical"
         android:gravity="center"
         android:background="@drawable/text_rounded"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:padding="30dp"
         android:layout_marginTop="30dp"
-
         >
-        <TextView
-            android:id="@+id/doctorname"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:padding="5dp"
-            />
-        <TextView
-            android:id="@+id/doctoremail"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name: "
+                android:textColor="@color/white"
+                />
+            <TextView
+                android:id="@+id/doctorname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:padding="5dp"
-            />
-        <TextView
-            android:id="@+id/doctordescription"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email: "
+                android:textColor="@color/white"
+                />
+            <TextView
+                android:id="@+id/doctoremail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:padding="5dp"
-            />
-        <TextView
-            android:id="@+id/doctorhospital"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description: "
+                android:textColor="@color/white"
+                />
+            <TextView
+                android:id="@+id/doctordescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:padding="5dp"
-            />
-        <TextView
-            android:id="@+id/doctorlocation"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hospital/Chamber Name: "
+                android:textColor="@color/white"
+                />
+            <TextView
+                android:id="@+id/doctorhospital"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:padding="5dp"
-            />
-        <TextView
-            android:id="@+id/practiceyear"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hospital/Chamber Location: "
+                android:textColor="@color/white"
+                />
+            <TextView
+                android:id="@+id/doctorlocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:padding="5dp"
-            />
-       <!-- <TextView
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Practice Starting Year: "
+                android:textColor="@color/white"
+                />
+            <TextView
+                android:id="@+id/practiceyear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+        <!-- <TextView
             android:id="@+id/doctorspecialty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,12 +180,13 @@
             android:text="Appointment Schedule"
             android:textColor="@color/white"
             android:textSize="20dp"
-            android:padding="5dp"
+            android:padding="10dp"
             />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
             <TextView
                 android:id="@+id/showSaturday"
                 android:layout_width="wrap_content"
@@ -141,7 +220,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
             <TextView
                 android:id="@+id/showSunday"
                 android:layout_width="wrap_content"
@@ -175,7 +255,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
             <TextView
                 android:id="@+id/showMonday"
                 android:layout_width="wrap_content"
@@ -209,7 +290,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
             <TextView
                 android:id="@+id/showTuesday"
                 android:layout_width="wrap_content"
@@ -243,7 +325,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
             <TextView
                 android:id="@+id/showWednesday"
                 android:layout_width="wrap_content"
@@ -277,7 +360,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
             <TextView
                 android:id="@+id/showThursday"
                 android:layout_width="wrap_content"
@@ -311,7 +395,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="10dp">
             <TextView
                 android:id="@+id/showFriday"
                 android:layout_width="wrap_content"

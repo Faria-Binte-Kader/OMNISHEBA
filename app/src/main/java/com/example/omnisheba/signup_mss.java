@@ -69,7 +69,7 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
         signUpBtnMSS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String name = inputName.getText().toString();
+                final String name = inputName.getText().toString().toUpperCase();
                 final String email = inputEmail.getText().toString();
                 String password = inputPassword.getText().toString();
                 String conPassword = confirmPassword.getText().toString();
