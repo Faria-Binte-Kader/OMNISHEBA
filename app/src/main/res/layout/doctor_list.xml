@@ -131,6 +131,18 @@
         android:textColor="@color/white"
         />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/appointment_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        android:text="Book Appointment"
+        android:layout_gravity="right"
+        android:textColor="@color/white"
+        android:background="@drawable/button_rounded"/>
 </LinearLayout>
 <View
     android:layout_width="match_parent"

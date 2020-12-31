@@ -1,15 +1,28 @@
 package com.example.omnisheba;
 
+import android.content.Intent;
+import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
-public class DoctorAdapter extends RecyclerView.Adapter<ViewHolderDoctor> {
+public class DoctorAdapter extends RecyclerView.Adapter<ViewHolderDoctor> implements AdapterView.OnItemSelectedListener {
 
     FindDoctor findDoctor;
     ArrayList<Doctor> doctorArrayList;
@@ -35,10 +48,26 @@ public class DoctorAdapter extends RecyclerView.Adapter<ViewHolderDoctor> {
         holder.hospital.setText(doctorArrayList.get(position).getHospitalchambername());
         holder.email.setText(doctorArrayList.get(position).getEmail());
         holder.pracYear.setText(doctorArrayList.get(position).getPracticesatrtingyear());
+        holder.bookappointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findDoctor.appointment();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return doctorArrayList.size();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

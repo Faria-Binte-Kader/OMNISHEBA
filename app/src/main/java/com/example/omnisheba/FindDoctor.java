@@ -2,14 +2,19 @@ package com.example.omnisheba;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -24,7 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class FindDoctor extends AppCompatActivity {
+public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
     RecyclerView mRecyclerView;
@@ -54,6 +59,21 @@ public class FindDoctor extends AppCompatActivity {
         setUpFireBase();
         loadDataFromFirebase(sp1,sp2);
         searchDataInFirebase();
+
+        /*Button appointbtn = (Button) findViewById(R.id.appointment_btn);
+        appointbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appointment();
+            }
+        });*/
+    }
+
+    public void appointment() {
+        //SharedPrefManager.getInstance(this).clear();
+        Intent intent = new Intent(FindDoctor.this, BookAppointment.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void searchDataInFirebase() {
@@ -240,6 +260,17 @@ public class FindDoctor extends AppCompatActivity {
         mRecyclerView=findViewById(R.id.doctorRV);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
+        Toast.makeText(this, adapterView.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
    /* @Override
