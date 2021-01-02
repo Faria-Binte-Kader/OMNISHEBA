@@ -174,18 +174,21 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                         .orderBy("Name").startAt(s.toUpperCase()).endAt(s.toUpperCase() + "\uf8ff")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            String nam, email, location, hospital, pcyear, des, id;
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 for (DocumentSnapshot querySnapshot : task.getResult()) {
-                                    Doctor doctor = new Doctor(querySnapshot.getString("Name"),
-                                            querySnapshot.getString("Email"),
-                                            querySnapshot.getString("Description"),
-                                            querySnapshot.getString("Hospitalchambername"),
-                                            querySnapshot.getString("Practicesatrtingyear"),
-                                            querySnapshot.getString("Hospitalchamnberlocation"),
-                                            querySnapshot.getString("DoctorID"));
-                                    if (doctor.getHospitalchambername().equals(hosName[0]))
-                                    doctorArrayList.add(doctor);
+                                    nam = querySnapshot.getString("Name");
+                                    email = querySnapshot.getString("Email");
+                                    des = querySnapshot.getString("Description");
+                                    hospital = querySnapshot.getString("Hospitalchambername");
+                                    pcyear = querySnapshot.getString("Practicesatrtingyear");
+                                    location = querySnapshot.getString("Hospitalchamnberlocation");
+                                    id = querySnapshot.getString("DoctorID");
+                                    if (hospital.equals(hosName[0])) {
+                                        Doctor doctor = new Doctor(nam, email, des, hospital, pcyear, location, id);
+                                        doctorArrayList.add(doctor);
+                                    }
                                 }
                                 adapter = new DoctorsHospitalAdapter(DoctorsHospitalActivity.this, doctorArrayList);
                                 mRecyclerView.setAdapter(adapter);
@@ -230,18 +233,22 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                 //.whereArrayContains("Specialty",sp1)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    String nam, email, location, hospital, pcyear, des, id;
+
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for (DocumentSnapshot querySnapshot : task.getResult()) {
-                            Doctor doctor = new Doctor(querySnapshot.getString("Name"),
-                                    querySnapshot.getString("Email"),
-                                    querySnapshot.getString("Description"),
-                                    querySnapshot.getString("Hospitalchambername"),
-                                    querySnapshot.getString("Practicesatrtingyear"),
-                                    querySnapshot.getString("Hospitalchamnberlocation"),
-                                    querySnapshot.getString("DoctorID"));
-                            if (doctor.getHospitalchambername().equals(hosName[0]))
+                            nam = querySnapshot.getString("Name");
+                            email = querySnapshot.getString("Email");
+                            des = querySnapshot.getString("Description");
+                            hospital = querySnapshot.getString("Hospitalchambername");
+                            pcyear = querySnapshot.getString("Practicesatrtingyear");
+                            location = querySnapshot.getString("Hospitalchamnberlocation");
+                            id = querySnapshot.getString("DoctorID");
+                            if (hospital.equals(hosName[0])) {
+                                Doctor doctor = new Doctor(nam, email, des, hospital, pcyear, location, id);
                                 doctorArrayList.add(doctor);
+                            }
                         }
                         adapter = new DoctorsHospitalAdapter(DoctorsHospitalActivity.this, doctorArrayList);
                         mRecyclerView.setAdapter(adapter);
