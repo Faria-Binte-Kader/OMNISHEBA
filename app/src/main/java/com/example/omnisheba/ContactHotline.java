@@ -39,6 +39,7 @@ public class ContactHotline extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("0!");
         setContentView(R.layout.activity_contact_hotline);
 
         Intent intent = getIntent();

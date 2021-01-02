@@ -6,7 +6,7 @@ public class Doctor {
     private  String Email;
     private  String Hospitalchamnberlocation;
     private  String Hospitalchambername;
-    private  String Practicesatrtingyear;
+    private  String Practicesatrtingyear,DoctorID;
 
 
     private static String[] Specialty;
@@ -14,13 +14,14 @@ public class Doctor {
 
     public Doctor(){}
 
-    public Doctor(String nam, String mail, String des, String hos, String py, String loc) {
+    public Doctor(String nam, String mail, String des, String hos, String py, String loc, String d) {
         Name = nam;
         Email = mail;
         Description = des;
         Hospitalchambername = hos;
         Practicesatrtingyear = py;
         Hospitalchamnberlocation = loc;
+        DoctorID=d;
     }
 
     public  String getDescription() {
@@ -45,6 +46,14 @@ public class Doctor {
 
     public  void setHospitalchamnberlocation(String hospitalchamnberlocation) {
         Hospitalchamnberlocation = hospitalchamnberlocation;
+    }
+
+    public void setDoctorID(String doctorID) {
+        DoctorID = doctorID;
+    }
+
+    public String getDoctorID() {
+        return DoctorID;
     }
 
     public  String getHospitalchambername() {

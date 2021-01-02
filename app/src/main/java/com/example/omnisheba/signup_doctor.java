@@ -186,6 +186,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                             doctor.put("Hospitalchamnberlocation", location);
                             doctor.put("Practicesatrtingyear", pracYear);
                             doctor.put("Type", "Doctor");
+                            doctor.put("DoctorID",userId);
 
                             DocumentReference documentReference2 = fstoreDoctor.collection("Appointment").document(userId);
                             Map<String, Object> App = new HashMap<>();

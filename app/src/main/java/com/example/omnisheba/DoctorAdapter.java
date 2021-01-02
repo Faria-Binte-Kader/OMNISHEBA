@@ -41,7 +41,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<ViewHolderDoctor> implem
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderDoctor holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolderDoctor holder, int position) {
         holder.name.setText(doctorArrayList.get(position).getName());
         holder.description.setText(doctorArrayList.get(position).getDescription());
         holder.location.setText(doctorArrayList.get(position).getHospitalchamnberlocation());
@@ -51,7 +51,8 @@ public class DoctorAdapter extends RecyclerView.Adapter<ViewHolderDoctor> implem
         holder.bookappointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                findDoctor.appointment();
+                String an=holder.name.getText().toString();
+                findDoctor.appointment(an);
             }
         });
     }

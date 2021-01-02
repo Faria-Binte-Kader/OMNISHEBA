@@ -142,7 +142,7 @@
         android:text="Book Appointment"
         android:layout_gravity="right"
         android:textColor="@color/white"
-        android:background="@drawable/button_rounded"/>
+        android:background="@drawable/text_rounded"/>
 </LinearLayout>
 <View
     android:layout_width="match_parent"

@@ -37,6 +37,9 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
     ArrayList<Doctor> doctorArrayList;
     DoctorAdapter adapter;
 
+    public static final String EXTRA_TEXT7 = "com.example.application.example.EXTRA_TEXT7";
+
+
     String TAG = "FindDoctor";
 
 
@@ -69,9 +72,12 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         });*/
     }
 
-    public void appointment() {
+    public void appointment(String s) {
         //SharedPrefManager.getInstance(this).clear();
+
         Intent intent = new Intent(FindDoctor.this, BookAppointment.class);
+        intent.putExtra(EXTRA_TEXT7,s);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -99,8 +105,11 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                                             querySnapshot.getString("Description"),
                                             querySnapshot.getString("Hospitalchambername"),
                                             querySnapshot.getString("Practicesatrtingyear"),
-                                            querySnapshot.getString("Hospitalchamnberlocation"));
+                                            querySnapshot.getString("Hospitalchamnberlocation"),
+                                            querySnapshot.getString("DoctorID"));
                                     doctorArrayList.add(doctor);
+
+
                                 }
                                 adapter = new DoctorAdapter(FindDoctor.this, doctorArrayList);
                                 mRecyclerView.setAdapter(adapter);
@@ -141,7 +150,8 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                                         querySnapshot.getString("Description"),
                                         querySnapshot.getString("Hospitalchambername"),
                                         querySnapshot.getString("Practicesatrtingyear"),
-                                        querySnapshot.getString("Hospitalchamnberlocation"));
+                                        querySnapshot.getString("Hospitalchamnberlocation"),
+                                        querySnapshot.getString("DoctorID"));
                                 doctorArrayList.add(doctor);
                             }
                             adapter = new DoctorAdapter(FindDoctor.this, doctorArrayList);
@@ -172,7 +182,8 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                                         querySnapshot.getString("Description"),
                                         querySnapshot.getString("Hospitalchambername"),
                                         querySnapshot.getString("Practicesatrtingyear"),
-                                        querySnapshot.getString("Hospitalchamnberlocation"));
+                                        querySnapshot.getString("Hospitalchamnberlocation"),
+                                        querySnapshot.getString("DoctorID"));
                                 doctorArrayList.add(doctor);
                             }
                             adapter = new DoctorAdapter(FindDoctor.this, doctorArrayList);
@@ -203,7 +214,8 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                                         querySnapshot.getString("Description"),
                                         querySnapshot.getString("Hospitalchambername"),
                                         querySnapshot.getString("Practicesatrtingyear"),
-                                        querySnapshot.getString("Hospitalchamnberlocation"));
+                                        querySnapshot.getString("Hospitalchamnberlocation"),
+                                        querySnapshot.getString("DoctorID"));
                                 doctorArrayList.add(doctor);
                             }
                             adapter = new DoctorAdapter(FindDoctor.this, doctorArrayList);
@@ -234,7 +246,8 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                                         querySnapshot.getString("Description"),
                                         querySnapshot.getString("Hospitalchambername"),
                                         querySnapshot.getString("Practicesatrtingyear"),
-                                        querySnapshot.getString("Hospitalchamnberlocation"));
+                                        querySnapshot.getString("Hospitalchamnberlocation"),
+                                        querySnapshot.getString("DoctorID"));
                                 doctorArrayList.add(doctor);
                             }
                             adapter = new DoctorAdapter(FindDoctor.this, doctorArrayList);
