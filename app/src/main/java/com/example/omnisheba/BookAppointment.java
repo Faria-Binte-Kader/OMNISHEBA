@@ -38,8 +38,8 @@ public class BookAppointment extends AppCompatActivity {
         setContentView(R.layout.activity_book_appointment);
         Intent intent = getIntent();
         String sp1 = intent.getStringExtra(FindDoctor.EXTRA_TEXT7);
-        name = findViewById(R.id.doctornameapp);
-        name.setText(sp1);
+        //name = findViewById(R.id.doctornameapp);
+        //name.setText(sp1);
         doctorArrayList2=new ArrayList<>();
 
         satmon = findViewById(R.id.showSatMon2);
@@ -62,8 +62,10 @@ public class BookAppointment extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
        // if(fStore.collection("Doctor").document(sp1)!=null)
+        /*if (doctorArrayList2.size() > 0)
+            doctorArrayList2.clear();
         fStore.collection("Doctor")
-                .whereGreaterThanOrEqualTo("Name", sp1)
+                .whereGreaterThanOrEqualTo("Name", sp1.toUpperCase())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -71,17 +73,49 @@ public class BookAppointment extends AppCompatActivity {
                         for (DocumentSnapshot querySnapshot : task.getResult()) {
                            // if(querySnapshot.getString("DoctorID")!=null)
                             //{
-                            Doctor doctor = new Doctor(querySnapshot.getString("Name"),
+                            /*Doctor doctor = new Doctor(querySnapshot.getString("Name"),
                                     querySnapshot.getString("Email"),
                                     querySnapshot.getString("Description"),
                                     querySnapshot.getString("Hospitalchambername"),
                                     querySnapshot.getString("Practicesatrtingyear"),
                                     querySnapshot.getString("Hospitalchamnberlocation"),
                                     querySnapshot.getString("DoctorID"));
-                            doctorArrayList2.add(doctor);
+                            doctorArrayList2.add(doctor);*/
 
+                            DocumentReference docRef = fStore.collection("Appointment").document(sp1);
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            //Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                                            satmon.setText(document.getString("Satmon"));
+                                            sunmon.setText(document.getString("Sunmon"));
+                                            monmon.setText(document.getString("Monmon"));
+                                            tuesmon.setText(document.getString("Tuesmon"));
+                                            wedmon.setText(document.getString("Wedmon"));
+                                            thursmon.setText(document.getString("Thursmon"));
+                                            frimon.setText(document.getString("Frimon"));
+
+                                            sateve.setText(document.getString("Sateve"));
+                                            suneve.setText(document.getString("Suneve"));
+                                            moneve.setText(document.getString("Moneve"));
+                                            tueseve.setText(document.getString("Tueseve"));
+                                            wedeve.setText(document.getString("Wedeve"));
+                                            thurseve.setText(document.getString("Thurseve"));
+                                            frieve.setText(document.getString("Frieve"));
+                                        } else {
+                                            Log.d("TAG", "No such document");
+                                        }
+                                    } else {
+                                        Log.d("TAG", "get failed with ", task.getException());
+                                    }
+                                }
+                            });
+/*
                             // }
-                            DoctorID=doctor.getDoctorID();
+                            //DoctorID=doctor.getDoctorID();
 
                             //  doctorArrayList.add(doctor);
                         }
@@ -92,14 +126,16 @@ public class BookAppointment extends AppCompatActivity {
                // Toast.makeText(BookAppointment.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
                 Log.v("Fail", e.getMessage());
             }
-        });
+        });*/
 
-     if(DoctorID!=null && fStore.collection("Appointment").document(DoctorID)!=null){
+
+
+     /*if(DoctorID!=null && fStore.collection("Appointment").document(DoctorID)!=null){
         DocumentReference documentReference2 = fStore.collection("Appointment").document(DoctorID);
         documentReference2.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-               satmon.setText(value.getString("Satmon"));
+                satmon.setText(value.getString("Satmon"));
                 sunmon.setText(value.getString("Sunmon"));
                 monmon.setText(value.getString("Monmon"));
                 tuesmon.setText(value.getString("Tuesmon"));
@@ -120,5 +156,5 @@ public class BookAppointment extends AppCompatActivity {
     }
      else
      {Log.d("TAG","Fail");
-    }
+    }*/
 }}

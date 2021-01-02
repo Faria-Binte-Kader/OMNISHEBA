@@ -18,7 +18,7 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:padding="20dp"/>
-
+<!--
             <TextView
                 android:id="@+id/doctornameapp"
                 android:layout_width="wrap_content"
@@ -28,6 +28,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 />
+                -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +55,7 @@
                     android:id="@+id/showSatMon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -63,7 +64,7 @@
                     android:id="@+id/showSatEve2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -89,7 +90,7 @@
                     android:id="@+id/showSunMon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -98,7 +99,7 @@
                     android:id="@+id/showSunEve2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -124,7 +125,7 @@
                     android:id="@+id/showMonMon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -133,7 +134,7 @@
                     android:id="@+id/showMonEve2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -159,7 +160,7 @@
                     android:id="@+id/showTuesMon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -168,7 +169,7 @@
                     android:id="@+id/showTuesEve2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -194,7 +195,7 @@
                     android:id="@+id/showWedMon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -203,7 +204,7 @@
                     android:id="@+id/showWedEve2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -229,7 +230,7 @@
                     android:id="@+id/showthursMon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -238,7 +239,7 @@
                     android:id="@+id/showThursEve2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -264,7 +265,7 @@
                     android:id="@+id/showFriMon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"
@@ -273,7 +274,7 @@
                     android:id="@+id/showFriEve2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saturday"
+
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:padding="5dp"

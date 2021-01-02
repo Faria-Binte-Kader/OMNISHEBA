@@ -6,7 +6,8 @@ public class Doctor {
     private  String Email;
     private  String Hospitalchamnberlocation;
     private  String Hospitalchambername;
-    private  String Practicesatrtingyear,DoctorID;
+    private  String Practicesatrtingyear;
+    private String DoctorID;
 
 
     private static String[] Specialty;
