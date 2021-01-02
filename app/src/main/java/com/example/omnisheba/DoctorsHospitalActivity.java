@@ -1,22 +1,38 @@
 package com.example.omnisheba;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.protobuf.StringValue;
 
 import java.util.ArrayList;
 
@@ -31,7 +47,18 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
 
+    RecyclerView mRecyclerView;
+    FirebaseFirestore dbDoctor;
+    ArrayList<Doctor> doctorArrayList;
+    DoctorsHospitalAdapter adapter;
+
+    FirebaseAuth fAuthHospital;
+    FirebaseFirestore fStore;
+    String userID;
+
     public static final String EXTRA_TEXT1 = "com.example.application.example.EXTRA_TEXT1";
+
+    String TAG = "DoctorsHospitalActivity";
 
     @Override
 
@@ -43,10 +70,19 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
         //Spinner specialty_type3 = (Spinner) findViewById(R.id.specialty3_type);
         //specialty_type3.setOnItemSelectedListener(this);
 
+        Button addBtn = findViewById(R.id.addbtn);
+
         specialtyBtn = findViewById(R.id.btnFilterSpecialty);
         mItemSelected = (TextView) findViewById(R.id.tvItemSelected);
         listItems = getResources().getStringArray(R.array.specialty_list);
         checkedItems = new boolean[listItems.length];
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                add();
+            }
+        });
 
         specialtyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,174 +138,119 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
             }
         });
 
-        Button btn = (Button) findViewById(R.id.addbtn);
+        doctorArrayList = new ArrayList<>();
+        setUpRecyclerView();
+        setUpFireBase();
+        loadDataFromFirebase();
+        searchDataInFirebase();
+    }
 
-        Button d1vbtn = (Button) findViewById(R.id.d1viewbtn);
-        Button d1ubtn = (Button) findViewById(R.id.d1updatebtn);
+    private void searchDataInFirebase() {
+        if (doctorArrayList.size() > 0)
+            doctorArrayList.clear();
+        SearchView searchView = findViewById(R.id.searchViewDoctorHospitalName);
 
-        Button d2vbtn = (Button) findViewById(R.id.d2viewbtn);
-        Button d2ubtn = (Button) findViewById(R.id.d2updatebtn);
-
-        Button d3vbtn = (Button) findViewById(R.id.d3viewbtn);
-        Button d3ubtn = (Button) findViewById(R.id.d3updatebtn);
-
-        Button d4vbtn = (Button) findViewById(R.id.d4viewbtn);
-        Button d4ubtn = (Button) findViewById(R.id.d4updatebtn);
-
-        Button d5vbtn = (Button) findViewById(R.id.d5viewbtn);
-        Button d5ubtn = (Button) findViewById(R.id.d5updatebtn);
-
-        Button d6vbtn = (Button) findViewById(R.id.d6viewbtn);
-        Button d6ubtn = (Button) findViewById(R.id.d6updatebtn);
-
-        Button d7vbtn = (Button) findViewById(R.id.d7viewbtn);
-        Button d7ubtn = (Button) findViewById(R.id.d7updatebtn);
-
-        Button d8vbtn = (Button) findViewById(R.id.d8viewbtn);
-        Button d8ubtn = (Button) findViewById(R.id.d8updatebtn);
-
-        Button d9vbtn = (Button) findViewById(R.id.d9viewbtn);
-        Button d9ubtn = (Button) findViewById(R.id.d9updatebtn);
-
-        Button d10vbtn = (Button) findViewById(R.id.d10viewbtn);
-        Button d10ubtn = (Button) findViewById(R.id.d10updatebtn);
-
-        btn.setOnClickListener(new View.OnClickListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View v) {
-                add();
+            public boolean onQueryTextSubmit(String s) {
+                if (doctorArrayList.size() > 0)
+                    doctorArrayList.clear();
+                dbDoctor.collection("Doctor")
+                        //.whereEqualTo("Hospitalchambername","COMBINED MILITARY HOSPITAL")
+                        .whereGreaterThanOrEqualTo("Name", s.toUpperCase())
+                        .orderBy("Name").startAt(s.toUpperCase()).endAt(s.toUpperCase() + "\uf8ff")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                for (DocumentSnapshot querySnapshot : task.getResult()) {
+                                    Doctor doctor = new Doctor(querySnapshot.getString("Name"),
+                                            querySnapshot.getString("Email"),
+                                            querySnapshot.getString("Description"),
+                                            querySnapshot.getString("Hospitalchambername"),
+                                            querySnapshot.getString("Practicesatrtingyear"),
+                                            querySnapshot.getString("Hospitalchamnberlocation"),
+                                            querySnapshot.getString("DoctorID"));
+                                    doctorArrayList.add(doctor);
+                                }
+                                adapter = new DoctorsHospitalAdapter(DoctorsHospitalActivity.this, doctorArrayList);
+                                mRecyclerView.setAdapter(adapter);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(DoctorsHospitalActivity.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
+                                Log.v("---I---", e.getMessage());
+                            }
+                        });
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
             }
         });
+    }
 
-        d1vbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view();
-            }
-        });
-        d1ubtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                update();
-            }
-        });
+    private void loadDataFromFirebase() {
+        if (doctorArrayList.size() > 0)
+            doctorArrayList.clear();
 
-        d2vbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view();
-            }
-        });
-        d2ubtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                update();
-            }
-        });
+        final String[] hosName = new String[1];
 
-        d3vbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view();
-            }
-        });
-        d3ubtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                update();
-            }
-        });
+        Intent intent = getIntent();
+        String hospitalId = intent.getStringExtra(HospitalMainActivity.EXTRA_TEXT2);
 
-        d4vbtn.setOnClickListener(new View.OnClickListener() {
+        DocumentReference documentReference3 = dbDoctor.collection("Hospital").document(hospitalId);
+        documentReference3.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View v) {
-                view();
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                hosName[0] = task.getResult().getString("Name");
             }
         });
-        d4ubtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                update();
-            }
-        });
+        //Log.e(TAG, "hospital name"+ hName[0]);
+        dbDoctor.collection("Doctor")
+                //.whereEqualTo("Hospitalchamnberlocation",sp2)
+                //.whereArrayContains("Specialty",sp1)
+                .whereEqualTo("Hospitalchambername", hosName[0])
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot querySnapshot : task.getResult()) {
+                            Doctor doctor = new Doctor(querySnapshot.getString("Name"),
+                                    querySnapshot.getString("Email"),
+                                    querySnapshot.getString("Description"),
+                                    querySnapshot.getString("Hospitalchambername"),
+                                    querySnapshot.getString("Practicesatrtingyear"),
+                                    querySnapshot.getString("Hospitalchamnberlocation"),
+                                    querySnapshot.getString("DoctorID"));
+                            doctorArrayList.add(doctor);
+                        }
+                        adapter = new DoctorsHospitalAdapter(DoctorsHospitalActivity.this, doctorArrayList);
+                        mRecyclerView.setAdapter(adapter);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(DoctorsHospitalActivity.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
+                        Log.v("---I---", e.getMessage());
+                    }
+                });
 
-        d5vbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view();
-            }
-        });
-        d5ubtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                update();
-            }
-        });
+    }
 
-        d6vbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view();
-            }
-        });
-        d6ubtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                update();
-            }
-        });
+    private void setUpFireBase() {
+        dbDoctor = FirebaseFirestore.getInstance();
+    }
 
-        d7vbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view();
-            }
-        });
-        d7ubtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                update();
-            }
-        });
-
-        d8vbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view();
-            }
-        });
-        d8ubtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                update();
-            }
-        });
-
-        d9vbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view();
-            }
-        });
-        d9ubtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                update();
-            }
-        });
-
-        d10vbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view();
-            }
-        });
-        d10ubtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                update();
-            }
-        });
+    private void setUpRecyclerView() {
+        mRecyclerView = findViewById(R.id.doctorsHospitalRV);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -292,7 +273,7 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
         fAuthHos = FirebaseAuth.getInstance();
         userHospital = fAuthHos.getCurrentUser();
         String hospitalId = userHospital.getUid();
-        intent.putExtra(EXTRA_TEXT1,hospitalId);
+        intent.putExtra(EXTRA_TEXT1, hospitalId);
         startActivity(intent);
     }
 
@@ -310,56 +291,6 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
         startActivity(intent);
     }
 
-    /*public void OnClickListener(View v)
-    {
-        switch(v.getId())
-        {
-            case R.id.addbtn:
-                add();
-                break;
-            case R.id.d1viewbtn:
-                view();
-                break;
-            case R.id.d1updatebtn:
-                update();
-                break;
-            case R.id.d2viewbtn:
-                view();
-                break;
-            case R.id.d2updatebtn:
-                update();
-                break;
-            case R.id.d3viewbtn:
-                view();
-                break;
-            case R.id.d3updatebtn:
-                update();
-                break;
-            case R.id.d4viewbtn:
-                view();
-                break;
-            case R.id.d4updatebtn:
-                update();
-                break;
-            case R.id.d5viewbtn:
-                view();
-                break;
-            case R.id.d5updatebtn:
-                update();
-                break;
-            case R.id.d6viewbtn:
-                view();
-                break;
-            case R.id.d6updatebtn:
-                update();
-                break;
-            case R.id.d7viewbtn:
-                view();
-                break;
-            case R.id.d7updatebtn:
-                update();
-                break;
-
-        }
-    }*/
+    public void appointment() {
+    }
 }

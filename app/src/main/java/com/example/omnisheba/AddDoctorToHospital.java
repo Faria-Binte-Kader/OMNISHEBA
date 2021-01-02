@@ -180,8 +180,7 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
                         location[0] = task.getResult().getString("Hospitallocation");
                     }
                 });
-
-
+                //Log.e(TAG, "hospital name" + hosName[0]);
                 fAuthDoctor.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -262,7 +261,7 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
                             });
 
 
-                            startActivity(new Intent(getApplicationContext(), DoctorMainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), DoctorsHospitalActivity.class));
                         } else {
                             Toast.makeText(AddDoctorToHospital.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

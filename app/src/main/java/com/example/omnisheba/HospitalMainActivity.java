@@ -6,10 +6,14 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class HospitalMainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @Override
+    public static final String EXTRA_TEXT2 = "com.example.application.example.EXTRA_TEXT2";
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hospital_main_activity);
@@ -31,6 +35,12 @@ public class HospitalMainActivity extends AppCompatActivity implements View.OnCl
     private void doctor() {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this, DoctorsHospitalActivity.class);
+        FirebaseUser userHospital;
+        FirebaseAuth fAuthHos;
+        fAuthHos = FirebaseAuth.getInstance();
+        userHospital = fAuthHos.getCurrentUser();
+        String hospitalId = userHospital.getUid();
+        intent.putExtra(EXTRA_TEXT2, hospitalId);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
