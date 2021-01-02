@@ -150,6 +150,19 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
             doctorArrayList.clear();
         SearchView searchView = findViewById(R.id.searchViewDoctorHospitalName);
 
+        final String[] hosName = new String[1];
+
+        Intent intent = getIntent();
+        String hospitalId = intent.getStringExtra(HospitalMainActivity.EXTRA_TEXT2);
+
+        DocumentReference documentReference3 = dbDoctor.collection("Hospital").document(hospitalId);
+        documentReference3.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                hosName[0] = task.getResult().getString("Name");
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -171,6 +184,7 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                                             querySnapshot.getString("Practicesatrtingyear"),
                                             querySnapshot.getString("Hospitalchamnberlocation"),
                                             querySnapshot.getString("DoctorID"));
+                                    if (doctor.getHospitalchambername().equals(hosName[0]))
                                     doctorArrayList.add(doctor);
                                 }
                                 adapter = new DoctorsHospitalAdapter(DoctorsHospitalActivity.this, doctorArrayList);
@@ -214,7 +228,6 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
         dbDoctor.collection("Doctor")
                 //.whereEqualTo("Hospitalchamnberlocation",sp2)
                 //.whereArrayContains("Specialty",sp1)
-                .whereEqualTo("Hospitalchambername", hosName[0])
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -227,7 +240,8 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                                     querySnapshot.getString("Practicesatrtingyear"),
                                     querySnapshot.getString("Hospitalchamnberlocation"),
                                     querySnapshot.getString("DoctorID"));
-                            doctorArrayList.add(doctor);
+                            if (doctor.getHospitalchambername().equals(hosName[0]))
+                                doctorArrayList.add(doctor);
                         }
                         adapter = new DoctorsHospitalAdapter(DoctorsHospitalActivity.this, doctorArrayList);
                         mRecyclerView.setAdapter(adapter);
