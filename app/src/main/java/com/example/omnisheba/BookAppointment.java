@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -21,7 +22,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BookAppointment extends AppCompatActivity {
     private TextView name,  satmon, sateve, sunmon, suneve, monmon, moneve, tuesmon, tueseve, wedmon, wedeve,
@@ -29,6 +38,7 @@ public class BookAppointment extends AppCompatActivity {
     FirebaseAuth fAuthDoctor;
     FirebaseFirestore fStore;
     String DoctorID;
+    Calendar calendar;
     private ArrayList<Doctor> doctorArrayList2;
 
     @Override
@@ -37,7 +47,8 @@ public class BookAppointment extends AppCompatActivity {
         getSupportActionBar().setTitle("0!");
         setContentView(R.layout.activity_book_appointment);
         Intent intent = getIntent();
-        String sp1 = intent.getStringExtra(FindDoctor.EXTRA_TEXT7);
+        final String sp1 = intent.getStringExtra(FindDoctor.EXTRA_TEXT7);
+        calendar = Calendar.getInstance();
         //name = findViewById(R.id.doctornameapp);
         //name.setText(sp1);
         doctorArrayList2=new ArrayList<>();
@@ -60,30 +71,20 @@ public class BookAppointment extends AppCompatActivity {
 
         fAuthDoctor = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+        final DateFormat formatterdate = new SimpleDateFormat("dd-MM-yyyy");
+        final String nowtime = formatterdate.format(calendar.getTime());
+        /*Date d1 = null;
+        try {
+             d1= formatterdate.parse(nowtime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+        String thentime;
 
-       // if(fStore.collection("Doctor").document(sp1)!=null)
-        /*if (doctorArrayList2.size() > 0)
-            doctorArrayList2.clear();
-        fStore.collection("Doctor")
-                .whereGreaterThanOrEqualTo("Name", sp1.toUpperCase())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for (DocumentSnapshot querySnapshot : task.getResult()) {
-                           // if(querySnapshot.getString("DoctorID")!=null)
-                            //{
-                            /*Doctor doctor = new Doctor(querySnapshot.getString("Name"),
-                                    querySnapshot.getString("Email"),
-                                    querySnapshot.getString("Description"),
-                                    querySnapshot.getString("Hospitalchambername"),
-                                    querySnapshot.getString("Practicesatrtingyear"),
-                                    querySnapshot.getString("Hospitalchamnberlocation"),
-                                    querySnapshot.getString("DoctorID"));
-                            doctorArrayList2.add(doctor);*/
 
-                            DocumentReference docRef = fStore.collection("Appointment").document(sp1);
-                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        DocumentReference docRef = fStore.collection("Appointment").document(sp1);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     if (task.isSuccessful()) {
@@ -110,51 +111,82 @@ public class BookAppointment extends AppCompatActivity {
                                         }
                                     } else {
                                         Log.d("TAG", "get failed with ", task.getException());
-                                    }
-                                }
+                                    } }
                             });
-/*
-                            // }
-                            //DoctorID=doctor.getDoctorID();
+      /*    ADDS APPOINTMENT TO THE SELECTED DOCTOR
+       DocumentReference docRef2 = fStore.collection(sp1).document();
 
-                            //  doctorArrayList.add(doctor);
-                        }
-                    }
-                }) .addOnFailureListener(new OnFailureListener() {
+        Map<String, Object> appdoc = new HashMap<>();
+        appdoc.put("Day", calendar.get(Calendar.DAY_OF_WEEK));
+        appdoc.put("Date", formatterdate.format(calendar.getTime()));
+        appdoc.put("Time",  formatter.format(calendar.getTime()));
+        appdoc.put("MSSID", fAuthDoctor.getUid());
+        appdoc.put("ID", docRef2.getId());
+
+        docRef2.set(appdoc).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-               // Toast.makeText(BookAppointment.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
-                Log.v("Fail", e.getMessage());
+            public void onSuccess(Void aVoid) {
+                Log.d("TAG", "onSuccess: appointment is created");
             }
         });*/
 
 
 
-     /*if(DoctorID!=null && fStore.collection("Appointment").document(DoctorID)!=null){
-        DocumentReference documentReference2 = fStore.collection("Appointment").document(DoctorID);
-        documentReference2.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+      /*  DELETES APPOINTMENT WITH DATE SMALLER THAN THE CURRENT DATE
+      fStore.collection(sp1)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    String time;
+                    String date;
+                    Date dat,d1;
+                    String id;
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for(DocumentSnapshot querySnapshot: task.getResult()) {
+
+                                    time=querySnapshot.getString("Time");
+                                    date=querySnapshot.getString("Date");
+                                    id= querySnapshot.getString("ID");
+
+                            try {
+                                dat=formatterdate.parse(date);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                d1= formatterdate.parse(nowtime);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+
+                            if(dat.compareTo(d1)<0)
+                            {
+                                fStore.collection(sp1).document(id)
+                                        .delete()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("TAG", "DocumentSnapshot successfully deleted!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("TAG", "Error deleting document", e);
+                                            }
+                                        });
+                            }
+
+                        }}}).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                satmon.setText(value.getString("Satmon"));
-                sunmon.setText(value.getString("Sunmon"));
-                monmon.setText(value.getString("Monmon"));
-                tuesmon.setText(value.getString("Tuesmon"));
-                wedmon.setText(value.getString("Wedmon"));
-                thursmon.setText(value.getString("Thursmon"));
-                frimon.setText(value.getString("Frimon"));
-
-                sateve.setText(value.getString("Sateve"));
-                suneve.setText(value.getString("Suneve"));
-                moneve.setText(value.getString("Moneve"));
-                tueseve.setText(value.getString("Tueseve"));
-                wedeve.setText(value.getString("Wedeve"));
-                thurseve.setText(value.getString("Thurseve"));
-                frieve.setText(value.getString("Frieve"));
-
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(BookAppointment.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
+                Log.v("failll", e.getMessage());
             }
-        });
-    }
-     else
-     {Log.d("TAG","Fail");
-    }*/
+        });*/
+
+
+
 }}
