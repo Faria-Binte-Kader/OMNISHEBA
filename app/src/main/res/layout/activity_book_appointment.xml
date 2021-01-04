@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -9,6 +9,12 @@
     android:layout_height="match_parent"
     tools:context=".BookAppointment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark"
+        android:orientation="vertical"
+        android:padding="20dp">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -285,4 +291,50 @@
             </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/text2_rounded"
+        android:padding="10dp"
+        android:text="Choose Day"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <Spinner
+        android:id="@+id/book_appointment_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:entries="@array/workday_list"
+        android:padding="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/text2_rounded"
+        android:padding="10dp"
+        android:text="Choose Shift"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <Spinner
+        android:id="@+id/book_appointment_shift"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:entries="@array/shift_list"
+        android:padding="10dp"/>
+
+        <Button
+            android:id="@+id/book_appointment_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/button_rounded"
+            android:text="Book Appointment"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+    </LinearLayout>
+</ScrollView>
