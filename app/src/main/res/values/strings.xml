@@ -260,7 +260,6 @@
 
     <string-array name="shift_list">
         <item>Morning</item>
-        <item>Noon</item>
         <item>Evening</item>
     </string-array>
 

@@ -58,8 +58,10 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
         bookAppointmentBtn = findViewById(R.id.book_appointment_btn);
         chosenDay = findViewById(R.id.book_appointment_day);
         chosenDay.setOnItemSelectedListener(this);
-        chosenShift.findViewById(R.id.book_appointment_shift);
+        chosenShift = findViewById(R.id.book_appointment_shift);
         chosenShift.setOnItemSelectedListener(this);
+        final String day_chosen = chosenDay.getSelectedItem().toString();
+        final String shift_chosen = chosenShift.getSelectedItem().toString();
 
         satmon = findViewById(R.id.showSatMon2);
         sunmon = findViewById(R.id.showSunMon2);
@@ -209,9 +211,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
             final Integer max_mss = 10;
             @Override
             public void onClick(View view) {
-                addMSSUnderDoctor();
-            }
-                /*fStore.collection(sp1)
+                fStore.collection(sp1)
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -246,58 +246,57 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                 }
                             }
                         });
-                final String day_chosen = chosenDay.getSelectedItem().toString();
                 switch (day_chosen){
                     case "Saturday":
                         if(sat>=10)
-                            Toast.makeText(BookAppointment.this, "No available slot left", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
                         else
                             addMSSUnderDoctor();
                         break;
                     case "Sunday":
                         if(sun>=10)
-                            Toast.makeText(BookAppointment.this, "No available slot left", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
                         break;
                     case "Monday":
                         if(mon>=10)
-                            Toast.makeText(BookAppointment.this, "No available slot left", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
                         else
                             addMSSUnderDoctor();
                         break;
                     case "Tuesday":
                         if(tues>=10)
-                            Toast.makeText(BookAppointment.this, "No available slot left", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
                         else
                             addMSSUnderDoctor();
                         break;
                     case "Wednesday":
                         if(wed>=10)
-                            Toast.makeText(BookAppointment.this, "No available slot left", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
                         else
                             addMSSUnderDoctor();
                         break;
                     case "Thursday":
                         if(thurs>=10)
-                            Toast.makeText(BookAppointment.this, "No available slot left", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
                         else
                             addMSSUnderDoctor();
                         break;
                     case "Friday":
                         if(fri>=10)
-                            Toast.makeText(BookAppointment.this, "No available slot left", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
                         else
                             addMSSUnderDoctor();
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + chosenDay);
                 }
-            }*/
+            }
 
             private void addMSSUnderDoctor() {
                 DocumentReference docRef2 = fStore.collection(sp1).document();
 
                 Map<String, Object> appdoc = new HashMap<>();
-                appdoc.put("Day", calendar.get(Calendar.DAY_OF_WEEK));
+                appdoc.put("Day", day_chosen);
                 appdoc.put("Date", formatterdate.format(calendar.getTime()));
                 appdoc.put("Time",  formatter.format(calendar.getTime()));
                 appdoc.put("MSSID", fAuthDoctor.getUid());
@@ -307,8 +306,10 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("TAG", "onSuccess: appointment is created");
+                        Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
     }
