@@ -1,10 +1,12 @@
 package com.example.omnisheba;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,9 +27,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -60,8 +69,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
         chosenDay.setOnItemSelectedListener(this);
         chosenShift = findViewById(R.id.book_appointment_shift);
         chosenShift.setOnItemSelectedListener(this);
-        final String day_chosen = chosenDay.getSelectedItem().toString();
-        final String shift_chosen = chosenShift.getSelectedItem().toString();
+
 
         satmon = findViewById(R.id.showSatMon2);
         sunmon = findViewById(R.id.showSunMon2);
@@ -82,7 +90,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
         fAuthDoctor = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         final SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-        final DateFormat formatterdate = new SimpleDateFormat("dd-MM-yyyy");
+        final DateFormat formatterdate = new SimpleDateFormat("yyyy-MM-dd");
         final String nowtime = formatterdate.format(calendar.getTime());
         /*Date d1 = null;
         try {
@@ -124,26 +132,9 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                 }
             }
         });
-      /*    ADDS APPOINTMENT TO THE SELECTED DOCTOR
-       DocumentReference docRef2 = fStore.collection(sp1).document();
-
-        Map<String, Object> appdoc = new HashMap<>();
-        appdoc.put("Day", calendar.get(Calendar.DAY_OF_WEEK));
-        appdoc.put("Date", formatterdate.format(calendar.getTime()));
-        appdoc.put("Time",  formatter.format(calendar.getTime()));
-        appdoc.put("MSSID", fAuthDoctor.getUid());
-        appdoc.put("ID", docRef2.getId());
-
-        docRef2.set(appdoc).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d("TAG", "onSuccess: appointment is created");
-            }
-        });*/
 
 
-
-      /*  DELETES APPOINTMENT WITH DATE SMALLER THAN THE CURRENT DATE
+      //  DELETES APPOINTMENT WITH DATE SMALLER THAN THE CURRENT DATE
       fStore.collection(sp1)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -196,9 +187,12 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                 Toast.makeText(BookAppointment.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
                 Log.v("failll", e.getMessage());
             }
-        });*/
+        });
 
         bookAppointmentBtn.setOnClickListener(new View.OnClickListener() {
+            //Spinner chosen = findViewById(R.id.book_appointment_day);
+             //String day_chosen = chosen.getSelectedItem().toString();
+             //String shift_chosen = chosenShift.getSelectedItem().toString();
             //deletePreviousAppointments();
             Integer sat = 0;
             Integer sun = 0;
@@ -209,9 +203,10 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
             Integer fri = 0;
             String day;
             final Integer max_mss = 10;
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                fStore.collection(sp1)
+               /* fStore.collection(sp1)
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -289,16 +284,49 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + chosenDay);
-                }
+                }*/
+                addMSSUnderDoctor();
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             private void addMSSUnderDoctor() {
+
+
+                Spinner chosen = findViewById(R.id.book_appointment_day);
+                final String day_chosen = chosen.getSelectedItem().toString();
+                LocalDate ld = LocalDate.now();
+                String d="";
+                if(day_chosen.equals("Monday"))
+                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+                 d= ld.toString();}
+                else if(day_chosen.equals("Tuesday"))
+                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+                    d= ld.toString();}
+                else if(day_chosen.equals("Wednesday"))
+                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
+                    d= ld.toString();}
+                else if(day_chosen.equals("Thursday"))
+                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
+                    d= ld.toString();}
+                else if(day_chosen.equals("Friday"))
+                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
+                    d= ld.toString();}
+                else if(day_chosen.equals("Saturday"))
+                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+                    d= ld.toString();}
+                else if(day_chosen.equals("Sunday"))
+                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+                    d= ld.toString();}
+                String shift_chosen = chosenShift.getSelectedItem().toString();
+                String shift;
+                if(shift_chosen=="Morning") shift="10:00:00";
+                else shift="20:00:00";
                 DocumentReference docRef2 = fStore.collection(sp1).document();
 
                 Map<String, Object> appdoc = new HashMap<>();
                 appdoc.put("Day", day_chosen);
-                appdoc.put("Date", formatterdate.format(calendar.getTime()));
-                appdoc.put("Time",  formatter.format(calendar.getTime()));
+                appdoc.put("Date", d);
+                appdoc.put("Time", shift);
                 appdoc.put("MSSID", fAuthDoctor.getUid());
                 appdoc.put("ID", docRef2.getId());
 
