@@ -31,14 +31,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class BookAppointment extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private TextView name, satmon, sateve, sunmon, suneve, monmon, moneve, tuesmon, tueseve, wedmon, wedeve,
@@ -51,14 +49,6 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
 
     Button bookAppointmentBtn;
     Spinner chosenDay, chosenShift;
-
-    int sat = 0;
-    int sun = 0;
-    int mon = 0;
-    int tues = 0;
-    int wed = 0;
-    int thurs = 0;
-    int fri = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,94 +195,417 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
             //String shift_chosen = chosenShift.getSelectedItem().toString();
             //deletePreviousAppointments();
             String day;
-            final int max_mss = 10;
+            String shift;
+            final int max_mss = 20;
 
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                fStore.collection(sp1)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                Spinner chosen = findViewById(R.id.book_appointment_day);
+                String day_chosen = chosen.getSelectedItem().toString();
+                Spinner chosen_shift = findViewById(R.id.book_appointment_shift);
+                String shift_chosen = chosen_shift.getSelectedItem().toString();
+                if (day_chosen.equals("Monday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Monday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
                             @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                for (DocumentSnapshot querySnapshot : task.getResult()) {
-                                    day = querySnapshot.getString("Day");
-                                    if (day.equals("Saturday")) {
-                                        sat++;
-                                    } else if (day.equals("Sunday")) {
-                                        sun++;
-                                    } else if (day.equals("Monday")) {
-                                        mon++;
-                                    } else if (day.equals("Tuesday")) {
-                                        tues++;
-                                    } else if (day.equals("Wednesday")) {
-                                        wed++;
-                                    } else if (day.equals("Thursday")) {
-                                        thurs++;
-                                    } else if (day.equals("Friday")) {
-                                        fri++;
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
                                     } else {
-                                        throw new IllegalStateException("Unexpected value: " + day);
+                                        Log.d("TAG", "No such document");
                                     }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
                                 }
                             }
                         });
-                Spinner chosen = findViewById(R.id.book_appointment_day);
-                final String day_chosen = chosen.getSelectedItem().toString();
-                if (day_chosen.equals("Saturday")) {
-                    if (sat >= max_mss)
-                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                    else
-                        addMSSUnderDoctor();
-                    Log.d("TAG", "sat is " + String.valueOf(sat));
-                } else if (day_chosen.equals("Sunday")) {
-                    if (sun >= max_mss)
-                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                    else
-                        addMSSUnderDoctor();
-                    Log.d("TAG", "sun is " + String.valueOf(sun));
-                } else if (day_chosen.equals("Monday")) {
-                    if (mon >= max_mss)
-                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                    else
-                        addMSSUnderDoctor();
-                    Log.d("TAG", "mon is " + String.valueOf(mon));
-                } else if (day_chosen.equals("Tuesday")) {
-                    if (tues >= max_mss)
-                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                    else
-                        addMSSUnderDoctor();
-                    Log.d("TAG", "tues is " + String.valueOf(tues));
-                } else if (day_chosen.equals("Wednesday")) {
-                    if (wed >= max_mss)
-                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                    else
-                        addMSSUnderDoctor();
-                    Log.d("TAG", "wed is " + String.valueOf(wed));
-                } else if (day_chosen.equals("Thursday")) {
-                    if (thurs >= max_mss)
-                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                    else
-                        addMSSUnderDoctor();
-                    Log.d("TAG", "thurs is " + String.valueOf(thurs));
-                } else if (day_chosen.equals("Friday")) {
-                    if (fri >= max_mss)
-                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                    else
-                        addMSSUnderDoctor();
-                    Log.d("TAG", "fri is " + String.valueOf(fri));
-                } else {
-                    throw new IllegalStateException("Unexpected value: " + chosenDay);
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Monday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
                 }
-                // addMSSUnderDoctor();
+                else if (day_chosen.equals("Tuesday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Tuesday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Tuesday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
+                if (day_chosen.equals("Wednesday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Wednesday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Wednesday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
+                if (day_chosen.equals("Thursday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Thursday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Thursday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
+                if (day_chosen.equals("Friday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Friday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Friday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
+                if (day_chosen.equals("Saturday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Saturday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Saturday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
+                if (day_chosen.equals("Sunday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Sunday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Sunday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addCountsUnderDoctor();
+                                        }
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.O)
+            /*@RequiresApi(api = Build.VERSION_CODES.O)
             private void addMSSUnderDoctor() {
 
                 Spinner chosen = findViewById(R.id.book_appointment_day);
                 final String day_chosen = chosen.getSelectedItem().toString();
-                Spinner chosen_shift = findViewById(R.id.book_appointment_day);
+                Spinner chosen_shift = findViewById(R.id.book_appointment_shift);
                 LocalDate ld = LocalDate.now();
                 String d = "";
                 if (day_chosen.equals("Monday")) {
@@ -317,9 +630,9 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                     ld = ld.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
                     d = ld.toString();
                 }
-                String shift_chosen = chosenShift.getSelectedItem().toString();
+                String shift_chosen = chosen_shift.getSelectedItem().toString();
                 String shift;
-                if (shift_chosen == "Morning") shift = "10:00:00";
+                if (shift_chosen.equals("Morning")) shift = "10:00:00";
                 else shift = "20:00:00";
                 DocumentReference docRef2 = fStore.collection(sp1).document();
 
@@ -338,6 +651,462 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                     }
                 });
 
+            }*/
+
+            //@RequiresApi(api = Build.VERSION_CODES.O)
+            private void addCountsUnderDoctor() {
+                Spinner chosen = findViewById(R.id.book_appointment_day);
+                String day_chosen = chosen.getSelectedItem().toString();
+                Spinner chosen_shift = findViewById(R.id.book_appointment_shift);
+                String shift_chosen = chosen_shift.getSelectedItem().toString();
+                if (day_chosen.equals("Monday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Monday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Monday").document(sp1)
+                                                .update("CountMor",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Monday morning count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Monday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Monday").document(sp1)
+                                                .update("CountEve",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Monday evening count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
+                else if (day_chosen.equals("Tuesday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Tuesday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Tuesday").document(sp1)
+                                                .update("CountMor",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Tuesday morning count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Tuesday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Monday").document(sp1)
+                                                .update("CountEve",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Tuesday evening count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
+                if (day_chosen.equals("Wednesday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Wednesday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Wednesday").document(sp1)
+                                                .update("CountMor",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Wednesday morning count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Wednesday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Wednesday").document(sp1)
+                                                .update("CountEve",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Wednesday evening count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
+                if (day_chosen.equals("Thursday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Thursday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Thursday").document(sp1)
+                                                .update("CountMor",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Thursday morning count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Thursday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Thursday").document(sp1)
+                                                .update("CountEve",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Thursday evening count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
+                if (day_chosen.equals("Friday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Friday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Friday").document(sp1)
+                                                .update("CountMor",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Friday morning count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Friday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Friday").document(sp1)
+                                                .update("CountEve",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Friday evening count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
+                if (day_chosen.equals("Saturday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Saturday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Saturday").document(sp1)
+                                                .update("CountMor",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Saturday morning count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Saturday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Saturday").document(sp1)
+                                                .update("CountEve",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Saturday evening count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
+                if (day_chosen.equals("Sunday")) {
+                    if (shift_chosen.equals("Morning")) {
+                        DocumentReference doc = fStore.collection("Sunday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountMor");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Sunday").document(sp1)
+                                                .update("CountMor",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Sunday morning count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else if (shift_chosen.equals("Evening")) {
+                        DocumentReference doc = fStore.collection("Sunday").document(sp1);
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            String cnt;
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document2 = task.getResult();
+                                    if (document2.exists()) {
+                                        Log.d("TAG", "document found");
+                                        cnt = document2.getString("CountEve");
+                                        int temp = Integer.parseInt(cnt);
+                                        temp = temp + 1;
+                                        cnt = String.valueOf(temp);
+                                        fStore.collection("Sunday").document(sp1)
+                                                .update("CountEve",cnt)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("TAG", "onSuccess: Sunday evening count is updated");
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("TAG", "No such document");
+                                    }
+                                } else {
+                                    Log.d("TAG", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                }
             }
         });
     }

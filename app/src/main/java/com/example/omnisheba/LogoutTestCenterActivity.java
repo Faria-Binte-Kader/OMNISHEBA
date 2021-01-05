@@ -53,7 +53,7 @@ public class LogoutTestCenterActivity extends AppCompatActivity implements View.
                 Toast.makeText(this, "Logged out Successfully!", Toast.LENGTH_SHORT).show();
                 //startActivity(new Intent(this, login.class));
                 Intent intent = new Intent(this,login.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
                 break;

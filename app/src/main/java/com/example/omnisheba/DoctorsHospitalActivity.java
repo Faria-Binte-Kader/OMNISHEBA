@@ -40,12 +40,12 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
     String[] s = {"No Specialty", "Cardiology", "ENT", "General", "Medicine", "Nephrology", "Neurology", "OB/GYN",
             "Oncology", "Opthalmology", "Physiology", "Psychology", "Urology",};
 
-    Button specialtyBtn;
+    /*Button specialtyBtn;
 
     TextView mItemSelected;
     String[] listItems;
     boolean[] checkedItems;
-    ArrayList<Integer> mUserItems = new ArrayList<>();
+    ArrayList<Integer> mUserItems = new ArrayList<>();*/
 
     RecyclerView mRecyclerView;
     FirebaseFirestore dbDoctor;
@@ -72,10 +72,10 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
 
         Button addBtn = findViewById(R.id.addbtn);
 
-        specialtyBtn = findViewById(R.id.btnFilterSpecialty);
+        /*specialtyBtn = findViewById(R.id.btnFilterSpecialty);
         mItemSelected = (TextView) findViewById(R.id.tvItemSelected);
         listItems = getResources().getStringArray(R.array.specialty_list);
-        checkedItems = new boolean[listItems.length];
+        checkedItems = new boolean[listItems.length];*/
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +84,7 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
             }
         });
 
-        specialtyBtn.setOnClickListener(new View.OnClickListener() {
+        /*specialtyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(DoctorsHospitalActivity.this);
@@ -136,7 +136,7 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                 AlertDialog mDialog = mBuilder.create();
                 mDialog.show();
             }
-        });
+        });*/
 
         doctorArrayList = new ArrayList<>();
         setUpRecyclerView();

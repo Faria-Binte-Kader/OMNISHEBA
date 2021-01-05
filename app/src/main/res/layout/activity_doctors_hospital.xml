@@ -29,7 +29,7 @@
         android:drawableStart="@drawable/ic_search"
         android:background="@color/colorPrimaryDark"/>
 
-        <Button
+        <!--<Button
             android:id="@+id/btnFilterSpecialty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"/>
 
-        </LinearLayout>
+        </LinearLayout>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/doctorsHospitalRV"

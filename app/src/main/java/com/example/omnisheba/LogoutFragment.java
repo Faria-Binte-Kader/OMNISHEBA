@@ -46,7 +46,7 @@ public class LogoutFragment extends Fragment implements View.OnClickListener {
         FirebaseAuth.getInstance().signOut();
         SharedPrefManager.getInstance(getActivity()).clear();
         Intent intent = new Intent(getActivity(), login.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
 
     }
