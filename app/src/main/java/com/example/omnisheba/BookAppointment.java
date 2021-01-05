@@ -52,6 +52,14 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
     Button bookAppointmentBtn;
     Spinner chosenDay, chosenShift;
 
+    int sat = 0;
+    int sun = 0;
+    int mon = 0;
+    int tues = 0;
+    int wed = 0;
+    int thurs = 0;
+    int fri = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,37 +142,37 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
         });
 
 
-      //  DELETES APPOINTMENT WITH DATE SMALLER THAN THE CURRENT DATE
-      fStore.collection(sp1)
+        //  DELETES APPOINTMENT WITH DATE SMALLER THAN THE CURRENT DATE
+        fStore.collection(sp1)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     String time;
                     String date;
-                    Date dat,d1;
+                    Date dat, d1;
                     String id;
+
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for(DocumentSnapshot querySnapshot: task.getResult()) {
+                        for (DocumentSnapshot querySnapshot : task.getResult()) {
 
-                                    time=querySnapshot.getString("Time");
-                                    date=querySnapshot.getString("Date");
-                                    id= querySnapshot.getString("ID");
+                            time = querySnapshot.getString("Time");
+                            date = querySnapshot.getString("Date");
+                            id = querySnapshot.getString("ID");
 
                             try {
-                                dat=formatterdate.parse(date);
+                                dat = formatterdate.parse(date);
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
 
                             try {
-                                d1= formatterdate.parse(nowtime);
+                                d1 = formatterdate.parse(nowtime);
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
 
 
-                            if(dat.compareTo(d1)<0)
-                            {
+                            if (dat.compareTo(d1) < 0) {
                                 fStore.collection(sp1).document(id)
                                         .delete()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -181,7 +189,9 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         });
                             }
 
-                        }}}).addOnFailureListener(new OnFailureListener() {
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(BookAppointment.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
@@ -191,136 +201,126 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
 
         bookAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             //Spinner chosen = findViewById(R.id.book_appointment_day);
-             //String day_chosen = chosen.getSelectedItem().toString();
-             //String shift_chosen = chosenShift.getSelectedItem().toString();
+            //String day_chosen = chosen.getSelectedItem().toString();
+            //String shift_chosen = chosenShift.getSelectedItem().toString();
             //deletePreviousAppointments();
-            Integer sat = 0;
-            Integer sun = 0;
-            Integer mon = 0;
-            Integer tues = 0;
-            Integer wed = 0;
-            Integer thurs = 0;
-            Integer fri = 0;
             String day;
-            final Integer max_mss = 10;
+            final int max_mss = 10;
+
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-               /* fStore.collection(sp1)
+                fStore.collection(sp1)
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 for (DocumentSnapshot querySnapshot : task.getResult()) {
                                     day = querySnapshot.getString("Day");
-                                    switch (Objects.requireNonNull(day)) {
-                                        case "Saturday":
-                                            sat++;
-                                            break;
-                                        case "Sunday":
-                                            sun++;
-                                            break;
-                                        case "Monday":
-                                            mon++;
-                                            break;
-                                        case "Tuesday":
-                                            tues++;
-                                            break;
-                                        case "Wednesday":
-                                            wed++;
-                                            break;
-                                        case "Thursday":
-                                            thurs++;
-                                            break;
-                                        case "Friday":
-                                            fri++;
-                                            break;
-                                        default:
-                                            throw new IllegalStateException("Unexpected value: " + day);
+                                    if (day.equals("Saturday")) {
+                                        sat++;
+                                    } else if (day.equals("Sunday")) {
+                                        sun++;
+                                    } else if (day.equals("Monday")) {
+                                        mon++;
+                                    } else if (day.equals("Tuesday")) {
+                                        tues++;
+                                    } else if (day.equals("Wednesday")) {
+                                        wed++;
+                                    } else if (day.equals("Thursday")) {
+                                        thurs++;
+                                    } else if (day.equals("Friday")) {
+                                        fri++;
+                                    } else {
+                                        throw new IllegalStateException("Unexpected value: " + day);
                                     }
                                 }
                             }
                         });
-                switch (day_chosen){
-                    case "Saturday":
-                        if(sat>=10)
-                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                        else
-                            addMSSUnderDoctor();
-                        break;
-                    case "Sunday":
-                        if(sun>=10)
-                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                        break;
-                    case "Monday":
-                        if(mon>=10)
-                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                        else
-                            addMSSUnderDoctor();
-                        break;
-                    case "Tuesday":
-                        if(tues>=10)
-                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                        else
-                            addMSSUnderDoctor();
-                        break;
-                    case "Wednesday":
-                        if(wed>=10)
-                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                        else
-                            addMSSUnderDoctor();
-                        break;
-                    case "Thursday":
-                        if(thurs>=10)
-                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                        else
-                            addMSSUnderDoctor();
-                        break;
-                    case "Friday":
-                        if(fri>=10)
-                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                        else
-                            addMSSUnderDoctor();
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + chosenDay);
-                }*/
-                addMSSUnderDoctor();
+                Spinner chosen = findViewById(R.id.book_appointment_day);
+                final String day_chosen = chosen.getSelectedItem().toString();
+                if (day_chosen.equals("Saturday")) {
+                    if (sat >= max_mss)
+                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                    else
+                        addMSSUnderDoctor();
+                    Log.d("TAG", "sat is " + String.valueOf(sat));
+                } else if (day_chosen.equals("Sunday")) {
+                    if (sun >= max_mss)
+                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                    else
+                        addMSSUnderDoctor();
+                    Log.d("TAG", "sun is " + String.valueOf(sun));
+                } else if (day_chosen.equals("Monday")) {
+                    if (mon >= max_mss)
+                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                    else
+                        addMSSUnderDoctor();
+                    Log.d("TAG", "mon is " + String.valueOf(mon));
+                } else if (day_chosen.equals("Tuesday")) {
+                    if (tues >= max_mss)
+                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                    else
+                        addMSSUnderDoctor();
+                    Log.d("TAG", "tues is " + String.valueOf(tues));
+                } else if (day_chosen.equals("Wednesday")) {
+                    if (wed >= max_mss)
+                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                    else
+                        addMSSUnderDoctor();
+                    Log.d("TAG", "wed is " + String.valueOf(wed));
+                } else if (day_chosen.equals("Thursday")) {
+                    if (thurs >= max_mss)
+                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                    else
+                        addMSSUnderDoctor();
+                    Log.d("TAG", "thurs is " + String.valueOf(thurs));
+                } else if (day_chosen.equals("Friday")) {
+                    if (fri >= max_mss)
+                        Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                    else
+                        addMSSUnderDoctor();
+                    Log.d("TAG", "fri is " + String.valueOf(fri));
+                } else {
+                    throw new IllegalStateException("Unexpected value: " + chosenDay);
+                }
+                // addMSSUnderDoctor();
             }
 
             @RequiresApi(api = Build.VERSION_CODES.O)
             private void addMSSUnderDoctor() {
 
-
                 Spinner chosen = findViewById(R.id.book_appointment_day);
                 final String day_chosen = chosen.getSelectedItem().toString();
+                Spinner chosen_shift = findViewById(R.id.book_appointment_day);
                 LocalDate ld = LocalDate.now();
-                String d="";
-                if(day_chosen.equals("Monday"))
-                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-                 d= ld.toString();}
-                else if(day_chosen.equals("Tuesday"))
-                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
-                    d= ld.toString();}
-                else if(day_chosen.equals("Wednesday"))
-                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
-                    d= ld.toString();}
-                else if(day_chosen.equals("Thursday"))
-                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
-                    d= ld.toString();}
-                else if(day_chosen.equals("Friday"))
-                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
-                    d= ld.toString();}
-                else if(day_chosen.equals("Saturday"))
-                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
-                    d= ld.toString();}
-                else if(day_chosen.equals("Sunday"))
-                {ld = ld.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
-                    d= ld.toString();}
+                String d = "";
+                if (day_chosen.equals("Monday")) {
+                    ld = ld.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+                    d = ld.toString();
+                } else if (day_chosen.equals("Tuesday")) {
+                    ld = ld.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+                    d = ld.toString();
+                } else if (day_chosen.equals("Wednesday")) {
+                    ld = ld.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
+                    d = ld.toString();
+                } else if (day_chosen.equals("Thursday")) {
+                    ld = ld.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
+                    d = ld.toString();
+                } else if (day_chosen.equals("Friday")) {
+                    ld = ld.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
+                    d = ld.toString();
+                } else if (day_chosen.equals("Saturday")) {
+                    ld = ld.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+                    d = ld.toString();
+                } else if (day_chosen.equals("Sunday")) {
+                    ld = ld.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+                    d = ld.toString();
+                }
                 String shift_chosen = chosenShift.getSelectedItem().toString();
                 String shift;
-                if(shift_chosen=="Morning") shift="10:00:00";
-                else shift="20:00:00";
+                if (shift_chosen == "Morning") shift = "10:00:00";
+                else shift = "20:00:00";
                 DocumentReference docRef2 = fStore.collection(sp1).document();
 
                 Map<String, Object> appdoc = new HashMap<>();
