@@ -198,8 +198,8 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
                             doctor.put("Hospitalchamnberlocation", location[0]);
                             doctor.put("Practicesatrtingyear", pracYear);
                             doctor.put("Type", "Doctor");
-                            doctor.put("DoctorID",userId);
-                          
+                            doctor.put("DoctorID", userId);
+
 
                             DocumentReference documentReference2 = fstoreDoctor.collection("Appointment").document(userId);
                             Map<String, Object> App = new HashMap<>();
@@ -261,8 +261,6 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
                                 }
 
                             });
-
-
                             startActivity(new Intent(getApplicationContext(), DoctorsHospitalActivity.class));
                         } else {
                             Toast.makeText(AddDoctorToHospital.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
