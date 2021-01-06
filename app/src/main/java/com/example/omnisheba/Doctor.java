@@ -1,6 +1,7 @@
 package com.example.omnisheba;
 
 public class Doctor {
+
     private  String Name;
     private  String Description;
     private  String Email;
