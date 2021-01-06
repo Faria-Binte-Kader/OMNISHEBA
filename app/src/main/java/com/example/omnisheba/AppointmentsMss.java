@@ -44,7 +44,6 @@ public class AppointmentsMss extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_appointments_mss);
 
         Intent intent = getIntent();
-
         appointmentsArrayList=new ArrayList<>();
 
         mssRecyclerView=findViewById(R.id.appointmentsMSSRV);
