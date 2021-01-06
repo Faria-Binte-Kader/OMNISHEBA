@@ -238,22 +238,58 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                                 Log.w("TAG", "Error deleting document", e);
                                             }
                                         });
-                                fStore.collection(dy).document(sp1)
-                                        .update("CountMor", "0")
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                fStore.collection(dy)
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            String d;
                                             @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Log.d("TAG", "onSuccess: Count is updated");
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                for (DocumentSnapshot querySnapshot : task.getResult()) {
+                                                    d = querySnapshot.getId();
+                                                    Log.d("TAG", d);
+                                                    fStore.collection(dy).document(d)
+                                                            .update("CountMor", "0")
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Log.d("TAG", "onSuccess: Count is updated");
+                                                                }
+                                                            });
+                                                }
                                             }
-                                        });
-                                fStore.collection(dy).document(sp1)
-                                        .update("CountEve", "0")
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(BookAppointment.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
+                                        Log.d("TAG", "Failed");
+                                    }
+                                });
+                                fStore.collection(dy)
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            String d;
                                             @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Log.d("TAG", "onSuccess: Count is updated");
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                for (DocumentSnapshot querySnapshot : task.getResult()) {
+                                                    d = querySnapshot.getId();
+                                                    Log.d("TAG", d);
+                                                    fStore.collection(dy).document(d)
+                                                            .update("CountEve", "0")
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Log.d("TAG", "onSuccess: Count is updated");
+                                                                }
+                                                            });
+                                                }
                                             }
-                                        });
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(BookAppointment.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
+                                        Log.d("TAG", "Failed");
+                                    }
+                                });
                             }
 
                         }
