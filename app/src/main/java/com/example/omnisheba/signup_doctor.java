@@ -92,13 +92,13 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
         checkedItems = new boolean[listItems.length];
 
         //workdaysBtn = findViewById(R.id.btnWorkDays);
-        mItemSelected2 = (TextView) findViewById(R.id.tvItemSelected2);
+       // mItemSelected2 = (TextView) findViewById(R.id.tvItemSelected2);
         listItems2 = getResources().getStringArray(R.array.workday_list);
         checkedItems2 = new boolean[listItems2.length];
 
         //shiftsBtn = findViewById(R.id.btnShifts);
 
-        mItemSelected3 = (TextView) findViewById(R.id.tvItemSelected3);
+      //  mItemSelected3 = (TextView) findViewById(R.id.tvItemSelected3);
         listItems3 = getResources().getStringArray(R.array.shift_list);
         checkedItems3 = new boolean[listItems3.length];
 
