@@ -207,6 +207,8 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                             id = querySnapshot.getString("ID");
                             dy = querySnapshot.getString("Day");
 
+                            Log.d("TAG", " Date " + date + " Time " + time + " ID " + id + " Day " + dy);
+
                             try {
                                 dat = formatterdate.parse(date);
                             } catch (ParseException e) {
@@ -237,13 +239,13 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                             }
                                         });
                                 fStore.collection(dy).document(sp1)
-                                            .update("CountMor", "0")
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Log.d("TAG", "onSuccess: Count is updated");
-                                                }
-                                            });
+                                        .update("CountMor", "0")
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("TAG", "onSuccess: Count is updated");
+                                            }
+                                        });
                                 fStore.collection(dy).document(sp1)
                                         .update("CountEve", "0")
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -318,8 +320,8 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                 schedule.put("Day", day);
                 schedule.put("Time", time);
                 schedule.put("Doctor", docname);
-                schedule.put("Hospital/Chamber name", hosname);
-                schedule.put("Hospital/Chamber location", hosloc);
+                schedule.put("Hospitalchambername", hosname);
+                schedule.put("Hospitalchamberlocation", hosloc);
                 schedule.put("ID", documentReference1.getId());
 
                 documentReference1.set(schedule).addOnSuccessListener(new OnSuccessListener<Void>() {

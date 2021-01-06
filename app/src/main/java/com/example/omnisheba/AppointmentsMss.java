@@ -28,9 +28,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class AppointmentsMss extends AppCompatActivity {
-
-
+public class AppointmentsMss extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     RecyclerView mssRecyclerView;
     FirebaseFirestore dbApp;
     FirebaseAuth fAuthApp;
@@ -42,6 +40,7 @@ public class AppointmentsMss extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("0!");
         setContentView(R.layout.activity_appointments_mss);
 
         Intent intent = getIntent();
@@ -59,33 +58,28 @@ public class AppointmentsMss extends AppCompatActivity {
 
         if (appointmentsArrayList.size() > 0)
             appointmentsArrayList.clear();
-
         dbApp.collection("Schedule").document(fAuthApp.getUid())
                 .collection("Appointments")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
                     String dt;
                     String d;
                     String t;
                     String doc;
                     String hn;
                     String hl;
-                    String id = fAuthApp.getUid();
-
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        Log.d("TAG", "Date " + dt + "Day " + d + "Time " + t + "Doctor " + doc + "Hospital " + hn + "Location " + hl);
-
                         for (DocumentSnapshot querySnapshot : task.getResult()) {
+
                             dt = querySnapshot.getString("Date");
                             d = querySnapshot.getString("Day");
                             t = querySnapshot.getString("Time");
                             doc = querySnapshot.getString("Doctor");
-                            hn = querySnapshot.getString("Hospital/Chamber name");
-                            hl = querySnapshot.getString("Hospital/Chamber location");
+                            hn = querySnapshot.getString("Hospitalchambername");
+                            hl = querySnapshot.getString("Hospitalchamberlocation");
 
-                            Log.d("TAG", "Date " + dt + "Day " + d + "Time " + t + "Doctor " + doc + "Hospital " + hn + "Location " + hl);
+                            Log.d("TAG", " Date " + dt + " Day " + d + " Time " + t + " Doctor " + doc + " Hospital " + hn + " Location " + hl);
 
                             Appointment appointment = new Appointment(dt, d, t, doc, hn, hl);
                             appointmentsArrayList.add(appointment);
@@ -106,12 +100,10 @@ public class AppointmentsMss extends AppCompatActivity {
     /*private void loadDataFromFirebase() {
         if (appointmentsArrayList.size() > 0)
             appointmentsArrayList.clear();
-
         dbApp.collection("Schedule").document(fAuthApp.getUid())
                 .collection("Appointments")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
                     String dt;
                     String d;
                     String t;
@@ -119,7 +111,6 @@ public class AppointmentsMss extends AppCompatActivity {
                     String hn;
                     String hl;
                     String id = fAuthApp.getUid();
-
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for (DocumentSnapshot querySnapshot : task.getResult()) {
@@ -129,9 +120,7 @@ public class AppointmentsMss extends AppCompatActivity {
                             doc = querySnapshot.getString("Doctor");
                             hn = querySnapshot.getString("Hospital/Chamber name");
                             hl = querySnapshot.getString("Hospital/Chamber location");
-
                             Log.d("TAG", "Date " + dt + "Day " + d + "Time " + t + "Doctor " + doc + "Hospital " + hn + "Location " + hl);
-
                             Appointment appointment = new Appointment(dt, d, t, doc, hn, hl);
                             appointmentsArrayList.add(appointment);
                         }
@@ -145,7 +134,6 @@ public class AppointmentsMss extends AppCompatActivity {
                 Log.d("TAG", "Failed");
             }
         });
-
         dbApp.collection("Schedule").document(fAuthApp.getUid())
                 .collection("Appointments")
                 .get()
@@ -176,30 +164,24 @@ public class AppointmentsMss extends AppCompatActivity {
                     }
                 });
     }
-
     private void setUpFireBase() {
         dbApp = FirebaseFirestore.getInstance();
         fAuthApp = FirebaseAuth.getInstance();
     }
-
     private void setUpRecyclerView() {
         mssRecyclerView=findViewById(R.id.appointmentsMSSRV);
         mssRecyclerView.setHasFixedSize(true);
         mssRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
+    }*/
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
         Toast.makeText(this, adapterView.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
-
-    @Override
+    /*@Override
     public void onBackPressed() {
         if(getSupportFragmentManager().getBackStackEntryCount() > 0)
             getSupportFragmentManager().popBackStack();

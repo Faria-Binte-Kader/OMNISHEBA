@@ -13,21 +13,21 @@ public class Appointment {
     }
 
     public Appointment(String dt, String dy, String t, String dn, String hn, String hl) {
-        date = dt;
-        day = dy;
-        time = t;
-        docname = dn;
-        hosname = hn;
-        hosloc = hl;
+        this.date = dt;
+        this.day = dy;
+        this.time = t;
+        this.docname = dn;
+        this.hosname = hn;
+        this.hosloc = hl;
     }
 
     public void setInfo(String dt, String dy, String t, String dn, String hn, String hl) {
-        date = dt;
-        day = dy;
-        time = t;
-        docname = dn;
-        hosname = hn;
-        hosloc = hl;
+        this.date = dt;
+        this.day = dy;
+        this.time = t;
+        this.docname = dn;
+        this.hosname = hn;
+        this.hosloc = hl;
     }
 
     public String getDate()
