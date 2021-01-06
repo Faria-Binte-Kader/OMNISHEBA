@@ -1,57 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:padding="10dp"
-    android:background="@color/dark">
-
-    <ImageView
-        android:layout_width="92dp"
-        android:layout_height="106dp"
-        android:src="@drawable/ic_profile"
-        android:layout_marginTop="20dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="PERSONAL DETAILS"
-        android:textColor="@color/white"
-        android:gravity="center_horizontal"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:padding="20dp"/>
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardElevation="5dp"
+    app:cardBackgroundColor="@color/colorPrimaryDark"
+    app:cardCornerRadius="3dp"
+    app:cardUseCompatPadding="true"
+    >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/text_rounded"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:padding="30dp"
-        android:layout_marginTop="30dp"
-        >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name: "
+                android:text="Date: "
                 android:textColor="@color/white"
                 />
             <TextView
-                android:id="@+id/mssname"
+                android:id="@+id/appDateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
@@ -63,20 +40,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email: "
+                android:text="Day: "
                 android:textColor="@color/white"
                 />
             <TextView
-                android:id="@+id/mssemail"
+                android:id="@+id/appDayTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:textColor="@color/white"
                 />
         </LinearLayout>
@@ -84,20 +59,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gender: "
+                android:text="Time: "
                 android:textColor="@color/white"
                 />
             <TextView
-                android:id="@+id/mssgender"
+                android:id="@+id/appTimeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:textColor="@color/white"
                 />
         </LinearLayout>
@@ -105,20 +78,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description: "
+                android:text="Doctor's name: "
                 android:textColor="@color/white"
                 />
             <TextView
-                android:id="@+id/mssdescription"
+                android:id="@+id/appDocNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:textColor="@color/white"
                 />
         </LinearLayout>
@@ -126,20 +97,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date of Birth: "
+                android:text="Hospital/Chamber Name: "
                 android:textColor="@color/white"
                 />
             <TextView
-                android:id="@+id/mssdob"
+                android:id="@+id/appHosNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:textColor="@color/white"
                 />
         </LinearLayout>
@@ -147,36 +116,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contact no: "
+                android:text="Hospital/Chamber Location: "
                 android:textColor="@color/white"
                 />
             <TextView
-                android:id="@+id/mssphone"
+                android:id="@+id/appHosLocTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:textColor="@color/white"
                 />
         </LinearLayout>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/mssAppointment_btn"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Appointments"
-        android:textSize="22sp"
-        android:textColor="@color/white"
-        android:layout_marginTop="20sp"
-        android:background="@drawable/button_rounded"
-        />
-
-</LinearLayout>
-</ScrollView>
+        android:layout_height="1dp"
+        android:background="@drawable/doctor_search_recyclerview_bg"/>
+</androidx.cardview.widget.CardView>

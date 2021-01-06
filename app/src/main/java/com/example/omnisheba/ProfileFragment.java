@@ -1,5 +1,6 @@
 package com.example.omnisheba;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.concurrent.Executor;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener {
     private TextView name, email, description, phone, dob, gender;
     FirebaseAuth fAuthMSS;
     FirebaseFirestore fStore;
@@ -63,6 +64,22 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        view.findViewById(R.id.mssAppointment_btn).setOnClickListener((View.OnClickListener) this);
+    }
 
+    private void view() {
+        SharedPrefManager.getInstance(getActivity()).clear();
+        Intent intent = new Intent(getActivity(), AppointmentsMss.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.mssAppointment_btn:
+                view();
+                break;
+        }
     }
 }

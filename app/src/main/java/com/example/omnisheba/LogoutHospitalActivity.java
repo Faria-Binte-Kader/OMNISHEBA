@@ -38,6 +38,7 @@ public class LogoutHospitalActivity extends AppCompatActivity  {
                 Intent intent = new Intent(LogoutHospitalActivity.this,login.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
             }
         });
         no= (Button)findViewById(R.id.no_btnhospital);

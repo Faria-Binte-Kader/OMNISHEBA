@@ -50,6 +50,11 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
     Button bookAppointmentBtn;
     Spinner chosenDay, chosenShift;
 
+    String satmon2 = "", sateve2 = "", sunmon2 = "", suneve2 = "", monmon2 = "", moneve2 = "", tuesmon2 = "", tueseve2 = "", wedmon2 = "", wedeve2 = "",
+            thursmon2 = "", thurseve2 = "", frimon2 = "", frieve2 = "";
+
+    String docname = "", hosname = "", hosloc = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +103,25 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
         }*/
         String thentime;
 
+        DocumentReference docRef2 = fStore.collection("Doctor").document(sp1);
+        docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document5 = task.getResult();
+                    if (document5.exists()) {
+                        docname = docname + document5.getString("Name");
+                        hosname = hosname + document5.getString("Hospitalchambername");
+                        hosloc = hosloc + document5.getString("Hospitalchamnberlocation");
+                    } else {
+                        Log.d("TAG", "No such document");
+                    }
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                }
+            }
+        });
+
 
         DocumentReference docRef = fStore.collection("Appointment").document(sp1);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -107,21 +131,52 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         //Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-                        satmon.setText(document.getString("Satmon"));
-                        sunmon.setText(document.getString("Sunmon"));
-                        monmon.setText(document.getString("Monmon"));
-                        tuesmon.setText(document.getString("Tuesmon"));
-                        wedmon.setText(document.getString("Wedmon"));
-                        thursmon.setText(document.getString("Thursmon"));
-                        frimon.setText(document.getString("Frimon"));
+                        satmon2 = satmon2 + document.getString("Satmon");
+                        sunmon2 = sunmon2 + document.getString("Sunmon");
+                        monmon2 = monmon2 + document.getString("Monmon");
+                        tuesmon2 = tuesmon2 + document.getString("Tuesmon");
+                        wedmon2 = wedmon2 + document.getString("Wedmon");
+                        thursmon2 = thursmon2 + document.getString("Thursmon");
+                        frimon2 = frimon2 + document.getString("Frimon");
 
-                        sateve.setText(document.getString("Sateve"));
-                        suneve.setText(document.getString("Suneve"));
-                        moneve.setText(document.getString("Moneve"));
-                        tueseve.setText(document.getString("Tueseve"));
-                        wedeve.setText(document.getString("Wedeve"));
-                        thurseve.setText(document.getString("Thurseve"));
-                        frieve.setText(document.getString("Frieve"));
+                        sateve2 = sateve2 + document.getString("Sateve");
+                        suneve2 = suneve2 + document.getString("Suneve");
+                        moneve2 = moneve2 + document.getString("Moneve");
+                        tueseve2 = tueseve2 + document.getString("Tuesve");
+                        wedeve2 = wedeve2 + document.getString("Wedeve");
+                        thurseve2 = thurseve2 + document.getString("Thurseve");
+                        frieve2 = frieve2 + document.getString("Frieve");
+                    } else {
+                        Log.d("TAG", "No such document");
+                    }
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                }
+            }
+        });
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document2 = task.getResult();
+                    if (document2.exists()) {
+                        //Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                        satmon.setText(document2.getString("Satmon"));
+                        sunmon.setText(document2.getString("Sunmon"));
+                        monmon.setText(document2.getString("Monmon"));
+                        tuesmon.setText(document2.getString("Tuesmon"));
+                        wedmon.setText(document2.getString("Wedmon"));
+                        thursmon.setText(document2.getString("Thursmon"));
+                        frimon.setText(document2.getString("Frimon"));
+
+                        sateve.setText(document2.getString("Sateve"));
+                        suneve.setText(document2.getString("Suneve"));
+                        moneve.setText(document2.getString("Moneve"));
+                        tueseve.setText(document2.getString("Tuesve"));
+                        wedeve.setText(document2.getString("Wedeve"));
+                        thurseve.setText(document2.getString("Thurseve"));
+                        frieve.setText(document2.getString("Frieve"));
                     } else {
                         Log.d("TAG", "No such document");
                     }
@@ -133,13 +188,15 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
 
 
         //  DELETES APPOINTMENT WITH DATE SMALLER THAN THE CURRENT DATE
-        fStore.collection(sp1)
+        fStore.collection("Schedule").document(fAuthDoctor.getUid())
+                .collection("Appointments")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     String time;
                     String date;
                     Date dat, d1;
                     String id;
+                    String shf, dy;
 
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -148,6 +205,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                             time = querySnapshot.getString("Time");
                             date = querySnapshot.getString("Date");
                             id = querySnapshot.getString("ID");
+                            dy = querySnapshot.getString("Day");
 
                             try {
                                 dat = formatterdate.parse(date);
@@ -161,9 +219,10 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                 e.printStackTrace();
                             }
 
-
                             if (dat.compareTo(d1) < 0) {
-                                fStore.collection(sp1).document(id)
+                                Log.d("TAG", dy);
+                                fStore.collection("Schedule").document(fAuthDoctor.getUid())
+                                        .collection("Appointments").document(id)
                                         .delete()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -175,6 +234,22 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                                 Log.w("TAG", "Error deleting document", e);
+                                            }
+                                        });
+                                fStore.collection(dy).document(sp1)
+                                            .update("CountMor", "0")
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d("TAG", "onSuccess: Count is updated");
+                                                }
+                                            });
+                                fStore.collection(dy).document(sp1)
+                                        .update("CountEve", "0")
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("TAG", "onSuccess: Count is updated");
                                             }
                                         });
                             }
@@ -201,462 +276,66 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                Spinner chosen = findViewById(R.id.book_appointment_day);
-                String day_chosen = chosen.getSelectedItem().toString();
-                Spinner chosen_shift = findViewById(R.id.book_appointment_shift);
-                String shift_chosen = chosen_shift.getSelectedItem().toString();
-                if (day_chosen.equals("Monday")) {
-                    if (shift_chosen.equals("Morning")) {
-                        DocumentReference doc = fStore.collection("Monday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountMor");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                    else if (shift_chosen.equals("Evening")) {
-                        DocumentReference doc = fStore.collection("Monday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountEve");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                }
-                else if (day_chosen.equals("Tuesday")) {
-                    if (shift_chosen.equals("Morning")) {
-                        DocumentReference doc = fStore.collection("Tuesday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountMor");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                    else if (shift_chosen.equals("Evening")) {
-                        DocumentReference doc = fStore.collection("Tuesday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountEve");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                }
-                if (day_chosen.equals("Wednesday")) {
-                    if (shift_chosen.equals("Morning")) {
-                        DocumentReference doc = fStore.collection("Wednesday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountMor");
-                                        int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                    else if (shift_chosen.equals("Evening")) {
-                        DocumentReference doc = fStore.collection("Wednesday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountEve");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                }
-                if (day_chosen.equals("Thursday")) {
-                    if (shift_chosen.equals("Morning")) {
-                        DocumentReference doc = fStore.collection("Thursday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountMor");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                    else if (shift_chosen.equals("Evening")) {
-                        DocumentReference doc = fStore.collection("Thursday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountEve");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                }
-                if (day_chosen.equals("Friday")) {
-                    if (shift_chosen.equals("Morning")) {
-                        DocumentReference doc = fStore.collection("Friday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountMor");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                    else if (shift_chosen.equals("Evening")) {
-                        DocumentReference doc = fStore.collection("Friday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountEve");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                }
-                if (day_chosen.equals("Saturday")) {
-                    if (shift_chosen.equals("Morning")) {
-                        DocumentReference doc = fStore.collection("Saturday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountMor");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                    else if (shift_chosen.equals("Evening")) {
-                        DocumentReference doc = fStore.collection("Saturday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountEve");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                }
-                if (day_chosen.equals("Sunday")) {
-                    if (shift_chosen.equals("Morning")) {
-                        DocumentReference doc = fStore.collection("Sunday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountMor");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                    else if (shift_chosen.equals("Evening")) {
-                        DocumentReference doc = fStore.collection("Sunday").document(sp1);
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            String cnt;
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document2 = task.getResult();
-                                    if (document2.exists()) {
-                                        Log.d("TAG", "document found");
-                                        cnt = document2.getString("CountEve");
-                                        int temp = Integer.parseInt(cnt);
-                                        if (temp >= max_mss)
-                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
-                                        else {
-                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
-                                            addCountsUnderDoctor();
-                                        }
-                                    } else {
-                                        Log.d("TAG", "No such document");
-                                    }
-                                } else {
-                                    Log.d("TAG", "get failed with ", task.getException());
-                                }
-                            }
-                        });
-                    }
-                }
+                addCountsUnderDoctor();
             }
 
-            /*@RequiresApi(api = Build.VERSION_CODES.O)
-            private void addMSSUnderDoctor() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            private void addMSSUnderDoctor(String day, int hour, int minute) {
+                String date = null;
+                String time = "";
 
-                Spinner chosen = findViewById(R.id.book_appointment_day);
-                final String day_chosen = chosen.getSelectedItem().toString();
-                Spinner chosen_shift = findViewById(R.id.book_appointment_shift);
                 LocalDate ld = LocalDate.now();
-                String d = "";
-                if (day_chosen.equals("Monday")) {
+
+                if (day.equals("Monday")) {
                     ld = ld.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-                    d = ld.toString();
-                } else if (day_chosen.equals("Tuesday")) {
+                    date = ld.toString();
+                } else if (day.equals("Tuesday")) {
                     ld = ld.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
-                    d = ld.toString();
-                } else if (day_chosen.equals("Wednesday")) {
+                    date = ld.toString();
+                } else if (day.equals("Wednesday")) {
                     ld = ld.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
-                    d = ld.toString();
-                } else if (day_chosen.equals("Thursday")) {
+                    date = ld.toString();
+                } else if (day.equals("Thursday")) {
                     ld = ld.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
-                    d = ld.toString();
-                } else if (day_chosen.equals("Friday")) {
+                    date = ld.toString();
+                } else if (day.equals("Friday")) {
                     ld = ld.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
-                    d = ld.toString();
-                } else if (day_chosen.equals("Saturday")) {
+                    date = ld.toString();
+                } else if (day.equals("Saturday")) {
                     ld = ld.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
-                    d = ld.toString();
-                } else if (day_chosen.equals("Sunday")) {
+                    date = ld.toString();
+                } else if (day.equals("Sunday")) {
                     ld = ld.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
-                    d = ld.toString();
+                    date = ld.toString();
                 }
-                String shift_chosen = chosen_shift.getSelectedItem().toString();
-                String shift;
-                if (shift_chosen.equals("Morning")) shift = "10:00:00";
-                else shift = "20:00:00";
-                DocumentReference docRef2 = fStore.collection(sp1).document();
 
-                Map<String, Object> appdoc = new HashMap<>();
-                appdoc.put("Day", day_chosen);
-                appdoc.put("Date", d);
-                appdoc.put("Time", shift);
-                appdoc.put("MSSID", fAuthDoctor.getUid());
-                appdoc.put("ID", docRef2.getId());
+                if(minute == 0) time = time + hour + ":00:00";
+                else time = time + hour + ":" + minute + ":00";
 
-                docRef2.set(appdoc).addOnSuccessListener(new OnSuccessListener<Void>() {
+                DocumentReference documentReference1 = fStore.collection("Schedule").document(fAuthDoctor.getUid())
+                        .collection("Appointments").document();
+                Map<String, Object> schedule = new HashMap<>();
+                schedule.put("Date", date);
+                schedule.put("Day", day);
+                schedule.put("Time", time);
+                schedule.put("Doctor", docname);
+                schedule.put("Hospital/Chamber name", hosname);
+                schedule.put("Hospital/Chamber location", hosloc);
+                schedule.put("ID", documentReference1.getId());
+
+                documentReference1.set(schedule).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("TAG", "onSuccess: appointment is created");
-                        Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                        Log.d("TAG", "onSuccess: appointment scedule is created");
                     }
-                });
 
-            }*/
+                });
+            }
 
             //@RequiresApi(api = Build.VERSION_CODES.O)
             private void addCountsUnderDoctor() {
                 Spinner chosen = findViewById(R.id.book_appointment_day);
-                String day_chosen = chosen.getSelectedItem().toString();
+                final String day_chosen = chosen.getSelectedItem().toString();
                 Spinner chosen_shift = findViewById(R.id.book_appointment_shift);
                 String shift_chosen = chosen_shift.getSelectedItem().toString();
                 if (day_chosen.equals("Monday")) {
@@ -664,6 +343,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Monday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -672,16 +352,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountMor");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Monday").document(sp1)
-                                                .update("CountMor",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Monday morning count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 10;
+                                        temp2 = temp2 % 60;
+                                        if(!monmon2.equals("Morning"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Monday").document(sp1)
+                                                    .update("CountMor",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Monday morning count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -695,6 +387,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Monday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -703,16 +396,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountEve");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Monday").document(sp1)
-                                                .update("CountEve",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Monday evening count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 20;
+                                        temp2 = temp2 % 60;
+                                        if(!moneve2.equals("Evening"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Monday").document(sp1)
+                                                    .update("CountEve",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Monday evening count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -728,6 +433,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Tuesday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -736,16 +442,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountMor");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Tuesday").document(sp1)
-                                                .update("CountMor",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Tuesday morning count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 10;
+                                        temp2 = temp2 % 60;
+                                        if(!tuesmon2.equals("Morning"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Tuesday").document(sp1)
+                                                    .update("CountMor",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Tuesday morning count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -759,6 +477,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Tuesday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -767,16 +486,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountEve");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Monday").document(sp1)
-                                                .update("CountEve",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Tuesday evening count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 20;
+                                        temp2 = temp2 % 60;
+                                        if(!tueseve2.equals("Evening"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Tuesday").document(sp1)
+                                                    .update("CountEve",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Tuesday evening count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -792,6 +523,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Wednesday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -800,16 +532,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountMor");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Wednesday").document(sp1)
-                                                .update("CountMor",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Wednesday morning count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 10;
+                                        temp2 = temp2 % 60;
+                                        if(!wedmon2.equals("Morning"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Wednesday").document(sp1)
+                                                    .update("CountMor",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Wednesday morning count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -823,6 +567,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Wednesday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -831,16 +576,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountEve");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Wednesday").document(sp1)
-                                                .update("CountEve",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Wednesday evening count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 20;
+                                        temp2 = temp2 % 60;
+                                        if(!wedeve2.equals("Evening"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Wednesday").document(sp1)
+                                                    .update("CountEve",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Wednesday evening count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -856,6 +613,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Thursday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -864,16 +622,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountMor");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Thursday").document(sp1)
-                                                .update("CountMor",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Thursday morning count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 10;
+                                        temp2 = temp2 % 60;
+                                        if(!thursmon2.equals("Morning"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Thursday").document(sp1)
+                                                    .update("CountMor",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Thursday morning count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -887,6 +657,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Thursday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -895,16 +666,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountEve");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Thursday").document(sp1)
-                                                .update("CountEve",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Thursday evening count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 20;
+                                        temp2 = temp2 % 60;
+                                        if(!thurseve2.equals("Evening"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Thursday").document(sp1)
+                                                    .update("CountEve",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Thursday evening count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -920,6 +703,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Friday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -928,16 +712,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountMor");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Friday").document(sp1)
-                                                .update("CountMor",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Friday morning count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 10;
+                                        temp2 = temp2 % 60;
+                                        if(!frimon2.equals("Morning"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Friday").document(sp1)
+                                                    .update("CountMor",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Friday morning count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -951,6 +747,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Friday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -959,16 +756,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountEve");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Friday").document(sp1)
-                                                .update("CountEve",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Friday evening count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 20;
+                                        temp2 = temp2 % 60;
+                                        if(!frieve2.equals("Evening"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Friday").document(sp1)
+                                                    .update("CountEve",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Friday evening count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -984,6 +793,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Saturday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -992,16 +802,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountMor");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Saturday").document(sp1)
-                                                .update("CountMor",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Saturday morning count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 10;
+                                        temp2 = temp2 % 60;
+                                        if(!satmon2.equals("Morning"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Saturday").document(sp1)
+                                                    .update("CountMor",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Saturday morning count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -1015,6 +837,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Saturday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -1023,16 +846,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountEve");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Saturday").document(sp1)
-                                                .update("CountEve",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Saturday evening count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 20;
+                                        temp2 = temp2 % 60;
+                                        if(!sateve2.equals("Evening"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Saturday").document(sp1)
+                                                    .update("CountEve",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Saturday evening count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -1048,6 +883,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Sunday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -1056,16 +892,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountMor");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Sunday").document(sp1)
-                                                .update("CountMor",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Sunday morning count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 10;
+                                        temp2 = temp2 % 60;
+                                        if(!sunmon2.equals("Morning"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Sunday").document(sp1)
+                                                    .update("CountMor",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Sunday morning count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
@@ -1079,6 +927,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                         DocumentReference doc = fStore.collection("Sunday").document(sp1);
                         doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String cnt;
+                            @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -1087,16 +936,28 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                         Log.d("TAG", "document found");
                                         cnt = document2.getString("CountEve");
                                         int temp = Integer.parseInt(cnt);
-                                        temp = temp + 1;
-                                        cnt = String.valueOf(temp);
-                                        fStore.collection("Sunday").document(sp1)
-                                                .update("CountEve",cnt)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("TAG", "onSuccess: Sunday evening count is updated");
-                                                    }
-                                                });
+                                        int temp2 = temp * 15;
+                                        int temp3 = temp2 / 60;
+                                        temp3 = temp3 + 20;
+                                        temp2 = temp2 % 60;
+                                        if(!suneve2.equals("Evening"))
+                                            Toast.makeText(BookAppointment.this, "Sorry!Doctor in not available.", Toast.LENGTH_SHORT).show();
+                                        else if (temp >= max_mss)
+                                            Toast.makeText(BookAppointment.this, "Sorry!No more slots available.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(BookAppointment.this, "Appointment Created", Toast.LENGTH_SHORT).show();
+                                            addMSSUnderDoctor(day_chosen, temp3, temp2);
+                                            temp = temp + 1;
+                                            cnt = String.valueOf(temp);
+                                            fStore.collection("Sunday").document(sp1)
+                                                    .update("CountEve",cnt)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d("TAG", "onSuccess: Sunday evening count is updated");
+                                                        }
+                                                    });
+                                        }
                                     } else {
                                         Log.d("TAG", "No such document");
                                     }
