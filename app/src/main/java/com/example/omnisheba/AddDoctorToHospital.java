@@ -231,6 +231,97 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
                             loc.put("Hospitalchamnberlocation", location[0]);
                             loc.put("Practicesatrtingyear", pracYear);
 
+                            DocumentReference documentReference5 = fstoreDoctor.collection("Monday").document(userId);
+                            Map<String, Object> mon = new HashMap<>();
+                            mon.put("CountMor", "0");
+                            mon.put("CountEve", "0");
+
+                            DocumentReference documentReference6 = fstoreDoctor.collection("Tuesday").document(userId);
+                            Map<String, Object> tue = new HashMap<>();
+                            tue.put("CountMor", "0");
+                            tue.put("CountEve", "0");
+
+                            DocumentReference documentReference7 = fstoreDoctor.collection("Wednesday").document(userId);
+                            Map<String, Object> wed = new HashMap<>();
+                            wed.put("CountMor", "0");
+                            wed.put("CountEve", "0");
+
+                            DocumentReference documentReference8 = fstoreDoctor.collection("Thursday").document(userId);
+                            Map<String, Object> thu = new HashMap<>();
+                            thu.put("CountMor", "0");
+                            thu.put("CountEve", "0");
+
+                            DocumentReference documentReference9 = fstoreDoctor.collection("Friday").document(userId);
+                            Map<String, Object> fri = new HashMap<>();
+                            fri.put("CountMor", "0");
+                            fri.put("CountEve", "0");
+
+                            DocumentReference documentReference10 = fstoreDoctor.collection("Saturday").document(userId);
+                            Map<String, Object> sat = new HashMap<>();
+                            sat.put("CountMor", "0");
+                            sat.put("CountEve", "0");
+
+                            DocumentReference documentReference11 = fstoreDoctor.collection("Sunday").document(userId);
+                            Map<String, Object> sun = new HashMap<>();
+                            sun.put("CountMor", "0");
+                            sun.put("CountEve", "0");
+
+                            documentReference11.set(sun).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: sunday is created");
+                                }
+
+                            });
+
+                            documentReference10.set(sat).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: saturday is created");
+                                }
+
+                            });
+
+                            documentReference9.set(fri).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: friday is created");
+                                }
+
+                            });
+
+                            documentReference8.set(thu).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: thursday is created");
+                                }
+
+                            });
+
+                            documentReference7.set(wed).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: wednesday is created");
+                                }
+
+                            });
+
+                            documentReference6.set(tue).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: tuesday is created");
+                                }
+
+                            });
+
+                            documentReference5.set(mon).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: monday is created");
+                                }
+
+                            });
+
                             documentReference4.set(loc).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
