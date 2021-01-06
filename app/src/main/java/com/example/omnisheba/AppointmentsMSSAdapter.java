@@ -30,7 +30,6 @@ public class AppointmentsMSSAdapter extends RecyclerView.Adapter<ViewHolderAppoi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderAppointmentsMss holder, int position) {
-        Log.d("TAG", "Viewholder inside");
         holder.date2.setText(appointmentsArrayList.get(position).getDate());
         holder.day2.setText(appointmentsArrayList.get(position).getDay());
         holder.time2.setText(appointmentsArrayList.get(position).getTime());

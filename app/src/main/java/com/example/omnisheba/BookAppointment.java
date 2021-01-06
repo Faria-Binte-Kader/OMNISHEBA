@@ -312,8 +312,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                 if(minute == 0) time = time + hour + ":00:00";
                 else time = time + hour + ":" + minute + ":00";
 
-                DocumentReference documentReference1 = fStore.collection("Schedule").document(fAuthDoctor.getUid())
-                        .collection("Appointments").document();
+                DocumentReference documentReference1 = fStore.collection("Schedule").document(fAuthDoctor.getUid()).collection("Appointments").document();
                 Map<String, Object> schedule = new HashMap<>();
                 schedule.put("Date", date);
                 schedule.put("Day", day);
@@ -324,6 +323,19 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                 schedule.put("ID", documentReference1.getId());
 
                 documentReference1.set(schedule).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("TAG", "onSuccess: appointment scedule is created");
+                    }
+
+                });
+
+                DocumentReference documentReference2 = fStore.collection("Schedule").document(fAuthDoctor.getUid());
+
+                Map<String, Object> dummy = new HashMap<>();
+                dummy.put("Dummy", "dummy");
+
+                documentReference2.set(dummy).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("TAG", "onSuccess: appointment scedule is created");
