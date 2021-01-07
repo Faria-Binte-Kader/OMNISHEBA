@@ -46,6 +46,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
     ArrayList<String> test = new ArrayList<String>();
+    private String loc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,16 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
         listItems = getResources().getStringArray(R.array.test_list);
         checkedItems = new boolean[listItems.length];
 
+        DocumentReference documentReference = fStore.collection("TC").document(userID);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                loc=value.getString("Testcenterlocation");
+
+
+            }
+        });
 
         testsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,6 +226,15 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             name.setText("");
                         }
                     });
+            fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
+                    .update("Name",nam)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Name", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
         }
 
         if(!desc.isEmpty())
@@ -228,6 +248,15 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             description.setText("");
                         }
                     });
+            fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
+                    .update("Description",desc)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Description", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
         }
 
         if(!phon.isEmpty())
@@ -237,8 +266,17 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateTestCenterActivity.this, "Updated phone number", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Hotline", Toast.LENGTH_SHORT).show();
                             hotline.setText("");
+                        }
+                    });
+            fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
+                    .update("Hotline",phon)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Hotline", Toast.LENGTH_SHORT).show();
+
                         }
                     });
         }
@@ -258,11 +296,29 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             }
                         }
                     });
+            fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
+                    .update("Test",test)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateTestCenterActivity.this, "Updated departments", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
         }
 
         if(!type.equals("No Type"))
         {
             fStore.collection("TC").document(userID)
+                    .update("Testcentertype",type)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Test Center type", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+            fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
                     .update("Testcentertype",type)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

@@ -43,6 +43,7 @@ public class UpdateDoctorActivity extends AppCompatActivity implements AdapterVi
     private FirebaseUser user;
     FirebaseFirestore fStore;
     String userID;
+    private String loc;
 
 
 

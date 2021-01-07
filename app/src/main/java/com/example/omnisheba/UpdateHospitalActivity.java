@@ -43,6 +43,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
     private FirebaseUser user;
     FirebaseFirestore fStore;
     String userID;
+    String loc;
 
 
     ArrayList<String> test = new ArrayList<String>();
@@ -81,6 +82,16 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
         listItems = getResources().getStringArray(R.array.deptunit_list);
         checkedItems = new boolean[listItems.length];
 
+        DocumentReference documentReference = fStore.collection("Hospital").document(userID);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                loc=value.getString("Hospitallocation");
+
+
+            }
+        });
 
 
         deptunitBtn.setOnClickListener(new View.OnClickListener() {
@@ -237,6 +248,15 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             name.setText("");
                         }
                     });
+            fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
+                    .update("Name",nam)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateHospitalActivity.this, "Updated Name", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
         }
 
         if(!desc.isEmpty())
@@ -250,6 +270,15 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             description.setText("");
                         }
                     });
+            fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
+                    .update("Description",desc)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateHospitalActivity.this, "Updated Description", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
         }
 
         if(!phon.isEmpty())
@@ -261,6 +290,15 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(UpdateHospitalActivity.this, "Updated Hotline", Toast.LENGTH_SHORT).show();
                             hotline.setText("");
+                        }
+                    });
+            fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
+                    .update("Hotline",phon)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateHospitalActivity.this, "Updated Hotline", Toast.LENGTH_SHORT).show();
+
                         }
                     });
         }
@@ -280,6 +318,15 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             }
                         }
                     });
+            fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
+                    .update("Departmentunit",test)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateHospitalActivity.this, "Updated departments", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
         }
 
         if(!type.equals("No Type"))
@@ -290,6 +337,15 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(UpdateHospitalActivity.this, "Updated Hospital type", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+            fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
+                    .update("Hospitaltype",type)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateHospitalActivity.this, "Updated Hospitaltype", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -304,6 +360,15 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(UpdateHospitalActivity.this, "Updated Foundation Year", Toast.LENGTH_SHORT).show();
 
+                        }
+                    });
+            fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
+                    .update("Foundationyear",yr)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateHospitalActivity.this, "Updated Foundation Year", Toast.LENGTH_SHORT).show();
+                            name.setText("");
                         }
                     });
         }
