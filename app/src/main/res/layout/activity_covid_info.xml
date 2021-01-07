@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total Cases"
+            android:text="Symptoms"
             android:textStyle="bold"
             android:background="@drawable/text2_rounded"
             android:textColor="@color/white"
@@ -27,13 +27,14 @@
             android:layout_gravity="center_horizontal"
             />
         <TextView
+            android:id="@+id/symptoms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="520K"
-            android:textStyle="italic"
             android:textColor="@color/white"
-            android:textSize="70sp"
+            android:textSize="20sp"
             android:padding="10dp"
+            android:textStyle="italic"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             />
@@ -41,7 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recovered"
+            android:text="Precautions"
             android:textStyle="bold"
             android:background="@drawable/text2_rounded"
             android:textColor="@color/white"
@@ -51,12 +52,13 @@
             android:layout_gravity="center_horizontal"
             />
         <TextView
+            android:id="@+id/precaution"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="464K"
             android:textStyle="italic"
             android:textColor="@color/white"
-            android:textSize="70sp"
+            android:textSize="20sp"
             android:padding="10dp"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
@@ -65,7 +67,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Deaths"
+            android:text="What to do"
             android:textStyle="bold"
             android:background="@drawable/text2_rounded"
             android:textColor="@color/white"
@@ -75,12 +77,13 @@
             android:layout_gravity="center_horizontal"
             />
         <TextView
+            android:id="@+id/sug"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="7.7K"
             android:textStyle="italic"
             android:textColor="@color/white"
-            android:textSize="70sp"
+            android:textSize="20sp"
             android:padding="10dp"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
@@ -88,4 +91,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

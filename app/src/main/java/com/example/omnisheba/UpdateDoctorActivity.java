@@ -546,7 +546,7 @@ public class UpdateDoctorActivity extends AppCompatActivity implements AdapterVi
             if (frieve.isChecked()) appointment[6][2] = frieve.getText().toString();
         }
 
-        Map<String, Object> App = new HashMap<>();
+       /* Map<String, Object> App = new HashMap<>();
         App.put("Satmon", appointment[0][1]);
         App.put("Sateve", appointment[0][2]);
         App.put("Sunmon", appointment[1][1]);
@@ -560,7 +560,7 @@ public class UpdateDoctorActivity extends AppCompatActivity implements AdapterVi
         App.put("Thursmon", appointment[5][1]);
         App.put("Thurseve", appointment[5][2]);
         App.put("Frimon", appointment[6][1]);
-        App.put("Frieve", appointment[6][2]);
+        App.put("Frieve", appointment[6][2]);*/
 
     }
 
