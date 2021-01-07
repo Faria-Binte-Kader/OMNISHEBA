@@ -48,13 +48,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value!=null)
+                {
                 name.setText(value.getString("Name"));
                 email.setText(value.getString("Email"));
                 gender.setText(value.getString("Gender"));
                 dob.setText(value.getString("DOB"));
                 phone.setText(value.getString("Phone"));
                 description.setText(value.getString("Description"));
-            }
+            }}
         });
 
         return v;

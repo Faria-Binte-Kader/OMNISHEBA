@@ -49,13 +49,14 @@ public class LogoutDoctorActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.yes_btndoctor:
-                FirebaseAuth.getInstance().signOut();
+                if( FirebaseAuth.getInstance()!=null)
+                {FirebaseAuth.getInstance().signOut();
                 Toast.makeText(this, "Logged out Successfully!", Toast.LENGTH_SHORT).show();
                // startActivity(new Intent(this, login.class));
                 Intent intent = new Intent(this,login.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                finish();
+                finish();}
 
                 break;
             case R.id.no_btndoctor:

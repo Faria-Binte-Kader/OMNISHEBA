@@ -43,15 +43,18 @@ public class LogoutFragment extends Fragment implements View.OnClickListener {
     }
 
     private void logout() {
+        if( FirebaseAuth.getInstance()!=null)
+        {
         FirebaseAuth.getInstance().signOut();
         //Toast.makeText(LogoutFragment.this, "Logged out Successfully!", Toast.LENGTH_SHORT).show();
         //SharedPrefManager.getInstance(getActivity()).clear();
+        Log.d("TAG","Loggedout successfully");
         Intent intent = new Intent(getActivity(), login.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         //finish();
         getActivity().onBackPressed();
-    }
+    }}
 
     @Override
     public void onClick(View v) {

@@ -62,6 +62,8 @@ public class ProfileDoctorActivity extends AppCompatActivity {
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value!=null)
+                {
                 name.setText(value.getString("Name"));
                 email.setText(value.getString("Email"));
                 hospitalName.setText(value.getString("Hospitalchambername"));
@@ -70,11 +72,13 @@ public class ProfileDoctorActivity extends AppCompatActivity {
                 location.setText(value.getString("Hospitalchamberlocation"));
                 // specialty.setText(value.getString("Specialty"));
 
-            }
+            }}
         });
         documentReference2.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value!=null)
+                {
                 satmon.setText(value.getString("Satmon"));
                 sunmon.setText(value.getString("Sunmon"));
                 monmon.setText(value.getString("Monmon"));
@@ -91,7 +95,7 @@ public class ProfileDoctorActivity extends AppCompatActivity {
                 thurseve.setText(value.getString("Thurseve"));
                 frieve.setText(value.getString("Frieve"));
 
-            }
+            }}
         });
 
     }
