@@ -37,6 +37,7 @@ public class FindTest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_test);
+        getSupportActionBar().setTitle("0!");
 
         Intent intent = getIntent();
         /*String sp3 = intent.getStringExtra(SearchFragment.EXTRA_TEXT3);

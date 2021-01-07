@@ -62,6 +62,7 @@ public class CovidInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_covid_info);
+        getSupportActionBar().setTitle("0!");
 
         symptom=findViewById(R.id.symptoms);
         symptom.setText(symp);

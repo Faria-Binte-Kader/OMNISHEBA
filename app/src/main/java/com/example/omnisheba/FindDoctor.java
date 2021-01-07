@@ -47,6 +47,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_doctor);
+        getSupportActionBar().setTitle("0!");
 
         Intent intent = getIntent();
         String sp1 = intent.getStringExtra(SearchFragment.EXTRA_TEXT1);

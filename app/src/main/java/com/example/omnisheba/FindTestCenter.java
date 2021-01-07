@@ -39,6 +39,7 @@ public class FindTestCenter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_test_center);
+        getSupportActionBar().setTitle("0!");
 
         Intent intent = getIntent();
         String sp5 = intent.getStringExtra(SearchFragment.EXTRA_TEXT5);
