@@ -155,7 +155,7 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
                             Map<String, Object> type = new HashMap<>();
                             type.put("Type", "Hospital");
 
-                            DocumentReference documentReference4 = fstoreHospital.collection("Location").document(location).collection("Hospitals").document(userId);
+                            /*DocumentReference documentReference4 = fstoreHospital.collection("Location").document(location).collection("Hospitals").document(userId);
                             Map<String, Object> loc = new HashMap<>();
                             loc.put("Name", name);
                             loc.put("Email", email);
@@ -172,7 +172,7 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
                                     Log.d(TAG, "onSuccess: location is created");
                                 }
 
-                            });
+                            });*/
 
                             documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

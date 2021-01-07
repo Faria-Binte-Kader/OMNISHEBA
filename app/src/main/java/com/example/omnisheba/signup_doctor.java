@@ -209,14 +209,14 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                             Map<String, Object> type = new HashMap<>();
                             type.put("Type", "Doctor");
 
-                            DocumentReference documentReference4 = fstoreDoctor.collection("Location").document(location).collection("Doctors").document(userId);
+                            /*DocumentReference documentReference4 = fstoreDoctor.collection("Location").document(location).collection("Doctors").document(userId);
                             Map<String, Object> loc = new HashMap<>();
                             loc.put("Name", name);
                             loc.put("Description", descript);
                             loc.put("Specialty", special);
                             loc.put("Hospitalchambername", hosName);
                             loc.put("Hospitalchamberlocation", location);
-                            loc.put("Practicesatrtingyear", pracYear);
+                            loc.put("Practicesatrtingyear", pracYear);*/
 
                             DocumentReference documentReference5 = fstoreDoctor.collection("Monday").document(userId);
                             Map<String, Object> mon = new HashMap<>();
@@ -309,13 +309,13 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
 
                             });
 
-                            documentReference4.set(loc).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            /*documentReference4.set(loc).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "onSuccess: location is created");
                                 }
 
-                            });
+                            });*/
 
                             documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

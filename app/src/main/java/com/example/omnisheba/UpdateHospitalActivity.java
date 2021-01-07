@@ -248,7 +248,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             name.setText("");
                         }
                     });
-            fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
+            /*fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
                     .update("Name",nam)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -256,7 +256,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             Toast.makeText(UpdateHospitalActivity.this, "Updated Name", Toast.LENGTH_SHORT).show();
 
                         }
-                    });
+                    });*/
         }
 
         if(!desc.isEmpty())
@@ -270,7 +270,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             description.setText("");
                         }
                     });
-            fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
+            /*fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
                     .update("Description",desc)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -278,7 +278,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             Toast.makeText(UpdateHospitalActivity.this, "Updated Description", Toast.LENGTH_SHORT).show();
 
                         }
-                    });
+                    });*/
         }
 
         if(!phon.isEmpty())
@@ -292,7 +292,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             hotline.setText("");
                         }
                     });
-            fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
+            /*fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
                     .update("Hotline",phon)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -300,7 +300,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             Toast.makeText(UpdateHospitalActivity.this, "Updated Hotline", Toast.LENGTH_SHORT).show();
 
                         }
-                    });
+                    });*/
         }
 
         if(test.size()>0)
@@ -318,7 +318,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             }
                         }
                     });
-            fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
+            /*fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
                     .update("Departmentunit",test)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -326,7 +326,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             Toast.makeText(UpdateHospitalActivity.this, "Updated departments", Toast.LENGTH_SHORT).show();
 
                         }
-                    });
+                    });*/
         }
 
         if(!type.equals("No Type"))
@@ -340,7 +340,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
 
                         }
                     });
-            fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
+            /*fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
                     .update("Hospitaltype",type)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -348,7 +348,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             Toast.makeText(UpdateHospitalActivity.this, "Updated Hospitaltype", Toast.LENGTH_SHORT).show();
 
                         }
-                    });
+                    });*/
         }
 
         if(!yr.isEmpty())
@@ -362,7 +362,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
 
                         }
                     });
-            fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
+            /*fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
                     .update("Foundationyear",yr)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -370,7 +370,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             Toast.makeText(UpdateHospitalActivity.this, "Updated Foundation Year", Toast.LENGTH_SHORT).show();
                             name.setText("");
                         }
-                    });
+                    });*/
         }
 
         if(!location.equals("No Location"))

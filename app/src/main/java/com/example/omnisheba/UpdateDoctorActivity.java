@@ -350,7 +350,7 @@ public class UpdateDoctorActivity extends AppCompatActivity implements AdapterVi
         if (tues.isChecked())
         {
             fStore.collection("Appointment").document(userID)
-                    .update("Tueseve",appointment[3][2])
+                    .update("Tuesve",appointment[3][2])
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

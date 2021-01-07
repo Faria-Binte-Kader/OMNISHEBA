@@ -226,7 +226,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             name.setText("");
                         }
                     });
-            fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
+            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
                     .update("Name",nam)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -234,7 +234,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             Toast.makeText(UpdateTestCenterActivity.this, "Updated Name", Toast.LENGTH_SHORT).show();
 
                         }
-                    });
+                    });*/
         }
 
         if(!desc.isEmpty())
@@ -248,7 +248,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             description.setText("");
                         }
                     });
-            fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
+            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
                     .update("Description",desc)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -256,7 +256,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             Toast.makeText(UpdateTestCenterActivity.this, "Updated Description", Toast.LENGTH_SHORT).show();
 
                         }
-                    });
+                    });*/
         }
 
         if(!phon.isEmpty())
@@ -270,7 +270,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             hotline.setText("");
                         }
                     });
-            fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
+            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
                     .update("Hotline",phon)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -278,7 +278,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             Toast.makeText(UpdateTestCenterActivity.this, "Updated Hotline", Toast.LENGTH_SHORT).show();
 
                         }
-                    });
+                    });*/
         }
 
         if(test.size()>0)
@@ -296,7 +296,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             }
                         }
                     });
-            fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
+            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
                     .update("Test",test)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -304,7 +304,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             Toast.makeText(UpdateTestCenterActivity.this, "Updated departments", Toast.LENGTH_SHORT).show();
 
                         }
-                    });
+                    });*/
         }
 
         if(!type.equals("No Type"))
@@ -318,7 +318,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
 
                         }
                     });
-            fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
+            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
                     .update("Testcentertype",type)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -326,7 +326,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             Toast.makeText(UpdateTestCenterActivity.this, "Updated Test Center type", Toast.LENGTH_SHORT).show();
 
                         }
-                    });
+                    });*/
         }
 
         if(!location.equals("No Location"))
