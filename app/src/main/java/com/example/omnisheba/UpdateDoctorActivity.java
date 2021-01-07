@@ -488,7 +488,7 @@ public class UpdateDoctorActivity extends AppCompatActivity implements AdapterVi
         }
 
 
-        if(!location.isEmpty())
+       if(!location.equals("No Location"))
         {
             fStore.collection("Doctor").document(userID)
                     .update("Hospitalchamberlocation",location)

@@ -183,7 +183,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                             doctor.put("Description", descript);
                             doctor.put("Specialty", special);
                             doctor.put("Hospitalchambername", hosName);
-                            doctor.put("Hospitalchamnberlocation", location);
+                            doctor.put("Hospitalchamberlocation", location);
                             doctor.put("Practicesatrtingyear", pracYear);
                             doctor.put("Type", "Doctor");
                             doctor.put("DoctorID",userId);
@@ -215,7 +215,7 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                             loc.put("Description", descript);
                             loc.put("Specialty", special);
                             loc.put("Hospitalchambername", hosName);
-                            loc.put("Hospitalchamnberlocation", location);
+                            loc.put("Hospitalchamberlocation", location);
                             loc.put("Practicesatrtingyear", pracYear);
 
                             DocumentReference documentReference5 = fstoreDoctor.collection("Monday").document(userId);

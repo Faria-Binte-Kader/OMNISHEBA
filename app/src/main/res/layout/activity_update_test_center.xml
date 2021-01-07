@@ -177,26 +177,6 @@
             android:layout_marginTop="10dp"
             />
     </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:textColorHint="@color/white"
-        >
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Update Location"
-            android:textColorHint="@color/white"
-            android:background="@drawable/text_rounded"
-            android:ems="10"
-            android:padding="10dp"
-            android:inputType="phone"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="match_parent"

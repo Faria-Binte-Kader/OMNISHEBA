@@ -105,7 +105,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                                             querySnapshot.getString("Description"),
                                             querySnapshot.getString("Hospitalchambername"),
                                             querySnapshot.getString("Practicesatrtingyear"),
-                                            querySnapshot.getString("Hospitalchamnberlocation"),
+                                            querySnapshot.getString("Hospitalchamberlocation"),
                                             querySnapshot.getString("DoctorID"));
                                     doctorArrayList.add(doctor);
 
@@ -150,7 +150,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                                         querySnapshot.getString("Description"),
                                         querySnapshot.getString("Hospitalchambername"),
                                         querySnapshot.getString("Practicesatrtingyear"),
-                                        querySnapshot.getString("Hospitalchamnberlocation"),
+                                        querySnapshot.getString("Hospitalchamberlocation"),
                                         querySnapshot.getString("DoctorID"));
                                 doctorArrayList.add(doctor);
                             }
@@ -170,7 +170,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         else if (sp1.contentEquals("No Specialty"))
         {
             dbDoctor.collection("Doctor")
-                    .whereEqualTo("Hospitalchamnberlocation",sp2)
+                    .whereEqualTo("Hospitalchamberlocation",sp2)
                     //.whereArrayContains("Specialty",sp1)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -182,7 +182,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                                         querySnapshot.getString("Description"),
                                         querySnapshot.getString("Hospitalchambername"),
                                         querySnapshot.getString("Practicesatrtingyear"),
-                                        querySnapshot.getString("Hospitalchamnberlocation"),
+                                        querySnapshot.getString("Hospitalchamberlocation"),
                                         querySnapshot.getString("DoctorID"));
                                 doctorArrayList.add(doctor);
                             }
@@ -214,7 +214,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                                         querySnapshot.getString("Description"),
                                         querySnapshot.getString("Hospitalchambername"),
                                         querySnapshot.getString("Practicesatrtingyear"),
-                                        querySnapshot.getString("Hospitalchamnberlocation"),
+                                        querySnapshot.getString("Hospitalchamberlocation"),
                                         querySnapshot.getString("DoctorID"));
                                 doctorArrayList.add(doctor);
                             }
@@ -246,7 +246,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                                         querySnapshot.getString("Description"),
                                         querySnapshot.getString("Hospitalchambername"),
                                         querySnapshot.getString("Practicesatrtingyear"),
-                                        querySnapshot.getString("Hospitalchamnberlocation"),
+                                        querySnapshot.getString("Hospitalchamberlocation"),
                                         querySnapshot.getString("DoctorID"));
                                 doctorArrayList.add(doctor);
                             }

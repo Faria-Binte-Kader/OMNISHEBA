@@ -67,7 +67,7 @@ public class ProfileDoctorActivity extends AppCompatActivity {
                 hospitalName.setText(value.getString("Hospitalchambername"));
                 practiceYear.setText(value.getString("Practicesatrtingyear"));
                 description.setText(value.getString("Description"));
-                location.setText(value.getString("Hospitalchamnberlocation"));
+                location.setText(value.getString("Hospitalchamberlocation"));
                 // specialty.setText(value.getString("Specialty"));
 
             }

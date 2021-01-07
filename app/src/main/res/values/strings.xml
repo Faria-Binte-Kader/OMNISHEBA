@@ -33,6 +33,7 @@
         <item>Urology</item>
     </string-array>
     <string-array name="Location_Types">
+        <item>No Location</item>
         <item>Agargaon</item>
         <item>Banani</item>
         <item>Dhaka Cantonment</item>
@@ -54,6 +55,7 @@
     </string-array>
 
     <string-array name="Hospital_Types">
+        <item>No Type</item>
         <item>Government</item>
         <item>Private</item>
         <item>Other</item>

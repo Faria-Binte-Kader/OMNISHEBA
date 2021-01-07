@@ -183,7 +183,7 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                                     des = querySnapshot.getString("Description");
                                     hospital = querySnapshot.getString("Hospitalchambername");
                                     pcyear = querySnapshot.getString("Practicesatrtingyear");
-                                    location = querySnapshot.getString("Hospitalchamnberlocation");
+                                    location = querySnapshot.getString("Hospitalchamberlocation");
                                     id = querySnapshot.getString("DoctorID");
                                     if (hospital.equals(hosName[0])) {
                                         Doctor doctor = new Doctor(nam, email, des, hospital, pcyear, location, id);
@@ -243,7 +243,7 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                             des = querySnapshot.getString("Description");
                             hospital = querySnapshot.getString("Hospitalchambername");
                             pcyear = querySnapshot.getString("Practicesatrtingyear");
-                            location = querySnapshot.getString("Hospitalchamnberlocation");
+                            location = querySnapshot.getString("Hospitalchamberlocation");
                             id = querySnapshot.getString("DoctorID");
                             if (hospital.equals(hosName[0])) {
                                 Doctor doctor = new Doctor(nam, email, des, hospital, pcyear, location, id);

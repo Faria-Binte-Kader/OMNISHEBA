@@ -195,7 +195,7 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
                             doctor.put("Description", descript);
                             doctor.put("Specialty", special);
                             doctor.put("Hospitalchambername", hosName[0]);
-                            doctor.put("Hospitalchamnberlocation", location[0]);
+                            doctor.put("Hospitalchamberlocation", location[0]);
                             doctor.put("Practicesatrtingyear", pracYear);
                             doctor.put("Type", "Doctor");
                             doctor.put("DoctorID", userId);
@@ -228,7 +228,7 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
                             loc.put("Description", descript);
                             loc.put("Specialty", special);
                             loc.put("Hospitalchambername", hosName[0]);
-                            loc.put("Hospitalchamnberlocation", location[0]);
+                            loc.put("Hospitalchamberlocation", location[0]);
                             loc.put("Practicesatrtingyear", pracYear);
 
                             DocumentReference documentReference5 = fstoreDoctor.collection("Monday").document(userId);

@@ -112,7 +112,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                     if (document5.exists()) {
                         docname = docname + document5.getString("Name");
                         hosname = hosname + document5.getString("Hospitalchambername");
-                        hosloc = hosloc + document5.getString("Hospitalchamnberlocation");
+                        hosloc = hosloc + document5.getString("Hospitalchamberlocation");
                     } else {
                         Log.d("TAG", "No such document");
                     }

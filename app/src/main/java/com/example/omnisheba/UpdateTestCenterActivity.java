@@ -1,6 +1,7 @@
 package com.example.omnisheba;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +24,11 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
@@ -67,6 +72,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
         mItemSelected = (TextView) findViewById(R.id.tvItemSelected);
         listItems = getResources().getStringArray(R.array.test_list);
         checkedItems = new boolean[listItems.length];
+
 
         testsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,7 +260,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                     });
         }
 
-        if(!type.isEmpty())
+        if(!type.equals("No Type"))
         {
             fStore.collection("TC").document(userID)
                     .update("Testcentertype",type)
@@ -267,7 +273,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                     });
         }
 
-        if(!location.isEmpty())
+        if(!location.equals("No Location"))
         {
             fStore.collection("TC").document(userID)
                     .update("Testcenterlocation",location)
