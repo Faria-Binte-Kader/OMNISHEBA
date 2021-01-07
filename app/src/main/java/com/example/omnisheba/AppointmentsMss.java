@@ -59,6 +59,7 @@ public class AppointmentsMss extends AppCompatActivity implements AdapterView.On
             appointmentsArrayList.clear();
         dbApp.collection("Schedule").document(fAuthApp.getUid())
                 .collection("Appointments")
+                .orderBy("Time")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     String dt;

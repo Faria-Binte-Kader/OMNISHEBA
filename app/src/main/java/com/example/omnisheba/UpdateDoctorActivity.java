@@ -238,7 +238,7 @@ public class UpdateDoctorActivity extends AppCompatActivity implements AdapterVi
         if(!nam.isEmpty())
         {
             fStore.collection("Doctor").document(userID)
-                    .update("Name",nam)
+                    .update("Name",nam.toUpperCase())
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

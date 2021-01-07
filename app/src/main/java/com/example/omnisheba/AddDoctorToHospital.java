@@ -222,14 +222,14 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
                             Map<String, Object> type = new HashMap<>();
                             type.put("Type", "Doctor");
 
-                            DocumentReference documentReference4 = fstoreDoctor.collection("Location").document(location[0]).collection("Doctors").document(userId);
+                            /*DocumentReference documentReference4 = fstoreDoctor.collection("Location").document(location[0]).collection("Doctors").document(userId);
                             Map<String, Object> loc = new HashMap<>();
                             loc.put("Name", name);
                             loc.put("Description", descript);
                             loc.put("Specialty", special);
                             loc.put("Hospitalchambername", hosName[0]);
                             loc.put("Hospitalchamberlocation", location[0]);
-                            loc.put("Practicesatrtingyear", pracYear);
+                            loc.put("Practicesatrtingyear", pracYear);*/
 
                             DocumentReference documentReference5 = fstoreDoctor.collection("Monday").document(userId);
                             Map<String, Object> mon = new HashMap<>();
@@ -322,13 +322,13 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
 
                             });
 
-                            documentReference4.set(loc).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            /*documentReference4.set(loc).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "onSuccess: location is created");
                                 }
 
-                            });
+                            });*/
 
                             documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

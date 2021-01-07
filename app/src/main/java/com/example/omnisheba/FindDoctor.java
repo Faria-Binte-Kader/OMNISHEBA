@@ -234,7 +234,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         else
         {
             dbDoctor.collection("Doctor")
-                    .whereEqualTo("Hospitalchamnberlocation",sp2)
+                    .whereEqualTo("Hospitalchamberlocation",sp2)
                     .whereArrayContains("Specialty",sp1)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

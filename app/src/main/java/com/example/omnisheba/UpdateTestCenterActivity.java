@@ -218,7 +218,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
         if(!nam.isEmpty())
         {
             fStore.collection("TC").document(userID)
-                    .update("Name",nam)
+                    .update("Name",nam.toUpperCase())
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

@@ -86,7 +86,7 @@ public class ProfileDoctorActivity extends AppCompatActivity {
                 sateve.setText(value.getString("Sateve"));
                 suneve.setText(value.getString("Suneve"));
                 moneve.setText(value.getString("Moneve"));
-                tueseve.setText(value.getString("Tueseve"));
+                tueseve.setText(value.getString("Tuesve"));
                 wedeve.setText(value.getString("Wedeve"));
                 thurseve.setText(value.getString("Thurseve"));
                 frieve.setText(value.getString("Frieve"));

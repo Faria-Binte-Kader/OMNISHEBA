@@ -240,7 +240,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
         if(!nam.isEmpty())
         {
             fStore.collection("Hospital").document(userID)
-                    .update("Name",nam)
+                    .update("Name",nam.toUpperCase())
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
