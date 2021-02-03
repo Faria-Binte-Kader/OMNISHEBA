@@ -48,9 +48,11 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
     ArrayList<Integer> mUserItems = new ArrayList<>();*/
 
     RecyclerView mRecyclerView;
+    String hospitalId;
     FirebaseFirestore dbDoctor;
     ArrayList<Doctor> doctorArrayList;
     DoctorsHospitalAdapter adapter;
+    String hosName ;
 
     FirebaseAuth fAuthHospital;
     FirebaseFirestore fStore;
@@ -71,6 +73,7 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
         //specialty_type3.setOnItemSelectedListener(this);
 
         Button addBtn = findViewById(R.id.addbtn);
+        hospitalId= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         /*specialtyBtn = findViewById(R.id.btnFilterSpecialty);
         mItemSelected = (TextView) findViewById(R.id.tvItemSelected);
@@ -150,16 +153,17 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
             doctorArrayList.clear();
         SearchView searchView = findViewById(R.id.searchViewDoctorHospitalName);
 
-        final String[] hosName = new String[1];
 
-        Intent intent = getIntent();
-        String hospitalId = intent.getStringExtra(HospitalMainActivity.EXTRA_TEXT2);
+        //Intent intent = getIntent();
+        //String hospitalId = intent.getStringExtra(HospitalMainActivity.EXTRA_TEXT2);
+        //String hospitalId= FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
         DocumentReference documentReference3 = dbDoctor.collection("Hospital").document(hospitalId);
         documentReference3.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                hosName[0] = task.getResult().getString("Name");
+                hosName = task.getResult().getString("Name");
             }
         });
 
@@ -185,10 +189,12 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                                     pcyear = querySnapshot.getString("Practicesatrtingyear");
                                     location = querySnapshot.getString("Hospitalchamberlocation");
                                     id = querySnapshot.getString("DoctorID");
-                                    if (hospital.equals(hosName[0])) {
+                                    if(hospital!=null)
+                                    {
+                                    if (hospital.equals(hosName)) {
                                         Doctor doctor = new Doctor(nam, email, des, hospital, pcyear, location, id);
                                         doctorArrayList.add(doctor);
-                                    }
+                                    }}
                                 }
                                 adapter = new DoctorsHospitalAdapter(DoctorsHospitalActivity.this, doctorArrayList);
                                 mRecyclerView.setAdapter(adapter);
@@ -215,16 +221,17 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
         if (doctorArrayList.size() > 0)
             doctorArrayList.clear();
 
-        final String[] hosName = new String[1];
 
-        Intent intent = getIntent();
-        String hospitalId = intent.getStringExtra(HospitalMainActivity.EXTRA_TEXT2);
 
-        DocumentReference documentReference3 = dbDoctor.collection("Hospital").document(hospitalId);
+        //Intent intent = getIntent();
+        //String hospitalId = intent.getStringExtra(HospitalMainActivity.EXTRA_TEXT2);
+        //String hospitalId= FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+       DocumentReference documentReference3 = dbDoctor.collection("Hospital").document(hospitalId);
         documentReference3.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                hosName[0] = task.getResult().getString("Name");
+                hosName = task.getResult().getString("Name");
             }
         });
         //Log.e(TAG, "hospital name"+ hName[0]);
@@ -245,10 +252,11 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                             pcyear = querySnapshot.getString("Practicesatrtingyear");
                             location = querySnapshot.getString("Hospitalchamberlocation");
                             id = querySnapshot.getString("DoctorID");
-                            if (hospital.equals(hosName[0])) {
+                            if(hospital!=null)
+                            { if ( hospital.equals(hosName)) {
                                 Doctor doctor = new Doctor(nam, email, des, hospital, pcyear, location, id);
                                 doctorArrayList.add(doctor);
-                            }
+                            }}
                         }
                         adapter = new DoctorsHospitalAdapter(DoctorsHospitalActivity.this, doctorArrayList);
                         mRecyclerView.setAdapter(adapter);

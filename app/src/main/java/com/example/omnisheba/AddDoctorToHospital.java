@@ -43,7 +43,7 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
     Button alreadyAddedDoctor;
 
     Button specialtyBtn, workdaysBtn, shiftsBtn, addDoctorBtn;
-    String userId;
+    String uid;
 
     FirebaseAuth fAuthDoctor;
     FirebaseFirestore fstoreDoctor;
@@ -53,6 +53,9 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
     String[] listItems;
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
+    String hosName;
+    String location;
+    String hospitalId;
 
     TextView mItemSelected2;
     String[] listItems2;
@@ -106,10 +109,22 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
 
         inputName = findViewById(R.id.addNameDoctor);
         inputEmail = findViewById(R.id.addEmailDoctor);
-        inputPassword = findViewById(R.id.addPasswordDoctor);
-        confirmPassword = findViewById(R.id.addconfirmPasswordDoctor);
         description = findViewById(R.id.addDescriptionDoctor);
         practiceYear = findViewById(R.id.addPracticeYearDoctor);
+        //hospitalId = fAuthDoctor.getCurrentUser().getUid();
+        Intent intent = getIntent();
+         hospitalId = intent.getStringExtra(DoctorsHospitalActivity.EXTRA_TEXT1);
+        DocumentReference documentReference3 = fstoreDoctor.collection("Hospital").document(hospitalId);
+
+        documentReference3.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                hosName = task.getResult().getString("Name");
+                location = task.getResult().getString("Hospitallocation");
+            }
+        });
+
+        Log.e(TAG, "hospital name " + hosName);
 
 
         sat = findViewById(R.id.Saturday);
@@ -141,8 +156,6 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
             public void onClick(View view) {
                 final String name = inputName.getText().toString().toUpperCase();
                 final String email = inputEmail.getText().toString();
-                String password = inputPassword.getText().toString();
-                String conPassword = confirmPassword.getText().toString();
                 final String descript = description.getText().toString();
                 final String pracYear = practiceYear.getText().toString();
 
@@ -155,53 +168,32 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
                     showError(inputEmail, "Email is not Valid");
                     return;
                 }
-                if (password.isEmpty() || password.length() < 7) {
-                    showError(inputPassword, "Password must be at least 7 characters");
-                    return;
-                }
-                if (conPassword.isEmpty() || !conPassword.equals(password)) {
-                    showError(confirmPassword, "Password does not match");
-                    return;
-                }
+
 
                 getAppointment();
 
-                final String[] hosName = new String[1];
-                final String[] location = new String[1];
 
-                Intent intent = getIntent();
-                String hospitalId = intent.getStringExtra(DoctorsHospitalActivity.EXTRA_TEXT1);
+                //Intent intent = getIntent();
+                //String hospitalId = intent.getStringExtra(DoctorsHospitalActivity.EXTRA_TEXT1);
 
-                DocumentReference documentReference3 = fstoreDoctor.collection("Hospital").document(hospitalId);
-                documentReference3.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        hosName[0] = task.getResult().getString("Name");
-                        location[0] = task.getResult().getString("Hospitallocation");
-                    }
-                });
-                //Log.e(TAG, "hospital name" + hosName[0]);
-                fAuthDoctor.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(AddDoctorToHospital.this, "Doctor Added", Toast.LENGTH_SHORT).show();
-                            userId = fAuthDoctor.getCurrentUser().getUid();
 
-                            DocumentReference documentReference = fstoreDoctor.collection("Doctor").document(userId);
+
+                            DocumentReference documentReference = fstoreDoctor.collection("Doctor").document();
+                            uid = documentReference.getId();
                             Map<String, Object> doctor = new HashMap<>();
                             doctor.put("Name", name);
                             doctor.put("Email", email);
                             doctor.put("Description", descript);
                             doctor.put("Specialty", special);
-                            doctor.put("Hospitalchambername", hosName[0]);
-                            doctor.put("Hospitalchamberlocation", location[0]);
+                            doctor.put("Hospitalchambername", hosName);
+                            doctor.put("Hospitalchamberlocation", location);
                             doctor.put("Practicesatrtingyear", pracYear);
                             doctor.put("Type", "Doctor");
-                            doctor.put("DoctorID", userId);
+                            doctor.put("DoctorID", uid);
 
 
-                            DocumentReference documentReference2 = fstoreDoctor.collection("Appointment").document(userId);
+
+                            DocumentReference documentReference2 = fstoreDoctor.collection("Appointment").document(uid);
                             Map<String, Object> App = new HashMap<>();
                             App.put("Satmon", appointment[0][1]);
                             App.put("Sateve", appointment[0][2]);
@@ -218,7 +210,7 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
                             App.put("Frimon", appointment[6][1]);
                             App.put("Frieve", appointment[6][2]);
 
-                            DocumentReference documentReference3 = fstoreDoctor.collection("Usertype").document(userId);
+                            DocumentReference documentReference4 = fstoreDoctor.collection("Usertype").document(uid);
                             Map<String, Object> type = new HashMap<>();
                             type.put("Type", "Doctor");
 
@@ -231,37 +223,37 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
                             loc.put("Hospitalchamberlocation", location[0]);
                             loc.put("Practicesatrtingyear", pracYear);*/
 
-                            DocumentReference documentReference5 = fstoreDoctor.collection("Monday").document(userId);
+                            DocumentReference documentReference5 = fstoreDoctor.collection("Monday").document(uid);
                             Map<String, Object> mon = new HashMap<>();
                             mon.put("CountMor", "0");
                             mon.put("CountEve", "0");
 
-                            DocumentReference documentReference6 = fstoreDoctor.collection("Tuesday").document(userId);
+                            DocumentReference documentReference6 = fstoreDoctor.collection("Tuesday").document(uid);
                             Map<String, Object> tue = new HashMap<>();
                             tue.put("CountMor", "0");
                             tue.put("CountEve", "0");
 
-                            DocumentReference documentReference7 = fstoreDoctor.collection("Wednesday").document(userId);
+                            DocumentReference documentReference7 = fstoreDoctor.collection("Wednesday").document(uid);
                             Map<String, Object> wed = new HashMap<>();
                             wed.put("CountMor", "0");
                             wed.put("CountEve", "0");
 
-                            DocumentReference documentReference8 = fstoreDoctor.collection("Thursday").document(userId);
+                            DocumentReference documentReference8 = fstoreDoctor.collection("Thursday").document(uid);
                             Map<String, Object> thu = new HashMap<>();
                             thu.put("CountMor", "0");
                             thu.put("CountEve", "0");
 
-                            DocumentReference documentReference9 = fstoreDoctor.collection("Friday").document(userId);
+                            DocumentReference documentReference9 = fstoreDoctor.collection("Friday").document(uid);
                             Map<String, Object> fri = new HashMap<>();
                             fri.put("CountMor", "0");
                             fri.put("CountEve", "0");
 
-                            DocumentReference documentReference10 = fstoreDoctor.collection("Saturday").document(userId);
+                            DocumentReference documentReference10 = fstoreDoctor.collection("Saturday").document(uid);
                             Map<String, Object> sat = new HashMap<>();
                             sat.put("CountMor", "0");
                             sat.put("CountEve", "0");
 
-                            DocumentReference documentReference11 = fstoreDoctor.collection("Sunday").document(userId);
+                            DocumentReference documentReference11 = fstoreDoctor.collection("Sunday").document(uid);
                             Map<String, Object> sun = new HashMap<>();
                             sun.put("CountMor", "0");
                             sun.put("CountEve", "0");
@@ -330,7 +322,7 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
 
                             });*/
 
-                            documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            documentReference4.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "onSuccess: user type is created");
@@ -348,18 +340,17 @@ public class AddDoctorToHospital extends AppCompatActivity implements AdapterVie
                             documentReference.set(doctor).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: user profile is created");
+                                    //Toast.makeText(AddDoctorToHospital.this, "Doctor Added", Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, "onSuccess: doctor added");
                                 }
 
                             });
                             startActivity(new Intent(getApplicationContext(), DoctorsHospitalActivity.class));
-                        } else {
-                            Toast.makeText(AddDoctorToHospital.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+
+
             }
         });
+
 
 
         specialtyBtn.setOnClickListener(new View.OnClickListener() {
