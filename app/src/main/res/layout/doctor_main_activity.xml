@@ -9,66 +9,6 @@
     android:gravity="center"
     android:padding="30dp"
     tools:context=".DoctorMainActivity">
-
- <!--   <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/doctorprofilebutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PROFILE"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-
-            android:padding="30dp"
-            android:background="@drawable/button_rounded"
-            android:onClick="doctorprofilebutton"/>
-        <Button
-            android:id="@+id/doctorupdatebutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="UPDATE"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:padding="30dp"
-            android:background="@drawable/button_rounded"
-           android:layout_margin="15dp"
-
-            android:onClick="doctorupdatebutton"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/doctorappointmentbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PATIENT"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:padding="30dp"
-            android:background="@drawable/button_rounded"
-            android:onClick="doctorappointmentbutton"/>
-        <Button
-            android:id="@+id/doctorlogoutbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LOGOUT"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:padding="30dp"
-            android:background="@drawable/button_rounded"
-            android:layout_margin="15dp"
-
-            android:onClick="doctorlogoutbutton"/>
-    </LinearLayout>-->
     <TextView
         android:id="@+id/welcomeback"
         android:layout_width="wrap_content"

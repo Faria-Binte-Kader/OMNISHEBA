@@ -165,14 +165,6 @@
                 />
         </LinearLayout>
 
-        <!-- <TextView
-            android:id="@+id/doctorspecialty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:padding="5dp"
-            /> -->
         <TextView
             android:id="@+id/schedule"
             android:layout_width="match_parent"
@@ -427,8 +419,6 @@
                 />
 
         </LinearLayout>
-
-
     </LinearLayout>
 </LinearLayout>
 </ScrollView>

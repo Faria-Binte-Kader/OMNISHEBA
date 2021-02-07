@@ -38,6 +38,4 @@
         app:menu="@menu/mss_menu"
         android:layout_gravity="start"
         />
-
-
 </androidx.drawerlayout.widget.DrawerLayout>

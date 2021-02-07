@@ -9,50 +9,6 @@
     android:gravity="center"
     android:padding="30dp"
     tools:context=".TestMainActivity">
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/testprofilebutton"
-            android:layout_width="wrap_content"
-            android:layout_height="108dp"
-            android:background="@drawable/button_rounded"
-            android:onClick="testprofilebutton"
-            android:padding="30dp"
-
-            android:text="PROFILE"
-            android:textColor="@color/white"
-            android:textSize="22sp" />
-
-        <Button
-            android:id="@+id/testupdatebutton"
-            android:layout_width="wrap_content"
-            android:layout_height="106dp"
-            android:layout_margin="15dp"
-            android:background="@drawable/button_rounded"
-            android:onClick="testupdatebutton"
-            android:padding="30dp"
-            android:text="UPDATE"
-            android:textColor="@color/white"
-
-            android:textSize="22sp" />
-    </LinearLayout>
-    <Button
-        android:id="@+id/testLogoutbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="101dp"
-        android:layout_margin="15dp"
-        android:background="@drawable/button_rounded"
-        android:onClick="testLogoutbutton"
-        android:padding="30dp"
-        android:text="LOGOUT"
-        android:textColor="@color/white"
-
-        android:textSize="20sp" />-->
     <TextView
         android:id="@+id/welcomeback"
         android:layout_width="wrap_content"
