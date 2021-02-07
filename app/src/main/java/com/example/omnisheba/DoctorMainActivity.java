@@ -6,10 +6,16 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * For the main homepage of the Doctor
+ */
 public class DoctorMainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    /**
+     * When created, make the views doctorprofile, doctorupdate, doctoranswer and doctorlogout clickable
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doctor_main_activity);
@@ -21,34 +27,46 @@ public class DoctorMainActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.doctorlogout).setOnClickListener(this);
     }
 
+    /**
+     * Logout function for the doctor
+     */
     private void logout() {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this, LogoutDoctorActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
+    /**
+     * To go to the Discussion Forum
+     */
     private void list() {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this, DoctorDiscussionForum.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Update function for the doctor
+     */
     private void update() {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this, UpdateDoctorActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
+    /**
+     * For viewing their own profile
+     */
     private void profile() {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this, ProfileDoctorActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
+    /**
+     * What functions are called when different views are clicked
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -66,25 +84,4 @@ public class DoctorMainActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
     }
-
-
-
-
-   /*public void doctorprofilebutton(View view) {
-      // Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);
-      // startActivity(intent);
-   }
-    public void doctorupdatebutton(View view) {
-        //Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);
-       // startActivity(intent);
-    }
-    public void doctorappointmentbutton(View view) {
-        //Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);
-        //startActivity(intent);
-    }
-    public void doctorlogoutbutton(View view) {
-        //Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);
-        //startActivity(intent);
-    }*/
-
 }

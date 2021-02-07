@@ -1,21 +1,32 @@
 package com.example.omnisheba;
 
+/**
+ * Doctor class to hold the functions and information of doctor objects
+ */
 public class Doctor {
 
-    private  String Name;
-    private  String Description;
-    private  String Email;
-    private  String Hospitalchamnberlocation;
-    private  String Hospitalchambername;
-    private  String Practicesatrtingyear;
+    private String Name;
+    private String Description;
+    private String Email;
+    private String Hospitalchamnberlocation;
+    private String Hospitalchambername;
+    private String Practicesatrtingyear;
     private String DoctorID;
 
 
-    private static String[] Specialty;
-    private String Type;
+    public Doctor() {
+    }
 
-    public Doctor(){}
-
+    /**
+     * Constructor
+     * @param nam Name of the doctor
+     * @param mail Email of the doctor
+     * @param des Description of the doctor
+     * @param hos Which hospital the doctor works in
+     * @param py Practice Starting Year of the doctor
+     * @param loc Location of the chamber of the doctor
+     * @param d DoctorID in the Doctors collection in Firebase Firestore
+     */
     public Doctor(String nam, String mail, String des, String hos, String py, String loc, String d) {
         Name = nam;
         Email = mail;
@@ -23,10 +34,10 @@ public class Doctor {
         Hospitalchambername = hos;
         Practicesatrtingyear = py;
         Hospitalchamnberlocation = loc;
-        DoctorID=d;
+        DoctorID = d;
     }
 
-    public  String getDescription() {
+    public String getDescription() {
         return Description;
     }
 
@@ -34,19 +45,19 @@ public class Doctor {
         Description = description;
     }
 
-    public  String getEmail() {
+    public String getEmail() {
         return Email;
     }
 
-    public  void setEmail(String email) {
+    public void setEmail(String email) {
         Email = email;
     }
 
-    public  String getHospitalchamnberlocation() {
+    public String getHospitalchamnberlocation() {
         return Hospitalchamnberlocation;
     }
 
-    public  void setHospitalchamnberlocation(String hospitalchamnberlocation) {
+    public void setHospitalchamnberlocation(String hospitalchamnberlocation) {
         Hospitalchamnberlocation = hospitalchamnberlocation;
     }
 
@@ -58,15 +69,15 @@ public class Doctor {
         return DoctorID;
     }
 
-    public  String getHospitalchambername() {
+    public String getHospitalchambername() {
         return Hospitalchambername;
     }
 
-    public  void setHospitalchambername(String hospitalchambername) {
+    public void setHospitalchambername(String hospitalchambername) {
         Hospitalchambername = hospitalchambername;
     }
 
-    public  String getPracticesatrtingyear() {
+    public String getPracticesatrtingyear() {
         return Practicesatrtingyear;
     }
 

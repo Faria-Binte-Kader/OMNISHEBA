@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.SearchView;
@@ -20,41 +19,40 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * Search test centers that do covid test
+ */
 public class FindTest extends AppCompatActivity {
-
-
     RecyclerView mRecyclerView;
     FirebaseFirestore dbTest;
     ArrayList<Test> testArrayList;
     TestAdapter adapter;
 
-    String TAG = "FindTest";
-
+    String TAG = "TAG FindTest";
     String t = "COVID";
 
-
+    /**
+     * Load all test centers from firebase.
+     * Activate the search option.
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_test);
         getSupportActionBar().setTitle("0!");
 
-        Intent intent = getIntent();
-        /*String sp3 = intent.getStringExtra(SearchFragment.EXTRA_TEXT3);
-        String sp4 = intent.getStringExtra(SearchFragment.EXTRA_TEXT4);
-
-        TextView v3 = (TextView) findViewById(R.id.sp3);
-        TextView v4 = (TextView) findViewById(R.id.sp4);
-        v3.setText(sp3);
-        v4.setText(sp4);*/
-
-        testArrayList=new ArrayList<>();
+        testArrayList = new ArrayList<>();
         setUpRecyclerView();
         setUpFireBase();
         loadDataFromFirebase();
         searchDataInFirebase();
     }
 
+    /**
+     * Query on the test centers that match with the text in the Searchview in the TC collection in the Firebase Firestore.
+     * Use TestAdapter to adapt the testArraylist to the recyclerview
+     */
     private void searchDataInFirebase() {
         if (testArrayList.size() > 0)
             testArrayList.clear();
@@ -62,24 +60,28 @@ public class FindTest extends AppCompatActivity {
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
+            public boolean onQueryTextSubmit(final String s) {
                 if (testArrayList.size() > 0)
                     testArrayList.clear();
                 dbTest.collection("TC")
-                        .whereGreaterThanOrEqualTo("Name",s.toUpperCase())
-                        .orderBy("Name").startAt(s.toUpperCase()).endAt(s.toUpperCase()+"\uf8ff")
+                        .whereArrayContains("Test", t)
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            String nam, email, location, hotline;
+
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 for (DocumentSnapshot querySnapshot : task.getResult()) {
-                                    Test test = new Test(querySnapshot.getString("Name"),
-                                            querySnapshot.getString("Email"),
-                                            querySnapshot.getString("Hotline"),
-                                            querySnapshot.getString("Testcenterlocation"));
-                                    testArrayList.add(test);
+                                    nam = querySnapshot.getString("Name");
+                                    email = querySnapshot.getString("Email");
+                                    hotline = querySnapshot.getString("Hotline");
+                                    location = querySnapshot.getString("Testcenterlocation");
+                                    if (nam.contains(s.toUpperCase())) {
+                                        Test test = new Test(nam, email, hotline, location);
+                                        testArrayList.add(test);
+                                    }
                                 }
-                                adapter = new TestAdapter(FindTest.this,testArrayList);
+                                adapter = new TestAdapter(FindTest.this, testArrayList);
                                 mRecyclerView.setAdapter(adapter);
                             }
                         })
@@ -100,11 +102,15 @@ public class FindTest extends AppCompatActivity {
         });
     }
 
+    /**
+     * Load the test centers from the TC collection in the Firebase Firestore.
+     * Use TestAdapter to adapt the testArraylist to the recyclerview
+     */
     private void loadDataFromFirebase() {
         if (testArrayList.size() > 0)
             testArrayList.clear();
         dbTest.collection("TC")
-                .whereArrayContains("Test",t)
+                .whereArrayContains("Test", t)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -116,7 +122,7 @@ public class FindTest extends AppCompatActivity {
                                     querySnapshot.getString("Testcenterlocation"));
                             testArrayList.add(test);
                         }
-                        adapter = new TestAdapter(FindTest.this,testArrayList);
+                        adapter = new TestAdapter(FindTest.this, testArrayList);
                         mRecyclerView.setAdapter(adapter);
                     }
                 })
@@ -129,21 +135,19 @@ public class FindTest extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Set up firebase firestore
+     */
     private void setUpFireBase() {
         dbTest = FirebaseFirestore.getInstance();
     }
 
+    /**
+     * Set up Recyclerview
+     */
     private void setUpRecyclerView() {
-        mRecyclerView=findViewById(R.id.testRV);
+        mRecyclerView = findViewById(R.id.testRV);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-
-   /* @Override
-    public void onBackPressed() {
-        if(getSupportFragmentManager().getBackStackEntryCount() > 0)
-            getSupportFragmentManager().popBackStack();
-        else
-            super.onBackPressed();
-    }*/
 }

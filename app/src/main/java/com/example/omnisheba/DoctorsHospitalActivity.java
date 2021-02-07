@@ -1,23 +1,18 @@
 package com.example.omnisheba;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,57 +23,45 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.protobuf.StringValue;
 
 import java.util.ArrayList;
 
+/**
+ * Class to show the doctors list and add new doctors under a hospital
+ * @author
+ */
 public class DoctorsHospitalActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String[] s = {"No Specialty", "Cardiology", "ENT", "General", "Medicine", "Nephrology", "Neurology", "OB/GYN",
             "Oncology", "Opthalmology", "Physiology", "Psychology", "Urology",};
-
-    /*Button specialtyBtn;
-
-    TextView mItemSelected;
-    String[] listItems;
-    boolean[] checkedItems;
-    ArrayList<Integer> mUserItems = new ArrayList<>();*/
 
     RecyclerView mRecyclerView;
     String hospitalId;
     FirebaseFirestore dbDoctor;
     ArrayList<Doctor> doctorArrayList;
     DoctorsHospitalAdapter adapter;
-    String hosName ;
-
-    FirebaseAuth fAuthHospital;
-    FirebaseFirestore fStore;
-    String userID;
+    String hosName;
 
     public static final String EXTRA_TEXT1 = "com.example.application.example.EXTRA_TEXT1";
 
-    String TAG = "DoctorsHospitalActivity";
+    String TAG = "TAG DoctorsHospitalActivity";
 
+    /**
+     * When created set up the Recyclerview, Firebase.
+     * Load all doctors' information under that hospital
+     * Activate the search option.
+     * Set up the action for the add doctors button.
+     * @param savedInstanceState
+     */
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctors_hospital);
         getSupportActionBar().setTitle("0!");
 
-        //Spinner specialty_type3 = (Spinner) findViewById(R.id.specialty3_type);
-        //specialty_type3.setOnItemSelectedListener(this);
-
         Button addBtn = findViewById(R.id.addbtn);
-        hospitalId= FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        /*specialtyBtn = findViewById(R.id.btnFilterSpecialty);
-        mItemSelected = (TextView) findViewById(R.id.tvItemSelected);
-        listItems = getResources().getStringArray(R.array.specialty_list);
-        checkedItems = new boolean[listItems.length];*/
+        hospitalId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,60 +70,6 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
             }
         });
 
-        /*specialtyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(DoctorsHospitalActivity.this);
-                mBuilder.setTitle(R.string.dialog_title);
-                mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
-                        if (isChecked) {
-                            mUserItems.add(position);
-                        } else {
-                            mUserItems.remove((Integer.valueOf(position)));
-                        }
-                    }
-                });
-
-                mBuilder.setCancelable(false);
-                mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        String item = "";
-                        for (int i = 0; i < mUserItems.size(); i++) {
-                            item = item + listItems[mUserItems.get(i)];
-                            if (i != mUserItems.size() - 1) {
-                                item = item + ", ";
-                            }
-                        }
-                        mItemSelected.setText(item);
-                    }
-                });
-
-                mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        for (int i = 0; i < checkedItems.length; i++) {
-                            checkedItems[i] = false;
-                            mUserItems.clear();
-                            mItemSelected.setText("");
-                        }
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });*/
-
         doctorArrayList = new ArrayList<>();
         setUpRecyclerView();
         setUpFireBase();
@@ -148,16 +77,15 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
         searchDataInFirebase();
     }
 
+    /**
+     * Query on the doctors that match with the text in the Searchview in the Doctor collection in the Firebase Firestore.
+     * Use the userID from FirebaseAuth to find the hospital name of the hospital admin using the application
+     * Use DoctorsHospitalAdapter to adapt the doctorArrayList to the recyclerview
+     */
     private void searchDataInFirebase() {
         if (doctorArrayList.size() > 0)
             doctorArrayList.clear();
         SearchView searchView = findViewById(R.id.searchViewDoctorHospitalName);
-
-
-        //Intent intent = getIntent();
-        //String hospitalId = intent.getStringExtra(HospitalMainActivity.EXTRA_TEXT2);
-        //String hospitalId= FirebaseAuth.getInstance().getCurrentUser().getUid();
-
 
         DocumentReference documentReference3 = dbDoctor.collection("Hospital").document(hospitalId);
         documentReference3.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -172,13 +100,14 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
             public boolean onQueryTextSubmit(String s) {
                 if (doctorArrayList.size() > 0)
                     doctorArrayList.clear();
+
                 dbDoctor.collection("Doctor")
-                        //.whereEqualTo("Hospitalchambername","COMBINED MILITARY HOSPITAL")
                         .whereGreaterThanOrEqualTo("Name", s.toUpperCase())
                         .orderBy("Name").startAt(s.toUpperCase()).endAt(s.toUpperCase() + "\uf8ff")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             String nam, email, location, hospital, pcyear, des, id;
+
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 for (DocumentSnapshot querySnapshot : task.getResult()) {
@@ -189,12 +118,12 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                                     pcyear = querySnapshot.getString("Practicesatrtingyear");
                                     location = querySnapshot.getString("Hospitalchamberlocation");
                                     id = querySnapshot.getString("DoctorID");
-                                    if(hospital!=null)
-                                    {
-                                    if (hospital.equals(hosName)) {
-                                        Doctor doctor = new Doctor(nam, email, des, hospital, pcyear, location, id);
-                                        doctorArrayList.add(doctor);
-                                    }}
+                                    if (hospital != null) {
+                                        if (hospital.equals(hosName)) {
+                                            Doctor doctor = new Doctor(nam, email, des, hospital, pcyear, location, id);
+                                            doctorArrayList.add(doctor);
+                                        }
+                                    }
                                 }
                                 adapter = new DoctorsHospitalAdapter(DoctorsHospitalActivity.this, doctorArrayList);
                                 mRecyclerView.setAdapter(adapter);
@@ -217,27 +146,24 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
         });
     }
 
+    /**
+     * Load all the doctors of the hospital from the Doctor collection in the Firebase Firestore.
+     * Use the userID from FirebaseAuth to find the hospital name of the hospital admin using the application
+     * Use DoctorsHospitalAdapter to adapt the doctorArrayList to the recyclerview
+     */
     private void loadDataFromFirebase() {
         if (doctorArrayList.size() > 0)
             doctorArrayList.clear();
 
-
-
-        //Intent intent = getIntent();
-        //String hospitalId = intent.getStringExtra(HospitalMainActivity.EXTRA_TEXT2);
-        //String hospitalId= FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-       DocumentReference documentReference3 = dbDoctor.collection("Hospital").document(hospitalId);
+        DocumentReference documentReference3 = dbDoctor.collection("Hospital").document(hospitalId);
         documentReference3.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 hosName = task.getResult().getString("Name");
             }
         });
-        //Log.e(TAG, "hospital name"+ hName[0]);
+
         dbDoctor.collection("Doctor")
-                //.whereEqualTo("Hospitalchamnberlocation",sp2)
-                //.whereArrayContains("Specialty",sp1)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     String nam, email, location, hospital, pcyear, des, id;
@@ -252,11 +178,12 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                             pcyear = querySnapshot.getString("Practicesatrtingyear");
                             location = querySnapshot.getString("Hospitalchamberlocation");
                             id = querySnapshot.getString("DoctorID");
-                            if(hospital!=null)
-                            { if ( hospital.equals(hosName)) {
-                                Doctor doctor = new Doctor(nam, email, des, hospital, pcyear, location, id);
-                                doctorArrayList.add(doctor);
-                            }}
+                            if (hospital != null) {
+                                if (hospital.equals(hosName)) {
+                                    Doctor doctor = new Doctor(nam, email, des, hospital, pcyear, location, id);
+                                    doctorArrayList.add(doctor);
+                                }
+                            }
                         }
                         adapter = new DoctorsHospitalAdapter(DoctorsHospitalActivity.this, doctorArrayList);
                         mRecyclerView.setAdapter(adapter);
@@ -269,19 +196,31 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
                         Log.v("---I---", e.getMessage());
                     }
                 });
-
     }
 
+    /**
+     * Set up FirebaseFirestore
+     */
     private void setUpFireBase() {
         dbDoctor = FirebaseFirestore.getInstance();
     }
 
+    /**
+     * Set up Recyclerview
+     */
     private void setUpRecyclerView() {
         mRecyclerView = findViewById(R.id.doctorsHospitalRV);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    /**
+     * When items are selected, use a toast to show it
+     * @param adapterView
+     * @param view
+     * @param i
+     * @param l
+     */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
@@ -290,13 +229,13 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
+    /**
+     * To go to the AddDoctorToHospital page to fillup the information on the new doctor to add under the hospital
+     */
     private void add() {
-        //SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this, AddDoctorToHospital.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         FirebaseUser userHospital;
         FirebaseAuth fAuthHos;
         fAuthHos = FirebaseAuth.getInstance();
@@ -304,22 +243,5 @@ public class DoctorsHospitalActivity extends AppCompatActivity implements Adapte
         String hospitalId = userHospital.getUid();
         intent.putExtra(EXTRA_TEXT1, hospitalId);
         startActivity(intent);
-    }
-
-    private void view() {
-        //SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(DoctorsHospitalActivity.this, ProfileDoctorActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    private void update() {
-        //SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(DoctorsHospitalActivity.this, UpdateDoctorActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    public void appointment() {
     }
 }

@@ -19,24 +19,38 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * Class to show the Medical Service Seekers the list of questions and answers asked by the Medical Service Seekers and answered by the doctors.
+ * @author
+ */
 public class DiscussionForum extends AppCompatActivity {
     RecyclerView mRecyclerView;
     FirebaseFirestore fStore;
     ArrayList<Post> postArrayList;
     PostViewAdapter adapter;
 
+    /**
+     * When created, setup Recyclerview and Firebase.
+     * Load all posts of questions and answers from firebase.
+     * Activate the search option.
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion_forum);
         getSupportActionBar().setTitle("0!");
-        postArrayList=new ArrayList<>();
+        postArrayList = new ArrayList<>();
         setUpRecyclerView();
         setUpFireBase();
         loadDataFromFirebase();
         searchDataInFirebase();
     }
 
+    /**
+     * Query on the posts that match with the text in the Searchview in the Questionanswer collection in the Firebase Firestore.
+     * Use PostViewAdapter to adapt the postArraylist to the recyclerview
+     */
     private void searchDataInFirebase() {
         if (postArrayList.size() > 0)
             postArrayList.clear();
@@ -48,13 +62,13 @@ public class DiscussionForum extends AppCompatActivity {
                 if (postArrayList.size() > 0)
                     postArrayList.clear();
                 fStore.collection("Questionanswer")
-                        .whereGreaterThanOrEqualTo("Key",s.toUpperCase())
-                        .orderBy("Key").startAt(s.toUpperCase()).endAt(s.toUpperCase()+"\uf8ff")
+                        .whereGreaterThanOrEqualTo("Key", s.toUpperCase())
+                        .orderBy("Key").startAt(s.toUpperCase()).endAt(s.toUpperCase() + "\uf8ff")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                for(DocumentSnapshot querySnapshot: task.getResult()){
+                                for (DocumentSnapshot querySnapshot : task.getResult()) {
 
                                     Post post = new Post(querySnapshot.getString("Key"),
                                             querySnapshot.getString("Question"),
@@ -65,7 +79,7 @@ public class DiscussionForum extends AppCompatActivity {
                                     );
                                     postArrayList.add(post);
                                 }
-                                adapter = new PostViewAdapter(DiscussionForum.this,postArrayList);
+                                adapter = new PostViewAdapter(DiscussionForum.this, postArrayList);
                                 mRecyclerView.setAdapter(adapter);
                             }
                         })
@@ -86,15 +100,19 @@ public class DiscussionForum extends AppCompatActivity {
         });
     }
 
+    /**
+     * Load all posts from the Questionanswer collection in the Firebase Firestore.
+     * Use PostViewAdapter to adapt the postArraylist to the recyclerview
+     */
     private void loadDataFromFirebase() {
-        if(postArrayList.size()>0)
+        if (postArrayList.size() > 0)
             postArrayList.clear();
         fStore.collection("Questionanswer")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for(DocumentSnapshot querySnapshot: task.getResult()){
+                        for (DocumentSnapshot querySnapshot : task.getResult()) {
 
                             Post post = new Post(querySnapshot.getString("Key"),
                                     querySnapshot.getString("Question"),
@@ -102,28 +120,34 @@ public class DiscussionForum extends AppCompatActivity {
                                     querySnapshot.getString("Doctor"),
                                     querySnapshot.getString("Answer"),
                                     querySnapshot.getString("PostID")
-                                   );
+                            );
                             postArrayList.add(post);
                         }
-                        adapter = new PostViewAdapter(DiscussionForum.this,postArrayList);
+                        adapter = new PostViewAdapter(DiscussionForum.this, postArrayList);
                         mRecyclerView.setAdapter(adapter);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(DiscussionForum.this,"Problem ---I---",Toast.LENGTH_SHORT).show();
-                        Log.v("---I---",e.getMessage());
+                        Toast.makeText(DiscussionForum.this, "Problem ---I---", Toast.LENGTH_SHORT).show();
+                        Log.v("---I---", e.getMessage());
                     }
                 });
     }
 
+    /**
+     * Set up Firebase Firestore
+     */
     private void setUpFireBase() {
         fStore = FirebaseFirestore.getInstance();
     }
 
+    /**
+     * Set up Recyclerview
+     */
     private void setUpRecyclerView() {
-        mRecyclerView=findViewById(R.id.postRecycle);
+        mRecyclerView = findViewById(R.id.postRecycle);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

@@ -24,8 +24,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * Class to show the emergency contact/hotline information of hospitals and test centers
+ * @author
+ */
 public class ContactHotline extends AppCompatActivity {
-
 
     RecyclerView mRecyclerView;
     FirebaseFirestore dbHotlineHos;
@@ -33,31 +36,29 @@ public class ContactHotline extends AppCompatActivity {
     ArrayList<Hotline> hotlineArrayList;
     HotlineAdapter adapter;
 
-    String TAG = "FindHotline";
+    String TAG = "TAG ContactHotline";
 
-
+    /**
+     * When created, load all Hot-line information of all the hospitals and test centers under the system
+     * Also set up the actions of the search view.
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle("0!");
         setContentView(R.layout.activity_contact_hotline);
 
-        Intent intent = getIntent();
-        /*String sp3 = intent.getStringExtra(SearchFragment.EXTRA_TEXT3);
-        String sp4 = intent.getStringExtra(SearchFragment.EXTRA_TEXT4);
-
-        TextView v3 = (TextView) findViewById(R.id.sp3);
-        TextView v4 = (TextView) findViewById(R.id.sp4);
-        v3.setText(sp3);
-        v4.setText(sp4);*/
-
-        hotlineArrayList=new ArrayList<>();
+        hotlineArrayList = new ArrayList<>();
         setUpRecyclerView();
         setUpFireBase();
         loadDataFromFirebase();
         searchDataInFirebase();
     }
 
+    /**
+     * For searching hospitals and test centers by name.
+     */
     private void searchDataInFirebase() {
         if (hotlineArrayList.size() > 0)
             hotlineArrayList.clear();
@@ -69,8 +70,8 @@ public class ContactHotline extends AppCompatActivity {
                 if (hotlineArrayList.size() > 0)
                     hotlineArrayList.clear();
                 dbHotlineHos.collection("Hospital")
-                        .whereGreaterThanOrEqualTo("Name",s.toUpperCase())
-                        .orderBy("Name").startAt(s.toUpperCase()).endAt(s.toUpperCase()+"\uf8ff")
+                        .whereGreaterThanOrEqualTo("Name", s.toUpperCase())
+                        .orderBy("Name").startAt(s.toUpperCase()).endAt(s.toUpperCase() + "\uf8ff")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -82,7 +83,7 @@ public class ContactHotline extends AppCompatActivity {
                                             querySnapshot.getString("Hospitallocation"));
                                     hotlineArrayList.add(hotline);
                                 }
-                                adapter = new HotlineAdapter(ContactHotline.this,hotlineArrayList);
+                                adapter = new HotlineAdapter(ContactHotline.this, hotlineArrayList);
                                 mRecyclerView.setAdapter(adapter);
                             }
                         })
@@ -93,9 +94,10 @@ public class ContactHotline extends AppCompatActivity {
                                 Log.v("---I---", e.getMessage());
                             }
                         });
+
                 dbHotlineTC.collection("TC")
-                        .whereGreaterThanOrEqualTo("Name",s.toUpperCase())
-                        .orderBy("Name").startAt(s.toUpperCase()).endAt(s.toUpperCase()+"\uf8ff")
+                        .whereGreaterThanOrEqualTo("Name", s.toUpperCase())
+                        .orderBy("Name").startAt(s.toUpperCase()).endAt(s.toUpperCase() + "\uf8ff")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -107,7 +109,7 @@ public class ContactHotline extends AppCompatActivity {
                                             querySnapshot.getString("Testcenterlocation"));
                                     hotlineArrayList.add(hotline);
                                 }
-                                adapter = new HotlineAdapter(ContactHotline.this,hotlineArrayList);
+                                adapter = new HotlineAdapter(ContactHotline.this, hotlineArrayList);
                                 mRecyclerView.setAdapter(adapter);
                             }
                         })
@@ -128,6 +130,9 @@ public class ContactHotline extends AppCompatActivity {
         });
     }
 
+    /**
+     * For showing all the hospitals and test centers' Hot-line information
+     */
     private void loadDataFromFirebase() {
         if (hotlineArrayList.size() > 0)
             hotlineArrayList.clear();
@@ -143,7 +148,7 @@ public class ContactHotline extends AppCompatActivity {
                                     querySnapshot.getString("Hospitallocation"));
                             hotlineArrayList.add(hotline);
                         }
-                        adapter = new HotlineAdapter(ContactHotline.this,hotlineArrayList);
+                        adapter = new HotlineAdapter(ContactHotline.this, hotlineArrayList);
                         mRecyclerView.setAdapter(adapter);
                     }
                 })
@@ -154,6 +159,7 @@ public class ContactHotline extends AppCompatActivity {
                         Log.v("---I---", e.getMessage());
                     }
                 });
+
         dbHotlineTC.collection("TC")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -166,7 +172,7 @@ public class ContactHotline extends AppCompatActivity {
                                     querySnapshot.getString("Testcenterlocation"));
                             hotlineArrayList.add(hotline);
                         }
-                        adapter = new HotlineAdapter(ContactHotline.this,hotlineArrayList);
+                        adapter = new HotlineAdapter(ContactHotline.this, hotlineArrayList);
                         mRecyclerView.setAdapter(adapter);
                     }
                 })
@@ -179,22 +185,20 @@ public class ContactHotline extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Set up firebase.
+     */
     private void setUpFireBase() {
         dbHotlineHos = FirebaseFirestore.getInstance();
         dbHotlineTC = FirebaseFirestore.getInstance();
     }
 
+    /**
+     * Set up the recyclerview of the Hot-line information.
+     */
     private void setUpRecyclerView() {
-        mRecyclerView=findViewById(R.id.hotlineRV);
+        mRecyclerView = findViewById(R.id.hotlineRV);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-
-   /* @Override
-    public void onBackPressed() {
-        if(getSupportFragmentManager().getBackStackEntryCount() > 0)
-            getSupportFragmentManager().popBackStack();
-        else
-            super.onBackPressed();
-    }*/
 }
