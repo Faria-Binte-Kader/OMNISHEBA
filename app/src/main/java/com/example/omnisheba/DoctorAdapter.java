@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 /**
- * Adapter to Show the doctors in the recyclerview to a Medical Service Seeker
+ * Adapter class to Show the doctors in the recyclerview to a Medical Service Seeker
+ * @author
  */
 public class DoctorAdapter extends RecyclerView.Adapter<ViewHolderDoctor> implements AdapterView.OnItemSelectedListener {
 

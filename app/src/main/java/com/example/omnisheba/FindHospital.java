@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 /**
  * Search Hospitals by Medical Service Seeker
+ * @author
  */
 public class FindHospital extends AppCompatActivity {
     RecyclerView mRecyclerView;

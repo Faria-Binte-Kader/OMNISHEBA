@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ * Class to show general Information regarding COVID-19
+ * @author
+ */
 public class CovidInfo extends AppCompatActivity {
     TextView symptom, prec, suggestion;
     String symp = "The most common symptoms of COVID-19 are\n" +
@@ -58,6 +62,10 @@ public class CovidInfo extends AppCompatActivity {
             "\n" +
             "If local guidance recommends visiting a medical centre for testing, assessment or isolation, wear a medical mask while travelling to and from the facility and during medical care. Also keep at least a 1-metre distance from other people and avoid touching surfaces with your hands.  This applies to adults and children.";
 
+    /**
+     * When created, show the mentioned texts
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

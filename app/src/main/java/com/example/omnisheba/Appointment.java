@@ -2,6 +2,7 @@ package com.example.omnisheba;
 
 /**
  * The class to hold the information regarding each appointment made between a medical service seeker and doctor.
+ * @author
  */
 public class Appointment {
     private String date;

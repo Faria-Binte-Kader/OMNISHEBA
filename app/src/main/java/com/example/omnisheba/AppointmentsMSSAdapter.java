@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 /**
- * Adapter to Show the appointments in the recyclerview made by a Medical Service Seeker
+ * Adapter class to Show the appointments in the recyclerview made by a Medical Service Seeker
  * @author
  */
 public class AppointmentsMSSAdapter extends RecyclerView.Adapter<ViewHolderAppointmentsMss> {

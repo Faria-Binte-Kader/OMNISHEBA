@@ -2,6 +2,7 @@ package com.example.omnisheba;
 
 /**
  * Doctor class to hold the functions and information of doctor objects
+ * @author
  */
 public class Doctor {
 
