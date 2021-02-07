@@ -39,7 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class to book an appointment by a Medical Service Seeker under a certain doctor.
+ * To book an appointment by a Medical Service Seeker under a certain doctor.
  * @author
  */
 public class BookAppointment extends AppCompatActivity implements AdapterView.OnItemSelectedListener {

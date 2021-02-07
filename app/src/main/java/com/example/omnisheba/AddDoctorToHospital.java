@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class for adding a doctor under a hospital.
+ * To add a doctor under a hospital.
  * @author
  */
 public class AddDoctorToHospital extends AppCompatActivity implements AdapterView.OnItemSelectedListener {

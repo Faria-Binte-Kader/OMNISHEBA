@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 /**
- * Class to show general Information regarding COVID-19
+ * To show general Information regarding COVID-19
  * @author
  */
 public class CovidInfo extends AppCompatActivity {
@@ -30,7 +30,7 @@ public class CovidInfo extends AppCompatActivity {
             "-Chills or dizziness.\n" +
             " \n" +
             "\n" +
-            "Symptoms of severe COVID‐19 disease include:\n" +
+            "Symptoms of severe COVID-19 disease include:\n" +
             "\n" +
             "-Shortness of breath,\n" +
             "-Loss of appetite,\n" +

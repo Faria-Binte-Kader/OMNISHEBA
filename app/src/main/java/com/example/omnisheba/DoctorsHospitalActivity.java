@@ -29,7 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 /**
- * Class to show the doctors list and add new doctors under a hospital
+ * To show the doctors list and add new doctors under a hospital
  * @author
  */
 public class DoctorsHospitalActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {

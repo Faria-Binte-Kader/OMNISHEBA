@@ -25,7 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 /**
- * Class to show the emergency contact/hotline information of hospitals and test centers
+ * To show the emergency contact/hotline information of hospitals and test centers
  * @author
  */
 public class ContactHotline extends AppCompatActivity {

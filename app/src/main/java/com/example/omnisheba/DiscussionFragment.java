@@ -31,7 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class to post new questions to the discussion forum by the Medical Service Seeker
+ * To post new questions to the discussion forum by the Medical Service Seeker
  * @author
  */
 public class DiscussionFragment extends Fragment implements View.OnClickListener {

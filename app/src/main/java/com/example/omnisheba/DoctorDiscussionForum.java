@@ -20,7 +20,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 /**
- * Class to show and answer the list of questions and answers asked by the Medical Service Seekers to the Doctors.
+ * To show and answer the list of questions and answers asked by the Medical Service Seekers to the Doctors.
  * @author
  */
 public class DoctorDiscussionForum extends AppCompatActivity {

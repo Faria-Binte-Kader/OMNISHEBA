@@ -24,7 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 /**
- * Class to show the appointments made by a Medical Service Seeker.
+ * To show the appointments made by a Medical Service Seeker.
  * Is set to action, when a Medical Service Seeker presses the view appointments button on their view profile fragment.
  * @author
  */

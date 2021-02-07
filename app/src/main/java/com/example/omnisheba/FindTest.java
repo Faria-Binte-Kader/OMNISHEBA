@@ -20,7 +20,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 /**
- * Search test centers that do covid test
+ * Search test centers that do COVID-19 test
  * @author
  */
 public class FindTest extends AppCompatActivity {
