@@ -44,7 +44,7 @@ public class DiscussionFragment extends Fragment implements View.OnClickListener
 
     /**
      * When created, set layout to fragment_discussion
-     * Setup FirebaseAuthand FirebaseFirestore
+     * Setup FirebaseAuth and FirebaseFirestore
      * @param inflater
      * @param container
      * @param savedInstanceState to save the state of the application so we don't lose this prior information.

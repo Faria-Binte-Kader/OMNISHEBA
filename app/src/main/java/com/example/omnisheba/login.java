@@ -32,15 +32,26 @@ import java.util.List;
 
 import static android.R.layout.simple_spinner_item;
 
+/**
+ * Class for the Login to the system activity
+ */
 public class login extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText loginEmail, loginPassword;
     Button loginBtn;
     FirebaseAuth fAuth;
     FirebaseFirestore fstore;
-   // String type = " ";
     String userId;
 
+    /**
+     * When user enters into the system, it checks if any user is logged in or not, if they are,
+     * it checks the type of the user and shows suitable main menu activity.
+     * If no user is logged in, it shows the log in activity, where after inputting user type,
+     * email and password, user can log in to the system.
+     * Wrong email and password shows error.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,26 +65,20 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
             documentReference2.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    //type =
                     String type = new String();
                     if(value!=null)
                     {type =value.getString("Type");
                     if (type.equals("Doctor")) {
-                        //Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(login.this, DoctorMainActivity.class));
                     } else if (type.equals("MSS")) {
-                        //Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(login.this, MainActivity.class));
                     } else if (type.equals("Hospital")) {
-                        // Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(login.this, HospitalMainActivity.class));
                     } else if (type.equals("TC")) {
-                        // Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(login.this, TestMainActivity.class));
                     }
                 }}
             });
-            //type="";
             finish();
         }
         setContentView(R.layout.activity_login);
@@ -84,8 +89,6 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
 
         loginEmail = findViewById(R.id.loginEmail);
         loginPassword = findViewById(R.id.loginPassword);
-        //fAuth = FirebaseAuth.getInstance();
-       // fstore = FirebaseFirestore.getInstance();
         loginBtn = (Button) findViewById(R.id.loginbutton);
 
 
@@ -116,8 +119,6 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
                             documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    //type =
-                                    //
                                     String type = new String();
                                     if(value!=null)
                                     {type = value.getString("Type");
@@ -134,7 +135,7 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
                                         Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getApplicationContext(), TestMainActivity.class));
                                     }
-                                    //type="";
+
                                     finish();
 
                                 }}
@@ -150,37 +151,14 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
         });
     }
 
-   /* @Override
-    protected void onStart() {
-        super.onStart();
-        if(FirebaseAuth.getInstance().getCurrentUser() == null){}
-        else //if(FirebaseAuth.getInstance().getCurrentUser() != null)
-        {
-            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DocumentReference documentReference2 = FirebaseFirestore.getInstance().collection("Usertype").document(user);
-            documentReference2.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    type = type + (value.getString("Type"));
-                    if (type.equals("Doctor")) {
-                        //Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(login.this, DoctorMainActivity.class));
-                    } else if (type.equals("MSS")) {
-                        //Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(login.this, MainActivity.class));
-                    } else if (type.equals("Hospital")) {
-                       // Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(login.this, HospitalMainActivity.class));
-                    } else if (type.equals("TC")) {
-                       // Toast.makeText(login.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(login.this, TestMainActivity.class));
-                    }
-                }
-            });
-            //finish();
-    }
-   }*/
-
+    /**
+     * To make the selected word white colored in the spinner and
+     * to make the word pop up when selected using toast
+     * @param adapterView
+     * @param view
+     * @param i
+     * @param l
+     */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
@@ -192,16 +170,28 @@ public class login extends AppCompatActivity implements AdapterView.OnItemSelect
 
     }
 
+    /**
+     * To take the user to the sign up activity when button is clicked
+     * @param view
+     */
     public void gotosignupbutton(View view) {
         SignUpBasedOnUser();
     }
 
+    /**
+     * To show pop up errors
+     * @param input
+     * @param s
+     */
     private void showError(EditText input, String s) {
         input.setError(s);
         input.requestFocus();
     }
 
-
+    /**
+     * It checks the user type from the spinner and takes the user
+     * to different type of sign up activity based on the user type
+     */
     public void SignUpBasedOnUser() {
         Spinner userType = findViewById(R.id.usertype);
         String type = userType.getSelectedItem().toString();

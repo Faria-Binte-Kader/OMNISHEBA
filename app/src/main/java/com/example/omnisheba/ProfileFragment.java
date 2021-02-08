@@ -21,16 +21,27 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.concurrent.Executor;
 
+/**
+ * Class to show the Medical service seeker's information in the profile fragment
+ */
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     private TextView name, email, description, phone, dob, gender;
     FirebaseAuth fAuthMSS;
     FirebaseFirestore fStore;
     String userID;
 
+    /**
+     * When created, set layout to fragment_profile
+     * Setup FirebaseAuthand FirebaseFirestore
+     * Fetch the information of the user from firebase and
+     * set them to their respective Textview
+     * @param inflater
+     * @param container
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     * @return
+     */
     @Nullable
     @Override
-
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getActivity().setTitle("0!");
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -62,13 +73,20 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
+    /**
+     * When view is created set on Click listener to the mssAppointment button
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         view.findViewById(R.id.mssAppointment_btn).setOnClickListener((View.OnClickListener) this);
     }
 
+    /**
+     * Method to go to the activity to show the appointmnets of the user from the profile fragment
+     */
     private void view() {
         SharedPrefManager.getInstance(getActivity()).clear();
         Intent intent = new Intent(getActivity(), AppointmentsMss.class);
@@ -76,6 +94,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
+    /**
+     * Set the action to the mssAppointment button when clicked
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

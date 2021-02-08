@@ -13,6 +13,9 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+/**
+ * Class to show the Hospital type users's information in the profile activity
+ */
 public class ProfileHospitalActivity extends AppCompatActivity {
 
     private TextView name, type, description, email, hotline, location, foundationYear;
@@ -20,6 +23,11 @@ public class ProfileHospitalActivity extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userID;
 
+    /**
+     *Method to set the layout and
+     *to fetch necessary information from the firebase and show them in their respective Textviews
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -9,10 +9,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * Class to hold the main menu of the Hospital type user
+ */
 public class HospitalMainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String EXTRA_TEXT2 = "com.example.application.example.EXTRA_TEXT2";
 
+    /**
+     * Method to attach the fxml layout and set the title manually when created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,13 +32,19 @@ public class HospitalMainActivity extends AppCompatActivity implements View.OnCl
         findViewById(R.id.hospitallogout).setOnClickListener(this);
     }
 
+    /**
+     * Method to take the user to the log out confirmation activity
+     */
     private void logout() {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this, LogoutHospitalActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Method to take the user to the activity to see the doctors' list under the hospital and
+     * to add new doctors
+     */
     private void doctor() {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this, DoctorsHospitalActivity.class);
@@ -41,24 +54,31 @@ public class HospitalMainActivity extends AppCompatActivity implements View.OnCl
         userHospital = fAuthHos.getCurrentUser();
         String hospitalId = userHospital.getUid();
         intent.putExtra(EXTRA_TEXT2, hospitalId);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Method to take the user to update user information activity
+     */
     private void update() {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this, UpdateHospitalActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Method to take the user to show their profile(information)
+     */
     private void profile() {
         SharedPrefManager.getInstance(this).clear();
         Intent intent = new Intent(this, ProfileHospitalActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Method to determine which activity will occur when one of the grids are clicked
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -77,22 +97,5 @@ public class HospitalMainActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-   /* public void hospitalprofilebutton(View view) {
-        //Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);
-        //startActivity(intent);
-   }
-
-    public void hospitalupdatebutton(View view) {
-        //Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);
-        //startActivity(intent);
-    }
-    public void addDoctorbutton(View view) {
-        //Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);
-        //startActivity(intent);
-    }
-    public void hospitalLogoutbutton(View view) {
-        //Intent intent = new Intent(DoctorMainActivity.this,MainActivity.class);
-        //startActivity(intent);
-    }*/
 
 }

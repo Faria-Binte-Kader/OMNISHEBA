@@ -22,10 +22,18 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Class to log out doctor type users from the system
+ */
 public class LogoutFragment extends Fragment implements View.OnClickListener {
-    private Button yesbutton;
-    private Button nobutton;
 
+    /**
+     * To attach the layout to the fragment when created and set the title manually
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
 
@@ -34,6 +42,11 @@ public class LogoutFragment extends Fragment implements View.OnClickListener {
         return inflater.inflate(R.layout.fragment_logout, container, false);
     }
 
+    /**
+     * to set onCliclk Listener to the buttons
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -42,20 +55,27 @@ public class LogoutFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.no_btnmss).setOnClickListener(this);
     }
 
+    /**
+     * Method to log out medical service seekers from the system
+     * and take then to login activity again
+     * Clear tasks so the users cannot go back to their profile when back button pressed
+     */
     private void logout() {
         if( FirebaseAuth.getInstance()!=null)
         {
         FirebaseAuth.getInstance().signOut();
-        //Toast.makeText(LogoutFragment.this, "Logged out Successfully!", Toast.LENGTH_SHORT).show();
-        //SharedPrefManager.getInstance(getActivity()).clear();
         Log.d("TAG","Loggedout successfully");
         Intent intent = new Intent(getActivity(), login.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        //finish();
         getActivity().onBackPressed();
     }}
 
+    /**
+     * Method to logout when yes button is clicked
+     * or to take the user to the search fragment from the main menu if no button is clicked
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         Fragment fragment = null;
@@ -70,6 +90,10 @@ public class LogoutFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Method to replace the current fragment with another fragment
+     * @param someFragment
+     */
     public void replaceFragment(Fragment someFragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, someFragment);

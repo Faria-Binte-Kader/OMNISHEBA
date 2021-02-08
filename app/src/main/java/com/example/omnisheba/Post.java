@@ -1,11 +1,17 @@
 package com.example.omnisheba;
 
+/**
+ * Model post class for posts in discussion forum
+ */
 public class Post {
     private String Key;
     private String Question;
     private String userID,Doctor,Answer,postID;
-    //private String Time;
 
+    /**
+     * getter setter functions
+     * @return
+     */
     public String getDoctor() {
         return Doctor;
     }
@@ -42,6 +48,15 @@ public class Post {
         this.userID = userID;
     }
 
+    /**
+     * All parameter constructor
+     * @param key
+     * @param question
+     * @param userID
+     * @param doctor
+     * @param answer
+     * @param postID
+     */
     public Post(String key, String question, String userID, String doctor, String answer,String postID) {
         Key = key;
         Question = question;
@@ -51,11 +66,9 @@ public class Post {
         this.postID=postID;
     }
 
-   /* public void setTime(String time) {
-        Time = time;
-    }*/
-
-
+    /**
+     * Default constructor
+     */
     public Post() {
     }
 
@@ -71,7 +84,4 @@ public class Post {
         return userID;
     }
 
-   // public String getTime() {
-     //   return Time;
-    //}
 }

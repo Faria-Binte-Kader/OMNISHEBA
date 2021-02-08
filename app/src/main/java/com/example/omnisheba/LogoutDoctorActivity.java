@@ -17,9 +17,16 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Class to log out doctor type users from the system
+ */
 public class LogoutDoctorActivity extends AppCompatActivity implements View.OnClickListener {
-    @Override
 
+    /**
+     * Method to attach the fxml layout and set the title manually when created
+     * @param savedInstanceState
+     */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logout_doctor);
@@ -29,22 +36,12 @@ public class LogoutDoctorActivity extends AppCompatActivity implements View.OnCl
         findViewById(R.id.no_btndoctor).setOnClickListener(this);
     }
 
-    /*private void logout()
-    {
-        SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,login.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    private void main()
-    {
-        SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,DoctorMainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }*/
-
+    /**
+     * Log out and take the user to the log in activity when yes button is clicked
+     * and clear tasks so the users cannot go back to their profile when back button pressed
+     * Take the user to the doctor main menu when no button is clicked
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -52,11 +49,10 @@ public class LogoutDoctorActivity extends AppCompatActivity implements View.OnCl
                 if( FirebaseAuth.getInstance()!=null)
                 {FirebaseAuth.getInstance().signOut();
                 Toast.makeText(this, "Logged out Successfully!", Toast.LENGTH_SHORT).show();
-               // startActivity(new Intent(this, login.class));
                 Intent intent = new Intent(this,login.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                finish();}
+                }
 
                 break;
             case R.id.no_btndoctor:

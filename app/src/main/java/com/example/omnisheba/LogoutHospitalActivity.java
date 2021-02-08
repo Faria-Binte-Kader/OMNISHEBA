@@ -18,8 +18,19 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * Class to log out doctor type users from the system
+ */
 public class LogoutHospitalActivity extends AppCompatActivity  {
    private Button yes,no;
+
+    /**
+     * Method to attach layout, set title manually,
+     * Log out and take the user to the log in activity when yes button is clicked
+     * and clear tasks so the users cannot go back to their profile when back button pressed
+     * Take the user to the hospital main menu when no button is clicked
+     * @param savedInstanceState
+     */
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +45,6 @@ public class LogoutHospitalActivity extends AppCompatActivity  {
                 if( FirebaseAuth.getInstance()!=null)
                 {FirebaseAuth.getInstance().signOut();
                 Toast.makeText(LogoutHospitalActivity.this, "Logged out Successfully!", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(LogoutHospitalActivity.this, login.class));
-               // finish();
                 Intent intent = new Intent(LogoutHospitalActivity.this,login.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -51,37 +60,4 @@ public class LogoutHospitalActivity extends AppCompatActivity  {
         });
     }
 
-    /*private void logout()
-    {
-        SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,login.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    private void main()
-    {
-        SharedPrefManager.getInstance(this).clear();
-        Intent intent = new Intent(this,DoctorMainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }*/
-
-   /* @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.yes_btn:
-
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(this, "Logout Successfully!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, login.class));
-                //finish();
-
-
-                break;
-            case R.id.no_btn:
-                startActivity(new Intent(this, HospitalMainActivity.class));
-                break;
-        }
-    }*/
 }

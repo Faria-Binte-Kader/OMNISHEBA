@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter class for using recyclerview to view Hospitals with their respective information list
+ */
+
 public class HospitalAdapter extends RecyclerView.Adapter<ViewHolderHospital> {
 
     FindHospital findHospital;
@@ -19,6 +23,12 @@ public class HospitalAdapter extends RecyclerView.Adapter<ViewHolderHospital> {
         this.hospitalArrayList = hospitalArrayList;
     }
 
+    /**
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public ViewHolderHospital onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -27,6 +37,11 @@ public class HospitalAdapter extends RecyclerView.Adapter<ViewHolderHospital> {
         return new ViewHolderHospital(view);
     }
 
+    /**
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolderHospital holder, int position) {
         holder.name.setText(hospitalArrayList.get(position).getName());
@@ -38,6 +53,10 @@ public class HospitalAdapter extends RecyclerView.Adapter<ViewHolderHospital> {
         holder.foundationYear.setText(hospitalArrayList.get(position).getFoundation());
     }
 
+    /**
+     * 
+     * @return
+     */
     @Override
     public int getItemCount() {
         return hospitalArrayList.size();

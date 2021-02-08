@@ -105,12 +105,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.find_test_btn).setOnClickListener((View.OnClickListener) this);
     }
 
-    /*private void findDoctorByName() {
-        SharedPrefManager.getInstance(getActivity()).clear();
-        Intent intent = new Intent(getActivity(), FindDoctorByName.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }*/
 
     private void findDoctor() {
         String sp1 = spinner1.getSelectedItem().toString();

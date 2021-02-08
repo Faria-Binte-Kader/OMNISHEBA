@@ -68,14 +68,16 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
     private EditText inputName, inputEmail, inputPassword, confirmPassword, hospitalName, practiceYear, description;
     Spinner location_type;
 
+
+    /**
+     *
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_doctor);
         getSupportActionBar().setTitle("0!");
-
-        //Spinner specialty_type = findViewById(R.id.specialty_type);
-        //specialty_type.setOnItemSelectedListener( this);
 
         location_type = findViewById(R.id.location_type);
         location_type.setOnItemSelectedListener(this);
@@ -91,15 +93,9 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
         listItems = getResources().getStringArray(R.array.specialty_list);
         checkedItems = new boolean[listItems.length];
 
-        //workdaysBtn = findViewById(R.id.btnWorkDays);
-       // mItemSelected2 = (TextView) findViewById(R.id.tvItemSelected2);
         listItems2 = getResources().getStringArray(R.array.workday_list);
         checkedItems2 = new boolean[listItems2.length];
 
-        //shiftsBtn = findViewById(R.id.btnShifts);
-
-      //  mItemSelected3 = (TextView) findViewById(R.id.tvItemSelected3);
-        listItems3 = getResources().getStringArray(R.array.shift_list);
         checkedItems3 = new boolean[listItems3.length];
 
         inputName = findViewById(R.id.inputNameDoctor);
@@ -167,8 +163,6 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
 
                 getAppointment();
 
-                //progBarMSS.setVisibility(View.VISIBLE);
-
                 fAuthDoctor.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -208,15 +202,6 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                             DocumentReference documentReference3 = fstoreDoctor.collection("Usertype").document(userId);
                             Map<String, Object> type = new HashMap<>();
                             type.put("Type", "Doctor");
-
-                            /*DocumentReference documentReference4 = fstoreDoctor.collection("Location").document(location).collection("Doctors").document(userId);
-                            Map<String, Object> loc = new HashMap<>();
-                            loc.put("Name", name);
-                            loc.put("Description", descript);
-                            loc.put("Specialty", special);
-                            loc.put("Hospitalchambername", hosName);
-                            loc.put("Hospitalchamberlocation", location);
-                            loc.put("Practicesatrtingyear", pracYear);*/
 
                             DocumentReference documentReference5 = fstoreDoctor.collection("Monday").document(userId);
                             Map<String, Object> mon = new HashMap<>();
@@ -309,14 +294,6 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
 
                             });
 
-                            /*documentReference4.set(loc).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: location is created");
-                                }
-
-                            });*/
-
                             documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -406,150 +383,8 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
             }
         });
 
-        /*workdaysBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(signup_doctor.this);
-                mBuilder.setTitle(R.string.dialog_title2);
-                mBuilder.setMultiChoiceItems(listItems2, checkedItems2, new DialogInterface.OnMultiChoiceClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked)
-                    {
-                        if(isChecked)
-                        {
-                            mUserItems2.add(position);
-                        }
-                        else
-                        {
-                            mUserItems2.remove((Integer.valueOf(position)));
-                        }
-                    }
-                });
-
-                mBuilder.setCancelable(false);
-                mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which)
-                    {
-                        String item = "";
-                        for (int i = 0; i < mUserItems2.size(); i++)
-                        {
-                            item = item + listItems2[mUserItems2.get(i)];
-                            item2[i] = listItems2[mUserItems2.get(i)];
-                            if (i != mUserItems2.size() - 1) {
-                                item = item + ", ";
-
-                            }
-                        }
-                        //shiftsBtn.setText(item2[0]);
-                        mItemSelected2.setText(item);
-                    }
-                });
-
-                mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i)
-                    {
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which)
-                    {
-                        for (int i = 0; i < checkedItems2.length; i++)
-                        {
-                            checkedItems2[i] = false;
-                            mUserItems2.clear();
-                            mItemSelected2.setText("");
-                        }
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        });
-
-        shiftsBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(signup_doctor.this);
-                mBuilder.setTitle("Shifts");
-                mBuilder.setMultiChoiceItems(listItems3, checkedItems3, new DialogInterface.OnMultiChoiceClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked)
-                    {
-                        if(isChecked)
-                        {
-                            mUserItems3.add(position);
-                        }
-                        else
-                        {
-                            mUserItems3.remove((Integer.valueOf(position)));
-                        }
-                    }
-                });
-
-                mBuilder.setCancelable(false);
-                mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which)
-                    {
-                        String item = "";
-
-                        for (int i = 0; i < mUserItems3.size(); i++)
-                        {
-                            item = item + listItems3[mUserItems3.get(i)];
-
-                            if (i != mUserItems3.size() - 1) {
-                                item = item + ", ";
-                            }
-                        }
-                        mItemSelected3.setText(item);
-                    }
-                });
-
-                mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i)
-                    {
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which)
-                    {
-                        for (int i = 0; i < checkedItems3.length; i++)
-                        {
-                            checkedItems3[i] = false;
-                            mUserItems3.clear();
-                            mItemSelected3.setText("");
-                        }
-                    }
-                });
-
-                AlertDialog mDialog = mBuilder.create();
-                mDialog.show();
-            }
-        }); */
-
     }
+
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -562,39 +397,28 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
 
     }
 
-    /*public void signupbutton(View view) {
-        checkCredentials();
-        getAppointment();
-    }*/
-
+    /**
+     * Method to go to the login activity when button clicked
+     * @param view
+     */
     public void gotoLoginPage(View view) {
         Intent intent = new Intent(signup_doctor.this, login.class);
         startActivity(intent);
     }
 
-    /*private void checkCredentials() {
-        String name = inputName.getText().toString();
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-        String conPassword = confirmPassword.getText().toString();
-
-        if (name.isEmpty() || name.length() < 7)
-            showError(inputName, "Your Name is not valid");
-        else if (email.isEmpty() || !email.contains("@"))
-            showError(inputEmail, "Email is not Valid");
-        else if (password.isEmpty() || password.length() < 7)
-            showError(inputPassword, "Password must be at least 7 characters");
-        else if (conPassword.isEmpty() || !conPassword.equals(password))
-            showError(confirmPassword, "Password does not match");
-        else
-            Toast.makeText(this, "Signing Up", Toast.LENGTH_SHORT).show();
-    }*/
-
+    /**
+     * to show the popup error
+     * @param input
+     * @param s
+     */
     private void showError(EditText input, String s) {
         input.setError(s);
         input.requestFocus();
     }
 
+    /**
+     * Method to check which day of the week and shifts are checked and record them in the appointment[][] array
+     */
     private void getAppointment() {
         if (sat.isChecked() && (satmon.isChecked() || sateve.isChecked())) {
             appointment[0][0] = "Saturday";

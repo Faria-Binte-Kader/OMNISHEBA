@@ -68,7 +68,8 @@ public void onBindViewHolder(@NonNull final PostViewHolder holder, int position)
                         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                       String namepost=value.getString("Name");
+                                    if(value!=null)
+                                    {String namepost=value.getString("Name");
                                         fStorepost.collection("Questionanswer").document(id)
                                                 .update("Doctor",namepost)
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -78,7 +79,7 @@ public void onBindViewHolder(@NonNull final PostViewHolder holder, int position)
                                                         }
                                                 });
 
-                                }
+                                }}
                         });
                         Editable an=holder.answer.getText();
 

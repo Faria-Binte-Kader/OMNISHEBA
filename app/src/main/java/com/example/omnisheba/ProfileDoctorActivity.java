@@ -15,6 +15,9 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+/**
+ * Class to show the doctor type users's information in the profile activity
+ */
 public class ProfileDoctorActivity extends AppCompatActivity {
 
     private TextView name, email, description, hospitalName, practiceYear, location, specialty, sat, satmon, sateve, sunmon, suneve, monmon, moneve, tuesmon, tueseve, wedmon, wedeve,
@@ -23,7 +26,11 @@ public class ProfileDoctorActivity extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userID;
 
-
+    /**
+     * Method to set the layout and
+     * to fetch necessary information from the firebase and show them in their respective Textviews
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +43,6 @@ public class ProfileDoctorActivity extends AppCompatActivity {
         hospitalName = findViewById(R.id.doctorhospital);
         practiceYear = findViewById(R.id.practiceyear);
         location = findViewById(R.id.doctorlocation);
-        //specialty = findViewById(R.id.doctorspecialty);
 
         satmon = findViewById(R.id.showSatMon);
         sunmon = findViewById(R.id.showSunMon);
@@ -60,6 +66,11 @@ public class ProfileDoctorActivity extends AppCompatActivity {
         DocumentReference documentReference = fStore.collection("Doctor").document(userID);
         DocumentReference documentReference2 = fStore.collection("Appointment").document(userID);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            /**
+             * Method to fetch doctor information from firebase
+             * @param value
+             * @param error
+             */
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(value!=null)
@@ -70,11 +81,15 @@ public class ProfileDoctorActivity extends AppCompatActivity {
                 practiceYear.setText(value.getString("Practicesatrtingyear"));
                 description.setText(value.getString("Description"));
                 location.setText(value.getString("Hospitalchamberlocation"));
-                // specialty.setText(value.getString("Specialty"));
 
             }}
         });
         documentReference2.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            /**
+             * Method to fetch appointment schedule of the doctor from the firebase
+             * @param value
+             * @param error
+             */
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(value!=null)
