@@ -36,7 +36,6 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
     String userId;
     FirebaseAuth fAuthMSS;
     FirebaseFirestore fstoreMSS;
-    ProgressBar progBarMSS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +58,6 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
 
         fAuthMSS = FirebaseAuth.getInstance();
         fstoreMSS = FirebaseFirestore.getInstance();
-        //progBarMSS = findViewById(R.id.progressBarMSS);
-
-        /*if (fAuthMSS.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
-        }*/
 
         signUpBtnMSS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +87,6 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
                     showError(confirmPassword, "Password does not match");
                     return;
                 }
-
-                //progBarMSS.setVisibility(View.VISIBLE);
 
                 fAuthMSS.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -130,7 +121,6 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
 
                             });
 
-
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else {
                             Toast.makeText(signup_mss.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -140,24 +130,6 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
     }
-
-    /*private void checkCredentials() {
-        String name = inputName.getText().toString();
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-        String conPassword = confirmPassword.getText().toString();
-
-        if (name.isEmpty() || name.length() < 7)
-            showError(inputName, "Your Name is not valid");
-        else if (email.isEmpty() || !email.contains("@"))
-            showError(inputEmail, "Email is not Valid");
-        else if (password.isEmpty() || password.length() < 7)
-            showError(inputPassword, "Password must be at least 7 characters");
-        else if (conPassword.isEmpty() || !conPassword.equals(password))
-            showError(confirmPassword, "Password does not match");
-        else
-            Toast.makeText(this, "Signing Up", Toast.LENGTH_SHORT).show();
-    }*/
 
     private void showError(EditText input, String s) {
         input.setError(s);
@@ -174,26 +146,6 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
-    /*public void signupbutton(View view) {
-        checkCredentials();
-        progBarMSS.setVisibility(View.VISIBLE);
-
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-
-        fAuthMSS.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(signup_mss.this, "User Created", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                } else {
-                    Toast.makeText(signup_mss.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }*/
 
     public void gotoLoginPage(View view) {
         Intent intent = new Intent(signup_mss.this, login.class);

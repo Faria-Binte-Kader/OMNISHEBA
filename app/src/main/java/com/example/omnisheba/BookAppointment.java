@@ -861,7 +861,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot document2 = task.getResult();
                                     if (document2.exists()) {
-                                        Log.d("TAG", "document found");
+                                        Log.d(TAG, "document found");
                                         cnt = document2.getString("CountMor");
                                         int temp = Integer.parseInt(cnt);
                                         int temp2 = temp * 15;
@@ -882,7 +882,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-                                                            Log.d("TAG", "onSuccess: Saturday morning count is updated");
+                                                            Log.d(TAG, "onSuccess: Saturday morning count is updated");
                                                         }
                                                     });
                                         }
@@ -926,7 +926,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-                                                            Log.d("TAG", "onSuccess: Saturday evening count is updated");
+                                                            Log.d(TAG, "onSuccess: Saturday evening count is updated");
                                                         }
                                                     });
                                         }
@@ -973,7 +973,7 @@ public class BookAppointment extends AppCompatActivity implements AdapterView.On
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-                                                            Log.d("TAG", "onSuccess: Sunday morning count is updated");
+                                                            Log.d(TAG, "onSuccess: Sunday morning count is updated");
                                                         }
                                                     });
                                         }

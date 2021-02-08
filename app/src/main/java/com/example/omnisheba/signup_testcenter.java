@@ -42,7 +42,6 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
 
     FirebaseAuth fAuthTestCenter;
     FirebaseFirestore fstoreTestCenter;
-    ProgressBar progBarTestCenter;
 
     TextView mItemSelected;
     String[] listItems;
@@ -111,10 +110,6 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
                     return;
                 }
 
-                //getAppointment();
-
-                //progBarMSS.setVisibility(View.VISIBLE);
-
                 fAuthTestCenter.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -134,45 +129,9 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
                             hospital.put("Test", test);
                             hospital.put("Type", "TC");
 
-                            /*DocumentReference documentReference2 = fstoreDoctor.collection("Appointment").document(userId);
-                            Map<String, Object> App = new HashMap<>();
-                            App.put("Satmon", appointment[0][1]);
-                            App.put("Sateve", appointment[0][2]);
-                            App.put("Sunmon", appointment[1][1]);
-                            App.put("Suneve", appointment[1][2]);
-                            App.put("Monmon", appointment[2][1]);
-                            App.put("Moneve", appointment[2][2]);
-                            App.put("Tuesmon", appointment[3][1]);
-                            App.put("Tuesve", appointment[3][2]);
-                            App.put("Wedmon", appointment[4][1]);
-                            App.put("Wedeve", appointment[4][2]);
-                            App.put("Thursmon", appointment[5][1]);
-                            App.put("Thurseve", appointment[5][2]);
-                            App.put("Frimon", appointment[6][1]);
-                            App.put("Frieve", appointment[6][2]);*/
-
                             DocumentReference documentReference3 = fstoreTestCenter.collection("Usertype").document(userId);
                             Map<String, Object> type = new HashMap<>();
                             type.put("Type", "TC");
-
-                            /*DocumentReference documentReference4 = fstoreTestCenter.collection("Location").document(location).collection("TestCenters").document(userId);
-                            Map<String, Object> loc = new HashMap<>();
-                            loc.put("Name", name);
-                            loc.put("Email", email);
-                            loc.put("Description", descript);
-                            loc.put("Hotline", line);
-                            loc.put("Foundationyear", found);
-                            loc.put("Testcentertype", type);
-                            loc.put("Testcenterlocation", location);
-                            loc.put("Test", test);
-
-                            documentReference4.set(loc).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: location is created");
-                                }
-
-                            });*/
 
                             documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -181,14 +140,6 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
                                 }
 
                             });
-
-                            /*documentReference2.set(App).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: appointment created");
-                                }
-
-                            });*/
 
                             documentReference.set(hospital).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -279,24 +230,6 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
         Intent intent = new Intent(signup_testcenter.this, login.class);
         startActivity(intent);
     }
-
-    /*private void checkCredentials() {
-        String name = inputName.getText().toString();
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-        String conPassword = confirmPassword.getText().toString();
-
-        if (name.isEmpty() || name.length() < 7)
-            showError(inputName, "Your Name is not valid");
-        else if (email.isEmpty() || !email.contains("@"))
-            showError(inputEmail, "Email is not Valid");
-        else if (password.isEmpty() || password.length() < 7)
-            showError(inputPassword, "Password must be at least 7 characters");
-        else if (conPassword.isEmpty() || !conPassword.equals(password))
-            showError(confirmPassword, "Password does not match");
-        else
-            Toast.makeText(this, "Signing Up", Toast.LENGTH_SHORT).show();
-    }*/
 
     private void showError(EditText input, String s) {
         input.setError(s);

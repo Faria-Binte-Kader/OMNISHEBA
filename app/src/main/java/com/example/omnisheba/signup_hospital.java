@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +41,6 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
 
     FirebaseAuth fAuthHospital;
     FirebaseFirestore fstoreHospital;
-    ProgressBar progBarHospital;
 
     TextView mItemSelected;
     String[] listItems;
@@ -93,7 +91,6 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
                 final String type = hospital_type.getSelectedItem().toString();
                 final String location = locationHos_type.getSelectedItem().toString();
 
-
                 if (name.isEmpty() || name.length() < 7) {
                     showError(inputName, "Your Name is not valid");
                     return;
@@ -110,10 +107,6 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
                     showError(confirmPassword, "Password does not match");
                     return;
                 }
-
-                //getAppointment();
-
-                //progBarMSS.setVisibility(View.VISIBLE);
 
                 fAuthHospital.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -134,45 +127,9 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
                             hospital.put("Departmentunit", deptunit);
                             hospital.put("Type", "Hospital");
 
-                            /*DocumentReference documentReference2 = fstoreDoctor.collection("Appointment").document(userId);
-                            Map<String, Object> App = new HashMap<>();
-                            App.put("Satmon", appointment[0][1]);
-                            App.put("Sateve", appointment[0][2]);
-                            App.put("Sunmon", appointment[1][1]);
-                            App.put("Suneve", appointment[1][2]);
-                            App.put("Monmon", appointment[2][1]);
-                            App.put("Moneve", appointment[2][2]);
-                            App.put("Tuesmon", appointment[3][1]);
-                            App.put("Tuesve", appointment[3][2]);
-                            App.put("Wedmon", appointment[4][1]);
-                            App.put("Wedeve", appointment[4][2]);
-                            App.put("Thursmon", appointment[5][1]);
-                            App.put("Thurseve", appointment[5][2]);
-                            App.put("Frimon", appointment[6][1]);
-                            App.put("Frieve", appointment[6][2]);*/
-
                             DocumentReference documentReference3 = fstoreHospital.collection("Usertype").document(userId);
                             Map<String, Object> type = new HashMap<>();
                             type.put("Type", "Hospital");
-
-                            /*DocumentReference documentReference4 = fstoreHospital.collection("Location").document(location).collection("Hospitals").document(userId);
-                            Map<String, Object> loc = new HashMap<>();
-                            loc.put("Name", name);
-                            loc.put("Email", email);
-                            loc.put("Description", descript);
-                            loc.put("Hotline", line);
-                            loc.put("Foundationyear", found);
-                            loc.put("Hospitaltype", type);
-                            loc.put("Hospitallocation", location);
-                            loc.put("Departmentunit", deptunit);
-
-                            documentReference4.set(loc).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: location is created");
-                                }
-
-                            });*/
 
                             documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -182,14 +139,6 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
 
                             });
 
-                            /*documentReference2.set(App).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: appointment created");
-                                }
-
-                            });*/
-
                             documentReference.set(hospital).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -197,7 +146,6 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
                                 }
 
                             });
-
 
                             startActivity(new Intent(getApplicationContext(), HospitalMainActivity.class));
                         } else {
@@ -279,8 +227,6 @@ public class signup_hospital extends AppCompatActivity implements AdapterView.On
         Intent intent = new Intent(signup_hospital.this, login.class);
         startActivity(intent);
     }
-
-
 
     private void showError(EditText input, String s) {
         input.setError(s);

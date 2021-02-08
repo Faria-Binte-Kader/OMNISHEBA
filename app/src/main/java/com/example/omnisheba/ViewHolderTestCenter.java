@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ViewHolderTestCenter extends RecyclerView.ViewHolder {
+    public TextView name, type, description, email, hotline, location, foundationYear;
 
-    public TextView name,type,description,email,hotline,location,foundationYear;
     public ViewHolderTestCenter(@NonNull View itemView) {
         super(itemView);
         name = itemView.findViewById(R.id.testCenterNameTextView);
@@ -18,6 +18,5 @@ public class ViewHolderTestCenter extends RecyclerView.ViewHolder {
         hotline = itemView.findViewById(R.id.testCenterHotlineTextView);
         location = itemView.findViewById(R.id.testCenterLocationTextView);
         foundationYear = itemView.findViewById(R.id.testCenterFoundationYearTextView);
-
     }
 }

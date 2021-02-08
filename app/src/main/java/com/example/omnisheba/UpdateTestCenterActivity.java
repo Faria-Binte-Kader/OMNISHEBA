@@ -32,9 +32,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
-public class UpdateTestCenterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-    Button testsBtn,updatebtn;
-    private EditText name, email,oldpass, newpass, conpass,description, hotline;
+public class UpdateTestCenterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    Button testsBtn, updatebtn;
+    private EditText name, email, oldpass, newpass, conpass, description, hotline;
     Spinner testcenter_type, locationTC_type;
     public static final String TAG = "TAG";
     FirebaseAuth fAuthtc;
@@ -62,7 +62,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
         email = findViewById(R.id.tcmail);
         oldpass = findViewById(R.id.tcoldpass);
         newpass = findViewById(R.id.tcnewpass);
-        conpass= findViewById(R.id.tcconpass);
+        conpass = findViewById(R.id.tcconpass);
         description = findViewById(R.id.tcdesc);
         hotline = findViewById(R.id.tchotline);
         fAuthtc = FirebaseAuth.getInstance();
@@ -78,10 +78,7 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                loc=value.getString("Testcenterlocation");
-
-
+                loc = value.getString("Testcenterlocation");
             }
         });
 
@@ -164,61 +161,55 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
         final String type = testcenter_type.getSelectedItem().toString();
         final String location = locationTC_type.getSelectedItem().toString();
 
-        if ( !nam.isEmpty() && nam.length() < 7) {
+        if (!nam.isEmpty() && nam.length() < 7) {
             showError(name, "Your Name is not valid");
             return;
         }
-        if((mail.isEmpty() || oldpassword.isEmpty()) && !Password.isEmpty())
-        {  showError(email, "Please input mail and old password");
+        if ((mail.isEmpty() || oldpassword.isEmpty()) && !Password.isEmpty()) {
+            showError(email, "Please input mail and old password");
             return;
         }
         if (!Password.isEmpty() && Password.length() < 7) {
             showError(newpass, "Password must be at least 7 characters");
             return;
         }
-        if ((conPassword.isEmpty() || !conPassword.equals(Password))&& !Password.isEmpty()) {
+        if ((conPassword.isEmpty() || !conPassword.equals(Password)) && !Password.isEmpty()) {
             showError(conpass, "Password does not match");
             return;
         }
 
-        if(!mail.isEmpty() && !oldpassword.isEmpty() && !conPassword.isEmpty())
-        {
-
+        if (!mail.isEmpty() && !oldpassword.isEmpty() && !conPassword.isEmpty()) {
             user = FirebaseAuth.getInstance().getCurrentUser();
-            AuthCredential credential = EmailAuthProvider.getCredential(mail,oldpassword);
-
+            AuthCredential credential = EmailAuthProvider.getCredential(mail, oldpassword);
             user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         user.updatePassword(Password).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 View coordinatorLayout;
-                                if(!task.isSuccessful()){
+                                if (!task.isSuccessful()) {
                                     Log.d(TAG, "Error");
-                                }else {
+                                } else {
                                     Toast.makeText(UpdateTestCenterActivity.this, "Password changed ", Toast.LENGTH_SHORT).show();
                                     oldpass.setText("");
                                     newpass.setText("");
                                     conpass.setText("");
                                     email.setText("");
-
                                 }
                             }
                         });
-                    }else {
+                    } else {
                         Toast.makeText(UpdateTestCenterActivity.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
                     }
                 }
             });
         }
 
-        if(!nam.isEmpty())
-        {
+        if (!nam.isEmpty()) {
             fStore.collection("TC").document(userID)
-                    .update("Name",nam.toUpperCase())
+                    .update("Name", nam.toUpperCase())
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -226,21 +217,11 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             name.setText("");
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
-                    .update("Name",nam)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Name", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });*/
         }
 
-        if(!desc.isEmpty())
-        {
+        if (!desc.isEmpty()) {
             fStore.collection("TC").document(userID)
-                    .update("Description",desc)
+                    .update("Description", desc)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -248,21 +229,11 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             description.setText("");
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
-                    .update("Description",desc)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Description", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });*/
         }
 
-        if(!phon.isEmpty())
-        {
+        if (!phon.isEmpty()) {
             fStore.collection("TC").document(userID)
-                    .update("Hotline",phon)
+                    .update("Hotline", phon)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -270,21 +241,11 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             hotline.setText("");
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
-                    .update("Hotline",phon)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Hotline", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });*/
         }
 
-        if(test.size()>0)
-        {
+        if (test.size() > 0) {
             fStore.collection("TC").document(userID)
-                    .update("Test",test)
+                    .update("Test", test)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -296,21 +257,11 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             }
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
-                    .update("Test",test)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateTestCenterActivity.this, "Updated departments", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });*/
         }
 
-        if(!type.equals("No Type"))
-        {
+        if (!type.equals("No Type")) {
             fStore.collection("TC").document(userID)
-                    .update("Testcentertype",type)
+                    .update("Testcentertype", type)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -318,21 +269,11 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
 
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
-                    .update("Testcentertype",type)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Test Center type", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });*/
         }
 
-        if(!location.equals("No Location"))
-        {
+        if (!location.equals("No Location")) {
             fStore.collection("TC").document(userID)
-                    .update("Testcenterlocation",location)
+                    .update("Testcenterlocation", location)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
