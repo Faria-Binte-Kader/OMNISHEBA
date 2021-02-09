@@ -23,6 +23,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * Class to update the Medical service seeker type user's information in the firebase
+ */
 public class UpdateFragment extends Fragment implements View.OnClickListener{
     private EditText name, email,oldpass, pass, pass2,description, phone;
     public static final String TAG = "TAG";
@@ -30,6 +33,15 @@ public class UpdateFragment extends Fragment implements View.OnClickListener{
     private FirebaseUser user;
     FirebaseFirestore fStore;
     String userID;
+
+    /**
+     * When created, set layout to fragment_update
+     * Setup FirebaseAuth and FirebaseFirestore
+     * @param inflater
+     * @param container
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     * @return
+     */
     @Nullable
     @Override
 
@@ -50,12 +62,22 @@ public class UpdateFragment extends Fragment implements View.OnClickListener{
         return v;
     }
 
+    /**
+     * When view is created, initialize the mssUpdate button to add posts to the discussion forum
+     * Set action of the button.
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.mssUpdate_button).setOnClickListener((View.OnClickListener) this);
     }
 
+    /**
+     * Method to update the information when update button is clicked
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         Fragment fragment = null;
@@ -67,6 +89,9 @@ public class UpdateFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    /**
+     * Update any information in the firebase that was given input by the user
+     */
     private void UpdateMss() {
         final String nam = name.getText().toString();
         final String mail = email.getText().toString();
@@ -168,7 +193,11 @@ public class UpdateFragment extends Fragment implements View.OnClickListener{
     }
 
 
-
+    /**
+     * to show the popup error
+     * @param input
+     * @param s
+     */
     private void showError(EditText input, String s) {
         input.setError(s);
         input.requestFocus();

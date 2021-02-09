@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class to update the doctor type user's information in the firebase
+ */
 public class UpdateDoctorActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     Button specialtyBtn, updatebtn;
     private EditText name, email,oldpass, newpass, conpass,description, hosname;
@@ -53,6 +56,12 @@ public class UpdateDoctorActivity extends AppCompatActivity implements AdapterVi
     ArrayList<Integer> mUserItems = new ArrayList<>();
     ArrayList<String> test = new ArrayList<String>();
 
+    /**
+     * Initialize every object after created
+     * Take all the user inputs and show errors for the respective input constraints
+     * Update user information in the firebase when update button is clicked
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +181,9 @@ public class UpdateDoctorActivity extends AppCompatActivity implements AdapterVi
         input.requestFocus();
     }
 
+    /**
+     * Update any information in the firebase that was given input by the user
+     */
     private void Updatedoc() {
         final String nam = name.getText().toString();
         final String mail = email.getText().toString();
@@ -180,7 +192,6 @@ public class UpdateDoctorActivity extends AppCompatActivity implements AdapterVi
         String conPassword = conpass.getText().toString();
         final String desc = description.getText().toString();
         final String phon = hosname.getText().toString();
-        //final String type = specialty_type.getSelectedItem().toString();
         final String location = location_type.getSelectedItem().toString();
 
 
@@ -503,6 +514,9 @@ public class UpdateDoctorActivity extends AppCompatActivity implements AdapterVi
         }
     }
 
+    /**
+     * Method to record which day of the week and shifts were checked and add them to the array appointment[][]
+     */
     private void getAppointment() {
         if (sat.isChecked() && (satmon.isChecked() || sateve.isChecked())) {
             appointment[0][0] = "Saturday";
@@ -546,24 +560,16 @@ public class UpdateDoctorActivity extends AppCompatActivity implements AdapterVi
             if (frieve.isChecked()) appointment[6][2] = frieve.getText().toString();
         }
 
-       /* Map<String, Object> App = new HashMap<>();
-        App.put("Satmon", appointment[0][1]);
-        App.put("Sateve", appointment[0][2]);
-        App.put("Sunmon", appointment[1][1]);
-        App.put("Suneve", appointment[1][2]);
-        App.put("Monmon", appointment[2][1]);
-        App.put("Moneve", appointment[2][2]);
-        App.put("Tuesmon", appointment[3][1]);
-        App.put("Tuesve", appointment[3][2]);
-        App.put("Wedmon", appointment[4][1]);
-        App.put("Wedeve", appointment[4][2]);
-        App.put("Thursmon", appointment[5][1]);
-        App.put("Thurseve", appointment[5][2]);
-        App.put("Frimon", appointment[6][1]);
-        App.put("Frieve", appointment[6][2]);*/
-
     }
 
+    /**
+     * To make the selected word white colored in the spinner and
+     * to make the word pop up when selected using toast
+     * @param adapterView
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
         ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);

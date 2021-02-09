@@ -34,6 +34,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class to update the Hospital type user's information in the firebase
+ */
 public class UpdateHospitalActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private EditText name, email,oldpass, newpass, conpass,description, hotline,year;
@@ -54,6 +57,12 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
 
+    /**
+     * Initialize every object after created
+     * Take all the user inputs and show errors for the respective input constraints
+     * Update user information in the firebase when update button is clicked
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,6 +166,14 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
         });
     }
 
+    /**
+     * To make the selected word white colored in the spinner and
+     * to make the word pop up when selected using toast
+     * @param adapterView
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
         ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
@@ -168,11 +185,19 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
 
     }
 
+    /**
+     * to show the popup error
+     * @param input
+     * @param s
+     */
     private void showError(EditText input, String s) {
         input.setError(s);
         input.requestFocus();
     }
 
+    /**
+     * Update any information in the firebase that was given input by the user
+     */
     private void Updatehospital() {
         final String nam = name.getText().toString();
         final String mail = email.getText().toString();
@@ -248,15 +273,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             name.setText("");
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
-                    .update("Name",nam)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateHospitalActivity.this, "Updated Name", Toast.LENGTH_SHORT).show();
 
-                        }
-                    });*/
         }
 
         if(!desc.isEmpty())
@@ -270,15 +287,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             description.setText("");
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
-                    .update("Description",desc)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateHospitalActivity.this, "Updated Description", Toast.LENGTH_SHORT).show();
 
-                        }
-                    });*/
         }
 
         if(!phon.isEmpty())
@@ -292,15 +301,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             hotline.setText("");
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
-                    .update("Hotline",phon)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateHospitalActivity.this, "Updated Hotline", Toast.LENGTH_SHORT).show();
 
-                        }
-                    });*/
         }
 
         if(test.size()>0)
@@ -318,15 +319,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
                             }
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
-                    .update("Departmentunit",test)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateHospitalActivity.this, "Updated departments", Toast.LENGTH_SHORT).show();
 
-                        }
-                    });*/
         }
 
         if(!type.equals("No Type"))
@@ -340,15 +333,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
 
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
-                    .update("Hospitaltype",type)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateHospitalActivity.this, "Updated Hospitaltype", Toast.LENGTH_SHORT).show();
 
-                        }
-                    });*/
         }
 
         if(!yr.isEmpty())
@@ -362,15 +347,7 @@ public class UpdateHospitalActivity extends AppCompatActivity implements Adapter
 
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("Hospitals").document(userID)
-                    .update("Foundationyear",yr)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateHospitalActivity.this, "Updated Foundation Year", Toast.LENGTH_SHORT).show();
-                            name.setText("");
-                        }
-                    });*/
+
         }
 
         if(!location.equals("No Location"))

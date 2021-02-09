@@ -6,6 +6,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * View holder class to hold the view of the posts to show the medical service seekers in the recyclerview
+ */
 public class PostViewHolderMSS extends  RecyclerView.ViewHolder{
     public TextView keyword3;
     public TextView question3;

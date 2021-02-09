@@ -32,32 +32,30 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class to show the signup activity of the doctor type user
+ */
 public class signup_doctor extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static final String TAG = "TAG";
     Button alreadyHaveAccount;
 
-    Button specialtyBtn, workdaysBtn, shiftsBtn, signUpBtnDoctor;
+    Button specialtyBtn, signUpBtnDoctor;
     String userId;
 
     FirebaseAuth fAuthDoctor;
     FirebaseFirestore fstoreDoctor;
-    ProgressBar progBarDoctor;
 
     TextView mItemSelected;
     String[] listItems;
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
 
-    TextView mItemSelected2;
     String[] listItems2;
     boolean[] checkedItems2;
-    ArrayList<Integer> mUserItems2 = new ArrayList<>();
 
-    TextView mItemSelected3;
     String[] listItems3;
     boolean[] checkedItems3;
-    ArrayList<Integer> mUserItems3 = new ArrayList<>();
     CheckBox sat, sun, mon, tues, wed, thurs, fri;
     CheckBox satmon, sateve, sunmon, suneve, monmon, moneve, tuesmon, tueseve, wedmon, wedeve,
             thursmon, thurseve, frimon, frieve;
@@ -70,7 +68,9 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
 
 
     /**
-     *
+     * Initialize every object after created
+     * Take all the user inputs and show errors for the respective input constraints
+     * Create a doctor type user through firebase and save all his information in the respective collections
      * @param savedInstanceState to save the state of the application so we don't lose this prior information.
      */
     @Override
@@ -132,6 +132,10 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
         frieve = findViewById(R.id.FridayEvening);
 
         signUpBtnDoctor.setOnClickListener(new View.OnClickListener() {
+            /**
+             * after clicked, show errors for any input constraints or create a user if there aren't any errors
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 final String name = inputName.getText().toString().toUpperCase();
@@ -164,6 +168,10 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
                 getAppointment();
 
                 fAuthDoctor.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    /**
+                     * After creating the user with unique email and password, save all his information in respective collections
+                     * @param task
+                     */
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -329,6 +337,11 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
 
 
         specialtyBtn.setOnClickListener(new View.OnClickListener() {
+            /**
+             * After clicking the specialty button, all the item chosen in the dialogue box, previously added
+             * in the arraylist, will be shown in the respective Textview
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(signup_doctor.this);
@@ -385,6 +398,14 @@ public class signup_doctor extends AppCompatActivity implements AdapterView.OnIt
 
     }
 
+    /**
+     * To make the selected word white colored in the spinner and
+     * to make the word pop up when selected using toast
+     * @param adapterView
+     * @param view
+     * @param i
+     * @param l
+     */
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

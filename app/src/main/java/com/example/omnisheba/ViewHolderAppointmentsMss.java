@@ -7,6 +7,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * Viewholder class to hold the view of the appointments of the medical service seeker of the recycler view
+ */
 public class ViewHolderAppointmentsMss extends RecyclerView.ViewHolder {
 
     public TextView date2,day2,time2,docname2,hosname2,hosloc2;

@@ -27,6 +27,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class to show the signup activity of the Medical Service Seeker type user
+ */
 public class signup_mss extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static final String TAG = "TAG";
@@ -36,8 +39,13 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
     String userId;
     FirebaseAuth fAuthMSS;
     FirebaseFirestore fstoreMSS;
-    ProgressBar progBarMSS;
 
+    /**
+     * Initialize every object after created
+     * Take all the user inputs and show errors for the respective input constraints
+     * Create a Medical Service Seeker type user through firebase and save all his information in the respective collections
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +67,6 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
 
         fAuthMSS = FirebaseAuth.getInstance();
         fstoreMSS = FirebaseFirestore.getInstance();
-        //progBarMSS = findViewById(R.id.progressBarMSS);
-
-        /*if (fAuthMSS.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
-        }*/
 
         signUpBtnMSS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +96,6 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
                     showError(confirmPassword, "Password does not match");
                     return;
                 }
-
-                //progBarMSS.setVisibility(View.VISIBLE);
 
                 fAuthMSS.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -141,29 +141,24 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
         });
     }
 
-    /*private void checkCredentials() {
-        String name = inputName.getText().toString();
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-        String conPassword = confirmPassword.getText().toString();
-
-        if (name.isEmpty() || name.length() < 7)
-            showError(inputName, "Your Name is not valid");
-        else if (email.isEmpty() || !email.contains("@"))
-            showError(inputEmail, "Email is not Valid");
-        else if (password.isEmpty() || password.length() < 7)
-            showError(inputPassword, "Password must be at least 7 characters");
-        else if (conPassword.isEmpty() || !conPassword.equals(password))
-            showError(confirmPassword, "Password does not match");
-        else
-            Toast.makeText(this, "Signing Up", Toast.LENGTH_SHORT).show();
-    }*/
-
+    /**
+     * to show the popup error
+     * @param input
+     * @param s
+     */
     private void showError(EditText input, String s) {
         input.setError(s);
         input.requestFocus();
     }
 
+    /**
+     * To make the selected word white colored in the spinner and
+     * to make the word pop up when selected using toast
+     * @param adapterView
+     * @param view
+     * @param i
+     * @param l
+     */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
@@ -175,26 +170,10 @@ public class signup_mss extends AppCompatActivity implements AdapterView.OnItemS
 
     }
 
-    /*public void signupbutton(View view) {
-        checkCredentials();
-        progBarMSS.setVisibility(View.VISIBLE);
-
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-
-        fAuthMSS.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(signup_mss.this, "User Created", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                } else {
-                    Toast.makeText(signup_mss.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }*/
-
+    /**
+     * Method to go to the login activity when button clicked
+     * @param view
+     */
     public void gotoLoginPage(View view) {
         Intent intent = new Intent(signup_mss.this, login.class);
         startActivity(intent);

@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class to show the signup activity of the Test Center type user
+ */
 public class signup_testcenter extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static final String TAG = "TAG";
@@ -42,7 +45,6 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
 
     FirebaseAuth fAuthTestCenter;
     FirebaseFirestore fstoreTestCenter;
-    ProgressBar progBarTestCenter;
 
     TextView mItemSelected;
     String[] listItems;
@@ -51,6 +53,12 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
 
     ArrayList<String> test = new ArrayList<String>();
 
+    /**
+     * Initialize every object after created
+     * Take all the user inputs and show errors for the respective input constraints
+     * Create a Hospital type user through firebase and save all his information in the respective collections
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,9 +119,6 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
                     return;
                 }
 
-                //getAppointment();
-
-                //progBarMSS.setVisibility(View.VISIBLE);
 
                 fAuthTestCenter.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -134,45 +139,12 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
                             hospital.put("Test", test);
                             hospital.put("Type", "TC");
 
-                            /*DocumentReference documentReference2 = fstoreDoctor.collection("Appointment").document(userId);
-                            Map<String, Object> App = new HashMap<>();
-                            App.put("Satmon", appointment[0][1]);
-                            App.put("Sateve", appointment[0][2]);
-                            App.put("Sunmon", appointment[1][1]);
-                            App.put("Suneve", appointment[1][2]);
-                            App.put("Monmon", appointment[2][1]);
-                            App.put("Moneve", appointment[2][2]);
-                            App.put("Tuesmon", appointment[3][1]);
-                            App.put("Tuesve", appointment[3][2]);
-                            App.put("Wedmon", appointment[4][1]);
-                            App.put("Wedeve", appointment[4][2]);
-                            App.put("Thursmon", appointment[5][1]);
-                            App.put("Thurseve", appointment[5][2]);
-                            App.put("Frimon", appointment[6][1]);
-                            App.put("Frieve", appointment[6][2]);*/
 
                             DocumentReference documentReference3 = fstoreTestCenter.collection("Usertype").document(userId);
                             Map<String, Object> type = new HashMap<>();
                             type.put("Type", "TC");
 
-                            /*DocumentReference documentReference4 = fstoreTestCenter.collection("Location").document(location).collection("TestCenters").document(userId);
-                            Map<String, Object> loc = new HashMap<>();
-                            loc.put("Name", name);
-                            loc.put("Email", email);
-                            loc.put("Description", descript);
-                            loc.put("Hotline", line);
-                            loc.put("Foundationyear", found);
-                            loc.put("Testcentertype", type);
-                            loc.put("Testcenterlocation", location);
-                            loc.put("Test", test);
 
-                            documentReference4.set(loc).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: location is created");
-                                }
-
-                            });*/
 
                             documentReference3.set(type).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -181,14 +153,6 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
                                 }
 
                             });
-
-                            /*documentReference2.set(App).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: appointment created");
-                                }
-
-                            });*/
 
                             documentReference.set(hospital).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -211,6 +175,11 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
         testBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /**
+                 * After clicking the specialty button, all the item chosen in the dialogue box, previously added
+                 * in the arraylist, will be shown in the respective Textview
+                 * @param view
+                 */
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(signup_testcenter.this);
                 mBuilder.setTitle(R.string.dialog_title5);
                 mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
@@ -264,6 +233,14 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
         });
     }
 
+    /**
+     * To make the selected word white colored in the spinner and
+     * to make the word pop up when selected using toast
+     * @param adapterView
+     * @param view
+     * @param i
+     * @param l
+     */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
@@ -275,29 +252,20 @@ public class signup_testcenter extends AppCompatActivity implements AdapterView.
 
     }
 
+    /**
+     * Method to go to the login activity when button clicked
+     * @param view
+     */
     public void gotoLoginPage(View view) {
         Intent intent = new Intent(signup_testcenter.this, login.class);
         startActivity(intent);
     }
 
-    /*private void checkCredentials() {
-        String name = inputName.getText().toString();
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-        String conPassword = confirmPassword.getText().toString();
-
-        if (name.isEmpty() || name.length() < 7)
-            showError(inputName, "Your Name is not valid");
-        else if (email.isEmpty() || !email.contains("@"))
-            showError(inputEmail, "Email is not Valid");
-        else if (password.isEmpty() || password.length() < 7)
-            showError(inputPassword, "Password must be at least 7 characters");
-        else if (conPassword.isEmpty() || !conPassword.equals(password))
-            showError(confirmPassword, "Password does not match");
-        else
-            Toast.makeText(this, "Signing Up", Toast.LENGTH_SHORT).show();
-    }*/
-
+    /**
+     * to show the popup error
+     * @param input
+     * @param s
+     */
     private void showError(EditText input, String s) {
         input.setError(s);
         input.requestFocus();

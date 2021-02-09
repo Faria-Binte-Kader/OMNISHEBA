@@ -1,5 +1,8 @@
 package com.example.omnisheba;
 
+/**
+ * Model class to show thr test center's information in the recycler view
+ */
 public class TestCenter {
     private String name;
     private String email;
@@ -12,30 +15,32 @@ public class TestCenter {
     private String location;
     private String[] test;
 
+    /**
+     * default constructor
+     */
     public TestCenter() {
-        /*this.name = "";
-        this.email = "";
-        this.password = "";
-        this.conPassword = "";
-        this.description = "";
-        this.hotline = "";
-        this.foundation = "";
-        this.type = "";
-        this.location = "";
-        this.test = new String[]{""};*/
+
     }
 
+    /**
+     * all parameter constructor
+     * @param nam
+     * @param mail
+     * @param des
+     * @param line
+     * @param found
+     * @param typ
+     * @param loc
+     */
     public TestCenter(String nam, String mail, String des, String line, String found, String typ, String loc) {
         this.name = nam;
         this.email = mail;
-        //this.password = pass;
-        //this.conPassword = conPass;
         this.description = des;
         this.hotline = line;
         this.foundation = found;
         this.type = typ;
         this.location = loc;
-        //this.test = tes;
+
     }
 
     public void setInfo(String nam, String mail, String pass, String conPass, String des, String line, String found, String typ, String loc, String[] tes) {
@@ -51,6 +56,7 @@ public class TestCenter {
         this.test = tes;
     }
 
+    //getter setter methods
     public String getName() {
         return name;
     }

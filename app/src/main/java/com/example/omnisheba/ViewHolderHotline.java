@@ -6,6 +6,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * View holder class to hold the view of the test center's hotline information in the recyclerview
+ */
 public class ViewHolderHotline extends RecyclerView.ViewHolder {
 
     public TextView name,email,hotline,location,name2,email2,hotline2,location2;

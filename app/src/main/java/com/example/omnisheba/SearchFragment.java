@@ -15,6 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+/**
+ * Class to show the search fragment in the medical service seeker's main activity
+ */
 public class SearchFragment extends Fragment implements View.OnClickListener {
     private Spinner spinner1, spinner2, spinner3, spinner4, spinner5, spinner6;
     public Button doctor, hospital, testcenter, findDoctorByNameBtn;
@@ -54,6 +57,14 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                     "Gynecological Examination", "Kidney Function Test", "Liver Function Test", "Lumbar Puncture", "Lung Ventilation/Perfusion Scan",
                     "Magnetic Resonance Imaging(MRI)", "Mammography", "Pregnancy Test", "Skin Test", "Thyroid Function Test", "Ultrasound", "Urinalysis"};
 
+    /**
+     * When created, set layout to fragment_search
+     * Setup FirebaseAuth and FirebaseFirestore
+     * @param inflater
+     * @param container
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

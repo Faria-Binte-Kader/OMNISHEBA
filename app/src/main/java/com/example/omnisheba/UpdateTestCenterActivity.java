@@ -32,6 +32,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
+/**
+ * Class to update the Test center type user's information in the firebase
+ */
 public class UpdateTestCenterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     Button testsBtn,updatebtn;
     private EditText name, email,oldpass, newpass, conpass,description, hotline;
@@ -48,6 +51,12 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
     ArrayList<String> test = new ArrayList<String>();
     private String loc;
 
+    /**
+     * Initialize every object after created
+     * Take all the user inputs and show errors for the respective input constraints
+     * Update user information in the firebase when update button is clicked
+     * @param savedInstanceState to save the state of the application so we don't lose this prior information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,11 +157,19 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
         });
     }
 
+    /**
+     * to show the popup error
+     * @param input
+     * @param s
+     */
     private void showError(EditText input, String s) {
         input.setError(s);
         input.requestFocus();
     }
 
+    /**
+     * Update any information in the firebase that was given input by the user
+     */
     private void Updatetc() {
         final String nam = name.getText().toString();
         final String mail = email.getText().toString();
@@ -226,15 +243,6 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             name.setText("");
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
-                    .update("Name",nam)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Name", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });*/
         }
 
         if(!desc.isEmpty())
@@ -248,15 +256,6 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             description.setText("");
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
-                    .update("Description",desc)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Description", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });*/
         }
 
         if(!phon.isEmpty())
@@ -270,15 +269,6 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             hotline.setText("");
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
-                    .update("Hotline",phon)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Hotline", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });*/
         }
 
         if(test.size()>0)
@@ -296,15 +286,6 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
                             }
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
-                    .update("Test",test)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateTestCenterActivity.this, "Updated departments", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });*/
         }
 
         if(!type.equals("No Type"))
@@ -318,15 +299,6 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
 
                         }
                     });
-            /*fStore.collection("Location").document(loc).collection("TestCenters").document(userID)
-                    .update("Testcentertype",type)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateTestCenterActivity.this, "Updated Test Center type", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });*/
         }
 
         if(!location.equals("No Location"))
@@ -343,6 +315,14 @@ public class UpdateTestCenterActivity extends AppCompatActivity implements Adapt
         }
     }
 
+    /**
+     * To make the selected word white colored in the spinner and
+     * to make the word pop up when selected using toast
+     * @param adapterView
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
         ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);

@@ -6,6 +6,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * View holder class to hold the view of the test center's information in the recyclerview
+ */
 public class ViewHolderTestCenter extends RecyclerView.ViewHolder {
 
     public TextView name,type,description,email,hotline,location,foundationYear;

@@ -18,16 +18,21 @@ public class HospitalAdapter extends RecyclerView.Adapter<ViewHolderHospital> {
     FindHospital findHospital;
     ArrayList<Hospital> hospitalArrayList;
 
+    /**
+     * Constructor
+     * @param findHospital The type of view to show
+     * @param hospitalArrayList The views list to show in the Recyclerview
+     */
     public HospitalAdapter(FindHospital findHospital, ArrayList<Hospital> hospitalArrayList) {
         this.findHospital = findHospital;
         this.hospitalArrayList = hospitalArrayList;
     }
 
     /**
-     *
+     *Viewholder to hold the information of the Hospitals
      * @param parent
      * @param viewType
-     * @return
+     * @return the created views
      */
     @NonNull
     @Override
@@ -38,7 +43,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<ViewHolderHospital> {
     }
 
     /**
-     *
+     * Show the name, hospital type, description, location, email and foundation year of the hospital
      * @param holder
      * @param position
      */
@@ -54,8 +59,8 @@ public class HospitalAdapter extends RecyclerView.Adapter<ViewHolderHospital> {
     }
 
     /**
-     * 
-     * @return
+     * count the number of items to show in the Recyclerview
+     * @return the hospital array size
      */
     @Override
     public int getItemCount() {

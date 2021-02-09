@@ -19,6 +19,9 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+/**
+ * View holder class to hold the view of the posts to show the doctors in the recyclerview
+ */
 public class PostViewHolder extends  RecyclerView.ViewHolder{
     public TextView keyword2;
     public TextView question2;

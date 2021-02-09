@@ -27,18 +27,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Adapter class to Show the questions that medical service seekers asked with
+ * an edittext to post the answer along with the doctor's name in the recyclerview
+ * @author
+ */
 public class PostViewAdapterdoctor extends RecyclerView.Adapter<PostViewHolder> {
 
         DoctorDiscussionForum discussionForum;
         ArrayList<Post> postArrayList;
 
-public PostViewAdapterdoctor(DoctorDiscussionForum discussionForum, ArrayList<Post> postArrayList) {
+    /**
+     * Constructor
+     * @param discussionForum The type of view to show
+     * @param postArrayList The views list to show in the Recyclerview
+     */
+    public PostViewAdapterdoctor(DoctorDiscussionForum discussionForum, ArrayList<Post> postArrayList) {
         this.discussionForum= discussionForum;
         this.postArrayList = postArrayList;
         }
 
-
-@NonNull
+    /**
+     * Viewholder to hold the questions and answers
+     * @param parent
+     * @param viewType
+     * @return the created views
+     */
+    @NonNull
 @Override
 public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
@@ -47,6 +62,11 @@ public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType
         return new PostViewHolder(view);
         }
 
+    /**
+     * Show the keyword, question, doctorname, and answer
+     * @param holder
+     * @param position
+     */
 @Override
 public void onBindViewHolder(@NonNull final PostViewHolder holder, int position) {
         holder.keyword2.setText(postArrayList.get(position).getKey());
@@ -54,7 +74,13 @@ public void onBindViewHolder(@NonNull final PostViewHolder holder, int position)
         holder.doctorname.setText(postArrayList.get(position).getDoctor());
         holder.showanswer.setText(postArrayList.get(position).getAnswer());
         final String id= postArrayList.get(position).getPostID();
-        holder.postanswer.setOnClickListener(new View.OnClickListener() {
+
+
+    holder.postanswer.setOnClickListener(new View.OnClickListener() {
+        /**
+         * when clicked save the answer to the question in the firebase
+         * @param v
+         */
                 @Override
                 public void onClick(View v) {
                         FirebaseAuth fAuthpost;
@@ -97,6 +123,10 @@ public void onBindViewHolder(@NonNull final PostViewHolder holder, int position)
 
         }
 
+    /**
+     * count the number of items to show in the Recyclerview
+     * @return the post array size
+     */
 @Override
 public int getItemCount() {
         return postArrayList.size();
