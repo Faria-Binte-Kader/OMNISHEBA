@@ -50,16 +50,16 @@ public class ProfileHospitalActivity extends AppCompatActivity {
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(value!=null)
-                {
-                name.setText(value.getString("Name"));
-                type.setText(value.getString("Hospitaltype"));
-                description.setText(value.getString("Description"));
-                email.setText(value.getString("Email"));
-                hotline.setText(value.getString("Hotline"));
-                location.setText(value.getString("Hospitallocation"));
-                foundationYear.setText(value.getString("Foundationyear"));
-            }}
+                if (value != null) {
+                    name.setText(value.getString("Name"));
+                    type.setText(value.getString("Hospitaltype"));
+                    description.setText(value.getString("Description"));
+                    email.setText(value.getString("Email"));
+                    hotline.setText(value.getString("Hotline"));
+                    location.setText(value.getString("Hospitallocation"));
+                    foundationYear.setText(value.getString("Foundationyear"));
+                }
+            }
         });
     }
 }

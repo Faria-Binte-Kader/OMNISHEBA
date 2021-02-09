@@ -22,7 +22,6 @@ public class Splashscreen extends AppCompatActivity {
                 Intent screen = new Intent(Splashscreen.this, login.class);
                 startActivity(screen);
                 finish();
-
             }
         }, SPLASH_TIME_OUT);
     }

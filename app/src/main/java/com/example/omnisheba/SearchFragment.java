@@ -1,7 +1,6 @@
 package com.example.omnisheba;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -124,8 +122,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         SharedPrefManager.getInstance(getActivity()).clear();
         Intent intent = new Intent(getActivity(), FindDoctor.class);
 
-        intent.putExtra(EXTRA_TEXT1,sp1);
-        intent.putExtra(EXTRA_TEXT2,sp2);
+        intent.putExtra(EXTRA_TEXT1, sp1);
+        intent.putExtra(EXTRA_TEXT2, sp2);
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -138,8 +136,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         SharedPrefManager.getInstance(getActivity()).clear();
         Intent intent = new Intent(getActivity(), FindHospital.class);
 
-        intent.putExtra(EXTRA_TEXT3,sp3);
-        intent.putExtra(EXTRA_TEXT4,sp4);
+        intent.putExtra(EXTRA_TEXT3, sp3);
+        intent.putExtra(EXTRA_TEXT4, sp4);
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -152,8 +150,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         SharedPrefManager.getInstance(getActivity()).clear();
         Intent intent = new Intent(getActivity(), FindTestCenter.class);
 
-        intent.putExtra(EXTRA_TEXT5,sp5);
-        intent.putExtra(EXTRA_TEXT6,sp6);
+        intent.putExtra(EXTRA_TEXT5, sp5);
+        intent.putExtra(EXTRA_TEXT6, sp6);
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
