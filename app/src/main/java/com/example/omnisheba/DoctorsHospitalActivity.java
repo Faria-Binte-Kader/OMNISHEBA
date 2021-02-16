@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 /**
  * To show the doctors list and add new doctors under a hospital
- * @author
+ * @author Tasmia Binte Sogir
  */
 public class DoctorsHospitalActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String[] s = {"No Specialty", "Cardiology", "ENT", "General", "Medicine", "Nephrology", "Neurology", "OB/GYN",

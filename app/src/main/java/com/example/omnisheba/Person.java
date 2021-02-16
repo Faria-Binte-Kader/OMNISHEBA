@@ -2,6 +2,7 @@ package com.example.omnisheba;
 
 /**
  * Model Person Class
+ * @author Tasmia Binte Sogir
  */
 public class Person {
     protected String name;

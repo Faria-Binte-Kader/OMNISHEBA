@@ -1,8 +1,8 @@
 package com.example.omnisheba;
 
 /**
- * Doctor class to hold the functions and information of doctor objects
- * @author
+ * Model Doctor class to hold the functions and information of doctor objects
+ * @author Tasmia Binte Sogir
  */
 public class Doctor {
 

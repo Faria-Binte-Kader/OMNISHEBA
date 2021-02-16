@@ -9,6 +9,7 @@ import java.util.Date;
 
 /**
  * Model Medical Service Seeker Class
+ * @author Tasmia Binte Sogir
  */
 public class MSS extends Person {
     private String dateofbirth;

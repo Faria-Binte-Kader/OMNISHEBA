@@ -34,6 +34,7 @@ import java.util.Map;
 
 /**
  * Class to show the signup activity of the doctor type user
+ * @author Tasmia Binte Sogir
  */
 public class signup_doctor extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

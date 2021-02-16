@@ -34,6 +34,7 @@ import static android.R.layout.simple_spinner_item;
 
 /**
  * Class for the Login to the system activity
+ * @author Tasmia Binte Sogir
  */
 public class login extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

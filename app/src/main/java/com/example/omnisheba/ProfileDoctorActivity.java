@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 /**
  * Class to show the doctor type users's information in the profile activity
+ * @author Tasmia Binte Sogir
  */
 public class ProfileDoctorActivity extends AppCompatActivity {
 

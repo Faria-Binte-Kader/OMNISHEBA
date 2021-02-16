@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * View holder class to hold the views of the doctor information in the recyclerview
+ * @author Tasmia Binte Sogir
  */
 public class ViewHolderDoctor extends RecyclerView.ViewHolder {
 

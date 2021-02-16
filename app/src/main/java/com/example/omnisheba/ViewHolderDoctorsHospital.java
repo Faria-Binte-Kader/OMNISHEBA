@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * View holder class to hold the view of the doctor's information under certain hospital in the recyclerview
+ * @author Tasmia Binte Sogir
  */
 public class ViewHolderDoctorsHospital extends RecyclerView.ViewHolder{
     public TextView name, description, email, pracYear;

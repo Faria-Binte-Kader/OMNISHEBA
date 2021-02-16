@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 /**
  * Class to show the Hospital type users's information in the profile activity
+ * @author Tasmia Binte Sogir
  */
 public class ProfileHospitalActivity extends AppCompatActivity {
 

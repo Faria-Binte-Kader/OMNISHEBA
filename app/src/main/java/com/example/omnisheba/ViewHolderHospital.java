@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * View holder class to hold the view of the hospital information in the recyclerview
+ * @author Tasmia Binte Sogir
  */
 public class ViewHolderHospital extends RecyclerView.ViewHolder {
 

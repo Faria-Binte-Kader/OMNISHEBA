@@ -2,6 +2,7 @@ package com.example.omnisheba;
 
 /**
  * Model class to show thr test center's information in the recycler view
+ * @author Tasmia Binte Sogir
  */
 public class TestCenter {
     private String name;

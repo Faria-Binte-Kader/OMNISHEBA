@@ -1,7 +1,7 @@
 package com.example.omnisheba;
 
 /**
- * Appointment class to hold the information regarding each appointment made between a medical service seeker and doctor.
+ * Model Appointment class to hold the information regarding each appointment made between a medical service seeker and doctor.
  * @author
  */
 public class Appointment {

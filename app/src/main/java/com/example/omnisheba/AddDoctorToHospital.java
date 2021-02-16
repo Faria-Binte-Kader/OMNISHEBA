@@ -33,7 +33,7 @@ import java.util.Map;
 
 /**
  * To add a doctor under a hospital.
- * @author
+ * @author Tasmia Binte Sogir
  */
 public class AddDoctorToHospital extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Class to hold the main menu of the Hospital type user
+ * @author Tasmia Binte Sogir
  */
 public class HospitalMainActivity extends AppCompatActivity implements View.OnClickListener {
 

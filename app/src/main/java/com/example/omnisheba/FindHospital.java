@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 /**
  * Search Hospitals by Medical Service Seeker
- * @author
+ * @author Tasmia Binte Sogir
  */
 public class FindHospital extends AppCompatActivity {
     RecyclerView mRecyclerView;

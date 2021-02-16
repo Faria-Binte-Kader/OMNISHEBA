@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 /**
  * Search Doctors by Medical Service Seeker
- * @author
+ * @author Tasmia Binte Sogir
  */
 public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     RecyclerView mRecyclerView;

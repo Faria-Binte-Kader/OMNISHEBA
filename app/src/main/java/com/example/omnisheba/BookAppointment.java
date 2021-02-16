@@ -40,7 +40,7 @@ import java.util.Map;
 
 /**
  * To book an appointment by a Medical Service Seeker under a certain doctor.
- * @author
+ * @author Tasmia Binte Sogir
  */
 public class BookAppointment extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private TextView  satmon, sateve, sunmon, suneve, monmon, moneve, tuesmon, tueseve, wedmon, wedeve,

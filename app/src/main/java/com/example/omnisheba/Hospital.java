@@ -2,6 +2,7 @@ package com.example.omnisheba;
 
 /**
  *  Model Hospital class
+ *  @author Tasmia Binte Sogir
  */
 
 public class Hospital {
