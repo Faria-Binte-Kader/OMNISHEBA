@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /**
      * Method to show specific fragments when one navigation item is selected
      * @param item
-     * @return
+     * @return true when item in navigation bar is selected
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

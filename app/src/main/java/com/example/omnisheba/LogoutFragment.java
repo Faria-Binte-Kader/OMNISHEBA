@@ -33,7 +33,7 @@ public class LogoutFragment extends Fragment implements View.OnClickListener {
      * @param inflater
      * @param container
      * @param savedInstanceState
-     * @return
+     * @return the inflated layout
      */
     @Nullable
     @Override

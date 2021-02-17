@@ -21,7 +21,7 @@ public class SharedPrefManager {
     /**
      * Method to fetch activity/fragment
      * @param mCtx
-     * @return
+     * @return instance containing the context
      */
     public static synchronized SharedPrefManager getInstance(Context mCtx) {
         if (mInstance == null) {

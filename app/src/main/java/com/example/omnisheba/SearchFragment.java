@@ -62,7 +62,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
      * @param inflater
      * @param container
      * @param savedInstanceState to save the state of the application so we don't lose this prior information.
-     * @return
+     * @return created view
      */
     @Nullable
     @Override

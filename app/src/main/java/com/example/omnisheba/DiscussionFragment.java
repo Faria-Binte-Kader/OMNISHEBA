@@ -48,7 +48,7 @@ public class DiscussionFragment extends Fragment implements View.OnClickListener
      * @param inflater
      * @param container
      * @param savedInstanceState to save the state of the application so we don't lose this prior information.
-     * @return
+     * @return the view created
      */
     @Nullable
     @Override

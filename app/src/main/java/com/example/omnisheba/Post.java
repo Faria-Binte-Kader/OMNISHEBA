@@ -11,7 +11,6 @@ public class Post {
 
     /**
      * getter setter functions
-     * @return
      */
     public String getDoctor() {
         return Doctor;
