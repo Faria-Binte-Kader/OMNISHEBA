@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 /**
  * To show the information regarding COVID-19 in the Covid fragment of Medical Service Seeker
- * @author
+ * @author Faria Binte Kader
  */
 public class CovidFragment extends Fragment implements View.OnClickListener {
 
