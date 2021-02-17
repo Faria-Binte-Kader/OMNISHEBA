@@ -8,6 +8,7 @@ import android.os.Handler;
 
 /**
  * Class to show the screen with user logo for 3 seconds when the application is opened
+ * @author Faria Binte Kader
  */
 public class Splashscreen extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 3000;

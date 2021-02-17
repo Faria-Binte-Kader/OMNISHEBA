@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 /**
  * Class to show the search fragment in the medical service seeker's main activity
+ * @author Nafisa Hossain Nujat
  */
 public class SearchFragment extends Fragment implements View.OnClickListener {
     private Spinner spinner1, spinner2, spinner3, spinner4, spinner5, spinner6;
@@ -105,6 +106,11 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
+    /**
+     * When view is created set on Click listener to the find_doctor,find_hospital,find_test buttons
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -114,7 +120,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.find_test_btn).setOnClickListener((View.OnClickListener) this);
     }
 
-
+    /**
+     * Method to go to the activity to show the list of doctors based on search preferences of the user from the search fragment
+     */
     private void findDoctor() {
         String sp1 = spinner1.getSelectedItem().toString();
         String sp2 = spinner2.getSelectedItem().toString();
@@ -129,6 +137,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
+    /**
+     * Method to go to the activity to show the list of hospitals based on search preferences of the user from the search fragment
+     */
     private void findHospital() {
         String sp3 = spinner3.getSelectedItem().toString();
         String sp4 = spinner4.getSelectedItem().toString();
@@ -143,6 +154,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
+    /**
+     * Method to go to the activity to show the list of test centers based on search preferences of the user from the search fragment
+     */
     private void findTestCenter() {
         String sp5 = spinner5.getSelectedItem().toString();
         String sp6 = spinner6.getSelectedItem().toString();
@@ -157,6 +171,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         startActivity(intent);
     }
 
+    /**
+     * Set the action to the find_doctor,find_hospital,find_test buttons when clicked
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         Fragment fragment = null;

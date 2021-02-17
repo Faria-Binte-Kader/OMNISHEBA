@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 /**
  * To show general Information regarding COVID-19
- * @author
+ * @author Faria Binte Kader
  */
 public class CovidInfo extends AppCompatActivity {
     TextView symptom, prec, suggestion;

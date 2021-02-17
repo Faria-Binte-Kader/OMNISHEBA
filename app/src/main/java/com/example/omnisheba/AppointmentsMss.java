@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * To show the appointments made by a Medical Service Seeker.
  * Is set to action, when a Medical Service Seeker presses the view appointments button on their view profile fragment.
- * @author
+ * @author Nafisa Hossain Nujat
  */
 public class AppointmentsMss extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     RecyclerView mssRecyclerView;

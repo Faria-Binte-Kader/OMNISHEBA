@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * For the main homepage of the Doctor
- * @author
+ * @author Faria Binte Kader
  */
 public class DoctorMainActivity extends AppCompatActivity implements View.OnClickListener {
 

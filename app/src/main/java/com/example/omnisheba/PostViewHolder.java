@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 /**
  * View holder class to hold the view of the posts to show the doctors in the recyclerview
+ * @author Faria Binte Kader
  */
 public class PostViewHolder extends  RecyclerView.ViewHolder{
     public TextView keyword2;

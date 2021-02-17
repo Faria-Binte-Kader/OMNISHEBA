@@ -29,6 +29,7 @@ import java.util.Map;
 
 /**
  * Class to show the signup activity of the Medical Service Seeker type user
+ * @author Faria Binte Kader
  */
 public class signup_mss extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

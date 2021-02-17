@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Adapter class to Show the questions that medical service seekers asked with
  * the answer along with the doctor's name in the recyclerview
- * @author
+ * @author Faria Binte Kader
  */
 public class PostViewAdapter extends RecyclerView.Adapter<PostViewHolderMSS> {
 

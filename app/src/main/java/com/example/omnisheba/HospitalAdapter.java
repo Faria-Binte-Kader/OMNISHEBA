@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Adapter class for using recyclerview to view Hospitals with their respective information list
+ * @author Nafisa Hossain Nujat
  */
 
 public class HospitalAdapter extends RecyclerView.Adapter<ViewHolderHospital> {

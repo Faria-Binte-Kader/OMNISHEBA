@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 /**
  * To show and answer the list of questions and answers asked by the Medical Service Seekers to the Doctors.
- * @author
+ * @author Faria Binte Kader
  */
 public class DoctorDiscussionForum extends AppCompatActivity {
     RecyclerView mRecyclerView;

@@ -23,6 +23,7 @@ import java.util.concurrent.Executor;
 
 /**
  * Class to show the Medical service seeker's information in the profile fragment
+ * @author Faria Binte Kader
  */
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     private TextView name, email, description, phone, dob, gender;

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Class to hold the main menu of the Test center  type user
+ * @author Faria Binte Kader
  */
 public class TestMainActivity extends AppCompatActivity implements View.OnClickListener {
 

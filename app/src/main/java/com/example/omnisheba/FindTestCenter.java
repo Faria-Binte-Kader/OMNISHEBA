@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 /**
  * Search Hospitals by Medical Service Seeker
- * @author
+ * @author Nafisa Hossain Nujat
  */
 public class FindTestCenter extends AppCompatActivity {
 

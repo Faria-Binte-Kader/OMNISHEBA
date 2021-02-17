@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Adapter class to Show the questions that medical service seekers asked with
  * an edittext to post the answer along with the doctor's name in the recyclerview
- * @author
+ * @author Faria Binte Kader
  */
 public class PostViewAdapterdoctor extends RecyclerView.Adapter<PostViewHolder> {
 

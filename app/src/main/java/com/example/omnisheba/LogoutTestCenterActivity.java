@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Class to log out doctor type users from the system
+ * @author Nafisa Hossain Nujat
  */
 
 public class LogoutTestCenterActivity extends AppCompatActivity implements View.OnClickListener {

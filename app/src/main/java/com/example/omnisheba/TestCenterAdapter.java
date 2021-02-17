@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Adapter class to Show the Test center information in the recyclerview
- * @author
+ * @author Nafisa Hossain Nujat
  */
 public class TestCenterAdapter extends RecyclerView.Adapter<ViewHolderTestCenter> {
 

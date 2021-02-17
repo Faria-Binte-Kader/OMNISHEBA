@@ -2,7 +2,7 @@ package com.example.omnisheba;
 
 /**
  * Model Appointment class to hold the information regarding each appointment made between a medical service seeker and doctor.
- * @author
+ * @author Nafisa Hossain Nujat
  */
 public class Appointment {
     private String date;

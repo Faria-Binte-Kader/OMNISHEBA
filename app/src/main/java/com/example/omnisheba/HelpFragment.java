@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 /**
  * Class to show the HELP fragment which includes the general instructions
  * on how to use the application, to the medical service seekers
+ * @author Nafisa Hossain Nujat
  */
 public class HelpFragment extends Fragment {
     @Nullable

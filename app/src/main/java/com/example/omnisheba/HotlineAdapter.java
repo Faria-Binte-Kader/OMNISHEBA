@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Adapter class to Show the hotline numbers of test center who do COVID tests in the recyclerview
- * @author
+ * @author Nafisa Hossain Nujat
  */
 public class HotlineAdapter extends RecyclerView.Adapter<ViewHolderHotline> {
 

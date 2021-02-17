@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 /**
  * Class to show the Test Center type users's information in the profile activity
+ * @author Faria Binte Kader
  */
 public class ProfileTestCenterActivity extends AppCompatActivity {
 

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * View holder class to hold the view of the test center's hotline information in the recyclerview
+ * @author Nafisa Hossain Nujat
  */
 public class ViewHolderHotline extends RecyclerView.ViewHolder {
 

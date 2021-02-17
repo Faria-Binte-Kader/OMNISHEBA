@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 /**
  * Search test centers that do COVID-19 test
- * @author
+ * @author Nafisa Hossain Nujat
  */
 public class FindTest extends AppCompatActivity {
     RecyclerView mRecyclerView;

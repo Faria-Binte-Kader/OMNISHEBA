@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Adapter class to Show the appointments in the recyclerview made by a Medical Service Seeker
- * @author
+ * @author Nafisa Hossain Nujat
  */
 public class AppointmentsMSSAdapter extends RecyclerView.Adapter<ViewHolderAppointmentsMss> {
 

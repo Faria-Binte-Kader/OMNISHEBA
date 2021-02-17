@@ -34,6 +34,7 @@ import java.util.ArrayList;
 
 /**
  * Class to update the Test center type user's information in the firebase
+ * @author Faria Binte Kader
  */
 public class UpdateTestCenterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     Button testsBtn,updatebtn;

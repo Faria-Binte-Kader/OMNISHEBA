@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Viewholder class to hold the view of the appointments of the medical service seeker of the recycler view
+ * @author Nafisa Hossain Nujat
  */
 public class ViewHolderAppointmentsMss extends RecyclerView.ViewHolder {
 

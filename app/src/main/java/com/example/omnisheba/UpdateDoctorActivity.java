@@ -32,6 +32,7 @@ import java.util.Map;
 
 /**
  * Class to update the doctor type user's information in the firebase
+ * @author Faria Binte Kader
  */
 public class UpdateDoctorActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     Button specialtyBtn, updatebtn;

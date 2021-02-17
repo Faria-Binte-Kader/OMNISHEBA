@@ -2,6 +2,7 @@ package com.example.omnisheba;
 
 /**
  * Model post class for posts in discussion forum
+ * @author Faria Binte Kader
  */
 public class Post {
     private String Key;

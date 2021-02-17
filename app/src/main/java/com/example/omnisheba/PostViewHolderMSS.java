@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * View holder class to hold the view of the posts to show the medical service seekers in the recyclerview
+ * @author Faria Binte Kader
  */
 public class PostViewHolderMSS extends  RecyclerView.ViewHolder{
     public TextView keyword3;

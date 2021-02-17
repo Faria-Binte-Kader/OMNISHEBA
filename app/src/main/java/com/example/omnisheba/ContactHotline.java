@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 /**
  * To show the emergency contact/hotline information of hospitals and test centers
- * @author
+ * @author Nafisa Hossain Nujat
  */
 public class ContactHotline extends AppCompatActivity {
 

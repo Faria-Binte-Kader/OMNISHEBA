@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * View holder class to hold the view of the test center's information which are related to covid in the recyclerview
+ * @author Nafisa Hossain Nujat
  */
 public class ViewHolderTest extends RecyclerView.ViewHolder {
 

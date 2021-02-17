@@ -36,6 +36,7 @@ import java.util.Map;
 
 /**
  * Class to update the Hospital type user's information in the firebase
+ * @author Faria Binte Kader
  */
 public class UpdateHospitalActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 

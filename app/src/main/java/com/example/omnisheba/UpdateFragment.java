@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * Class to update the Medical service seeker type user's information in the firebase
+ * @author Faria Binte Kader
  */
 public class UpdateFragment extends Fragment implements View.OnClickListener{
     private EditText name, email,oldpass, pass, pass2,description, phone;
